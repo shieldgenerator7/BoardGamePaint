@@ -55,6 +55,7 @@
             this.pbxImage.Size = new System.Drawing.Size(100, 114);
             this.pbxImage.TabIndex = 0;
             this.pbxImage.TabStop = false;
+            this.pbxImage.Click += new System.EventHandler(this.pbxImage_Click);
             // 
             // MainForm
             // 

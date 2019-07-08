@@ -16,4 +16,9 @@ public class GameObject
     {
         graphics.DrawImage(image, rect);
     }
+
+    public void moveRight()
+    {
+        rect.X += 10;
+    }
 }
