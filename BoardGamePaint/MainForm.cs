@@ -11,17 +11,18 @@ namespace BoardGamePaint
 {
     public partial class MainForm: Form
     {
+        GameObject gameObject;
+
         public MainForm()
         {
             InitializeComponent();
+            gameObject = new GameObject(pbxImage.Image);
         }
 
         private void pnlSpace_Paint(object sender, PaintEventArgs e)
         {
             Graphics graphics = this.pnlSpace.CreateGraphics();
-            Image image = pbxImage.Image;
-            Rectangle rect = new Rectangle(10, 20, 100, 100);
-            graphics.DrawImage(image, rect);
+            gameObject.draw(graphics);
         }
     }
 }
