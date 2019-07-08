@@ -46,6 +46,9 @@
             this.pnlSpace.Size = new System.Drawing.Size(800, 450);
             this.pnlSpace.TabIndex = 0;
             this.pnlSpace.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlSpace_Paint);
+            this.pnlSpace.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseDown);
+            this.pnlSpace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseMove);
+            this.pnlSpace.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseUp);
             // 
             // pbxImage
             // 

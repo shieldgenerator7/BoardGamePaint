@@ -21,4 +21,10 @@ public class GameObject
     {
         rect.X += 10;
     }
+
+    public void moveTo(Point pos)
+    {
+        rect.X = pos.X;
+        rect.Y = pos.Y;
+    }
 }

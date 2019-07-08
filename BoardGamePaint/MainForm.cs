@@ -9,9 +9,11 @@ using System.Windows.Forms;
 
 namespace BoardGamePaint
 {
-    public partial class MainForm: Form
+    public partial class MainForm : Form
     {
         GameObject gameObject;
+
+        bool mouseDown = false;
 
         public MainForm()
         {
@@ -30,6 +32,25 @@ namespace BoardGamePaint
         {
             gameObject.moveRight();
             pnlSpace.Refresh();
+        }        
+
+        private void pnlSpace_MouseDown(object sender, MouseEventArgs e)
+        {
+            mouseDown = true;
+        }
+
+        private void pnlSpace_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (mouseDown)
+            {
+                gameObject.moveTo(e.Location);
+                pnlSpace.Refresh();
+            }
+        }
+
+        private void pnlSpace_MouseUp(object sender, MouseEventArgs e)
+        {
+            mouseDown = false;
         }
     }
 }
