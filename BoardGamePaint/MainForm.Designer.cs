@@ -28,33 +28,52 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            this.pnlSpace = new System.Windows.Forms.Panel();
+            this.pbxImage = new System.Windows.Forms.PictureBox();
+            this.pnlSpace.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxImage)).BeginInit();
             this.SuspendLayout();
             // 
-            // flowLayoutPanel1
+            // pnlSpace
             // 
-            this.flowLayoutPanel1.AutoSize = true;
-            this.flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(800, 450);
-            this.flowLayoutPanel1.TabIndex = 1;
+            this.pnlSpace.AutoSize = true;
+            this.pnlSpace.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pnlSpace.Controls.Add(this.pbxImage);
+            this.pnlSpace.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlSpace.Location = new System.Drawing.Point(0, 0);
+            this.pnlSpace.Name = "pnlSpace";
+            this.pnlSpace.Size = new System.Drawing.Size(800, 450);
+            this.pnlSpace.TabIndex = 0;
+            this.pnlSpace.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlSpace_Paint);
+            // 
+            // pbxImage
+            // 
+            this.pbxImage.Image = ((System.Drawing.Image)(resources.GetObject("pbxImage.Image")));
+            this.pbxImage.Location = new System.Drawing.Point(661, 28);
+            this.pbxImage.Name = "pbxImage";
+            this.pbxImage.Size = new System.Drawing.Size(100, 114);
+            this.pbxImage.TabIndex = 0;
+            this.pbxImage.TabStop = false;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.flowLayoutPanel1);
+            this.Controls.Add(this.pnlSpace);
             this.Name = "MainForm";
             this.Text = "Board Game Paint";
+            this.pnlSpace.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbxImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+
+        private System.Windows.Forms.Panel pnlSpace;
+        private System.Windows.Forms.PictureBox pbxImage;
     }
 }
