@@ -18,6 +18,7 @@ namespace BoardGamePaint
 
         bool mouseDown = false;
         GameObject selected = null;
+        Point mousePosition;
 
         public MainForm()
         {
@@ -51,6 +52,12 @@ namespace BoardGamePaint
                 0,
                 0
                 );
+            graphics.DrawString("(" + mousePosition.X + ", " + mousePosition.Y + ")",
+                label1.Font,
+                new SolidBrush(Color.Black),
+                0,
+                10
+                );
         }
 
         private void pnlSpace_MouseDown(object sender, MouseEventArgs e)
@@ -70,6 +77,8 @@ namespace BoardGamePaint
 
         private void pnlSpace_MouseMove(object sender, MouseEventArgs e)
         {
+            mousePosition = e.Location;
+            refresh();
             if (mouseDown)
             {
                 if (selected)
@@ -119,7 +128,7 @@ namespace BoardGamePaint
                 GameObject newObject = new GameObject(
                     Image.FromFile(filename)
                     );
-                newObject.moveTo(new Vector(e.X, e.Y));
+                newObject.moveTo(new Vector(25,25), false);
                 addGameObject(newObject);
             }
             refresh();

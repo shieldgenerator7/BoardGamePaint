@@ -50,9 +50,16 @@ public class GameObject : IComparable<GameObject>
         pickupOffset = position - pickupPos;
     }
 
-    public void moveTo(Vector pos)
+    public void moveTo(Vector pos, bool useOffset = true)
     {
-        position = pos + pickupOffset;
+        if (useOffset)
+        {
+            position = pos + pickupOffset;
+        }
+        else
+        {
+            position = pos;
+        }
     }
 
     public static implicit operator Boolean(GameObject gameObject)
