@@ -14,6 +14,7 @@ namespace BoardGamePaint
     {
         List<GameObject> gameObjects;
         List<WayPoint> wayPoints;
+        List<GameObject> renderOrder;
 
         bool mouseDown = false;
         GameObject selected = null;
@@ -28,25 +29,19 @@ namespace BoardGamePaint
                 gameObjects.Add(new GameObject(pbxImage.Image));
             }
             wayPoints = new List<WayPoint>();
+            renderOrder = new List<GameObject>();
         }
 
         private void pnlSpace_Paint(object sender, PaintEventArgs e)
         {
             Graphics graphics = e.Graphics;
-            //Clear the board
-            //Draw the waypoints
-            foreach (WayPoint wayPoint in wayPoints)
-            {
-                wayPoint.draw(graphics);
-            }
             //Draw the game objects
-            if (gameObjects.Count > 0)
+            if (renderOrder.Count > 0)
             {
                 //Make sure smaller objects are drawn on top
                 //Draw the objects
-                for (int i = gameObjects.Count - 1; i >= 0; i--)
+                foreach (GameObject gameObject in renderOrder)
                 {
-                    GameObject gameObject = gameObjects[i];
                     gameObject.draw(graphics);
                 }
             }
@@ -137,7 +132,7 @@ namespace BoardGamePaint
 
         private void pnlSpace_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            wayPoints.Add(new WayPoint(
+            addWayPoint(new WayPoint(
                 pbxWayPoint.Image,
                 e.Location.toVector(),
                 new Size(100, 100),
@@ -150,6 +145,16 @@ namespace BoardGamePaint
         {
             gameObjects.Add(gameObject);
             gameObjects.Sort();
+            renderOrder.Add(gameObject);
+            renderOrder.Sort();
+            renderOrder.Reverse();
+        }
+        void addWayPoint(WayPoint wayPoint)
+        {
+            wayPoints.Add(wayPoint);
+            renderOrder.Add(wayPoint);
+            renderOrder.Sort();
+            renderOrder.Reverse();
         }
 
         void refresh()
