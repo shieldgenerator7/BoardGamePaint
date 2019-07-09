@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace BoardGamePaint
@@ -74,7 +75,7 @@ namespace BoardGamePaint
                 {
                     selected.moveTo(e.Location.toVector());
                 }
-                pnlSpace.Refresh();
+                refresh();
             }
         }
 
@@ -96,7 +97,7 @@ namespace BoardGamePaint
                 }
             }
             selected = null;
-            pnlSpace.Refresh();
+            refresh();
         }
 
         //2019-07-08: drag and drop copied from https://www.youtube.com/watch?v=d0J3VKBA4Xs
@@ -114,7 +115,7 @@ namespace BoardGamePaint
                     Image.FromFile(filename)
                     ));
             }
-            pnlSpace.Refresh();
+            refresh();
         }
 
         private void pnlSpace_MouseClick(object sender, MouseEventArgs e)
@@ -130,13 +131,18 @@ namespace BoardGamePaint
                 new Size(100, 100),
                 WayPoint.Shape.CIRCLE
                 ));
-            pnlSpace.Refresh();
+            refresh();
         }
 
         void addGameObject(GameObject gameObject)
         {
             gameObjects.Add(gameObject);
             gameObjects.Sort();
+        }
+
+        void refresh()
+        {
+            //pnlSpace.Invalidate();
         }
     }
 }
