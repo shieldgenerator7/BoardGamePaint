@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-public class GameObject: IComparable<GameObject>
+public class GameObject : IComparable<GameObject>
 {
     //Drawing Runtime Vars
     protected Vector position;
@@ -10,10 +10,14 @@ public class GameObject: IComparable<GameObject>
         get { return position; }
     }
     protected Size size;
+    public Size Size
+    {
+        get { return new Size(size.Width, size.Height); }
+    }
     private Image image;
 
     //Pickup Runtime Vars
-    private Vector pickupOffset = new Vector(0,0);
+    private Vector pickupOffset = new Vector(0, 0);
 
     public GameObject(Image image)
     {

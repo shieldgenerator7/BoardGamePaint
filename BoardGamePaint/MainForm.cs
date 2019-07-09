@@ -95,10 +95,14 @@ namespace BoardGamePaint
                 {
                     if (wayPoint.containsPosition(e.Location.toVector()))
                     {
-                        selectedWayPoint = wayPoint;
-                        selected.pickup(selected.Position);
-                        selected.moveTo(wayPoint.Position);
-                        break;
+                        //If twice the waypoint size is bigger than the selected
+                        if (wayPoint.Size.toVector() * 2 > selected.Size.toVector())
+                        {
+                            selectedWayPoint = wayPoint;
+                            selected.pickup(selected.Position);
+                            selected.moveTo(wayPoint.Position);
+                            break;
+                        }
                     }
                 }
             }
