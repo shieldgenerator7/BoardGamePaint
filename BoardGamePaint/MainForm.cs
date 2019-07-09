@@ -14,6 +14,7 @@ namespace BoardGamePaint
         GameObject gameObject;
 
         bool mouseDown = false;
+        bool selected = false;
 
         public MainForm()
         {
@@ -31,14 +32,21 @@ namespace BoardGamePaint
         private void pnlSpace_MouseDown(object sender, MouseEventArgs e)
         {
             mouseDown = true;
-            gameObject.pickup(e.Location.toVector());
+            if (gameObject.containsPosition(e.Location.toVector()))
+            {
+                selected = true;
+                gameObject.pickup(e.Location.toVector());
+            }
         }
 
         private void pnlSpace_MouseMove(object sender, MouseEventArgs e)
         {
             if (mouseDown)
             {
-                gameObject.moveTo(e.Location.toVector());
+                if (selected)
+                {
+                    gameObject.moveTo(e.Location.toVector());
+                }
                 pnlSpace.Refresh();
             }
         }
@@ -46,6 +54,7 @@ namespace BoardGamePaint
         private void pnlSpace_MouseUp(object sender, MouseEventArgs e)
         {
             mouseDown = false;
+            selected = false;
         }
     }
 }
