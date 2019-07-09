@@ -33,7 +33,6 @@ namespace BoardGamePaint
         {
             Graphics graphics = e.Graphics;
             //Clear the board
-            graphics.Clear(Color.Wheat);
             //Draw the waypoints
             foreach (WayPoint wayPoint in wayPoints)
             {

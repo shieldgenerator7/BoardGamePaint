@@ -42,6 +42,7 @@
             this.pnlSpace.AllowDrop = true;
             this.pnlSpace.AutoSize = true;
             this.pnlSpace.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pnlSpace.BackColor = System.Drawing.Color.OliveDrab;
             this.pnlSpace.Controls.Add(this.pbxWayPoint);
             this.pnlSpace.Controls.Add(this.pbxImage);
             this.pnlSpace.Dock = System.Windows.Forms.DockStyle.Fill;
