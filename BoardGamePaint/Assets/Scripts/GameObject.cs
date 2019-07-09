@@ -55,4 +55,10 @@ public class GameObject
     {
         return gameObject != null;
     }
+
+    public static bool operator <(GameObject a, GameObject b)
+        => a.size.toVector() < b.size.toVector();
+
+    public static bool operator >(GameObject a, GameObject b)
+        => a.size.toVector() > b.size.toVector();
 }

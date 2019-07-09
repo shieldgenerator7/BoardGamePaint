@@ -6,11 +6,11 @@ public class Vector
     public float x;
     public float y;
 
-	public Vector(float x, float y)
-	{
+    public Vector(float x, float y)
+    {
         this.x = x;
         this.y = y;
-	}
+    }
 
     public Vector(Vector vector) : this(vector.x, vector.y) { }
     public Vector(Point point) : this(point.X, point.Y) { }
@@ -38,4 +38,10 @@ public class Vector
 
     public static Vector operator /(Vector v, float f)
         => new Vector(v.x / f, v.y / f);
+
+    public static bool operator <(Vector a, Vector b)
+        => a.Magnitude < b.Magnitude;
+
+    public static bool operator >(Vector a, Vector b)
+        => a.Magnitude > b.Magnitude;
 }

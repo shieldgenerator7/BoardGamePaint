@@ -39,15 +39,30 @@ namespace BoardGamePaint
                 wayPoint.draw(graphics);
             }
             //Draw the game objects
-            foreach (GameObject gameObject in gameObjects)
+            if (gameObjects.Count > 0)
             {
-                gameObject.draw(graphics);
+                //Make sure smaller objects are drawn on top
+                if (gameObjects.First() < gameObjects.Last())
+                {
+                    gameObjects.Reverse();
+                }
+                //Draw the objects
+                foreach (GameObject gameObject in gameObjects)
+                {
+                    gameObject.draw(graphics);
+                }
             }
         }
 
         private void pnlSpace_MouseDown(object sender, MouseEventArgs e)
         {
             mouseDown = true;
+            //Make sure smaller objects can get picked first
+            if (gameObjects.First() > gameObjects.Last())
+            {
+                gameObjects.Reverse();
+            }
+            //Find an object to select
             foreach (GameObject gameObject in gameObjects)
             {
                 if (gameObject.containsPosition(e.Location.toVector()))
@@ -103,7 +118,7 @@ namespace BoardGamePaint
             string[] filenames = (string[])e.Data.GetData(DataFormats.FileDrop);
             foreach (string filename in filenames)
             {
-                gameObjects.Add(new GameObject(
+                addGameObject(new GameObject(
                     Image.FromFile(filename)
                     ));
             }
@@ -124,6 +139,12 @@ namespace BoardGamePaint
                 WayPoint.Shape.CIRCLE
                 ));
             pnlSpace.Refresh();
+        }
+
+        void addGameObject(GameObject gameObject)
+        {
+            gameObjects.Add(gameObject);
+            gameObjects.Sort();
         }
     }
 }
