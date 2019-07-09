@@ -37,6 +37,7 @@
             // 
             // pnlSpace
             // 
+            this.pnlSpace.AllowDrop = true;
             this.pnlSpace.AutoSize = true;
             this.pnlSpace.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.pnlSpace.Controls.Add(this.pbxImage);
@@ -45,6 +46,8 @@
             this.pnlSpace.Name = "pnlSpace";
             this.pnlSpace.Size = new System.Drawing.Size(800, 450);
             this.pnlSpace.TabIndex = 0;
+            this.pnlSpace.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlSpace_DragDrop);
+            this.pnlSpace.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlSpace_DragEnter);
             this.pnlSpace.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlSpace_Paint);
             this.pnlSpace.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseDown);
             this.pnlSpace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseMove);

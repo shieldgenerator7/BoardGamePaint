@@ -67,5 +67,23 @@ namespace BoardGamePaint
             mouseDown = false;
             selected = null;
         }
+
+        //2019-07-08: drag and drop copied from https://www.youtube.com/watch?v=d0J3VKBA4Xs
+        private void pnlSpace_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.All;
+        }
+
+        private void pnlSpace_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] filenames = (string[])e.Data.GetData(DataFormats.FileDrop);
+            foreach (string filename in filenames)
+            {
+                gameObjects.Add(new GameObject(
+                    Image.FromFile(filename)
+                    ));
+            }
+            pnlSpace.Refresh();
+        }
     }
 }
