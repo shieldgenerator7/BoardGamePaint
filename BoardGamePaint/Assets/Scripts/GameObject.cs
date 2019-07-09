@@ -4,8 +4,12 @@ using System.Drawing;
 public class GameObject
 {
     //Drawing Runtime Vars
-    private Vector position;
-    private Size size;
+    protected Vector position;
+    public Vector Position
+    {
+        get { return position; }
+    }
+    protected Size size;
     private Image image;
 
     //Pickup Runtime Vars
@@ -23,7 +27,7 @@ public class GameObject
         graphics.DrawImage(image, position.x, position.y, size.Width, size.Height);
     }
 
-    public bool containsPosition(Vector pos)
+    public virtual bool containsPosition(Vector pos)
     {
         return pos.x >= position.x && pos.x <= position.x + size.Width
             && pos.y >= position.y && pos.y <= position.y + size.Height;

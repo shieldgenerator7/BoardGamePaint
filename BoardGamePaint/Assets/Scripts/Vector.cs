@@ -12,10 +12,15 @@ public class Vector
         this.y = y;
 	}
 
-    public Vector(Point point) : this(point.X, point.Y)
+    public Vector(Point point) : this(point.X, point.Y) { }
+    public Vector(Vector vector) : this(vector.x, vector.y) { }
+
+    public float Magnitude
     {
-        //call other constructor
-        //and do nothing
+        get
+        {
+            return (float)Math.Sqrt((x * x) + (y * y));
+        }
     }
 
     public static Vector operator -(Vector a)

@@ -118,6 +118,32 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="pbxWayPoint.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAABh0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMS42/U4J6AAABJpJREFUeF7t0VuW
+        2yAQhOFZQbacpTvBOeTIP8VN0A2W9PA9TLmhS8zP6/X6Gj+/f73O4D07k+EO1MPOxH27kOEK6tE8sc8q
+        MvSkHmcl9vMmQ2vqIVrxrhp1Ryve5UGGVtRHl/D8LGpXCc9bkuFs6iMVnvOiuig8Z0GGM6kPO+L8aqrj
+        Eednk+EM6mOOOL8b1fmI87PIcJT6gIizu1PfEHF2BhmOUMUjzn4L9S0RZ0fJ8CxVOODct1LfFnH2LBn2
+        UgUjzl6B+s6Ac2fIsIcqFnDuatQ3B5zrJcNWqlDAuatS3x5wrocMW6giAeeuTr1BwLlWMqxRBQLO3YV6
+        i4BzLWRYMmvxFc14GxmWzFh6VeptAs6VyDBndNkdjL6RDJXRRXcy8lYypJEFd3X2zWR4dPbix7m3k+HR
+        mUsf/5x5OxlGZy58fOp9QxkGvRc98nreUoZBzyWPsp631GHHBY82rW+aBO+w4eCjX8u7pgEO5Q4++rW8
+        7ccf76By4DGm9r4ff7yDyoFdsKfCMzuodfz8ozK8Gvv14F0rlbo1D67EXiN49wqlTtkhDq6gOs3CXZ5K
+        fbJDMV+FfSxwp6dcl+rACuxiibu95HpUB7yxhwd28JDrIH88DnhSPbywi7VcB/ljyLyxwwrsZE3tz/7g
+        iftXYjdLanf2B0/cvxK7WVK7sz944e4dsKMVtVc+SDzgQe1fjR2tqN3yv+SFu3fCrlaS3Qx4wBJ374Rd
+        rSS7GfCAJe7eCbtaSXYz4AEr3LsjdraQ7GXAA1a4d0fsbCHZy4AHrHDvjtjZQrKXAQ9Y4d4dsbOFZC8D
+        HrDCvTtiZwvJXgY8YIV7d8TOFpK9DHjACvfuiJ0tJHsZ8IAV7t0RO1tI9jLgASvcuyN2tpDsTYK/eMiK
+        2r0LdrWg9sofjocsce9O2NWC2pn9wQP37oRdLaid2R+8cPcO2NGK2pv9wQt374Adrai98of4oxe1fxV2
+        s5LbnR2IuQfuXondrOT2Vge8cP8K7GQpt7s64IkdPLGLtdz+7MBxyIvq4IVdLJX2FwePv3liD2vcb620
+        v3nQG7tY4E4vpR4fg++gMOyNXWbiLi+1Hh9/vIPKgRXYaQTv9lbr8/HHO8ABdWgV1a0V71qhpdfHH//D
+        yqEdsKPCM6u19EuCd4iDucOPdq1vmgRR6wWPup63lGHQc8mjrOctZRj1XPTQet9Qhkc9lz1Sve8nwyNe
+        2HLp458zbydDOnPx3Z19MxkqZxfc0chbyTBnZNFdjL6RDHPUsoBzd6XeJuBciQxLRhde2Yy3kWGNWhxw
+        7i7UWwScayHDFqpAwLmrU28QcK6VDFupIgHnrkp9e8C5HjLsoQoFnLsa9c0B53rJsJcqFnH2CtR3Bpw7
+        Q4ZnqIIRZ7+V+raIs2fJcIQqG3H2W6hviTg7SoajVPGIs7tT3xBxdgYZzqA+4Ijzu1Gdjzg/iwxnUh9z
+        xPnVVMcjzs8mw9nUhyk850V1UXjOggytqI8s4flZ1K4SnrckQ2vqo1vxrhp1Ryve5UGGntRDrMR+3mS4
+        gnocT+yzigx3oB5tJu7bhQx3pR62Be/Z1+vnD1WIfEUH067sAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="pbxImage.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
