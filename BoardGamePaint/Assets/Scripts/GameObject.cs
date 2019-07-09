@@ -3,28 +3,33 @@ using System.Drawing;
 
 public class GameObject
 {
-    private Rectangle rect;
+    //Drawing Runtime Vars
+    private Vector position;
+    private Size size;
     private Image image;
+
+    //Pickup Runtime Vars
+    private Vector pickupOffset;
 
     public GameObject(Image image)
 	{
-        this.rect = new Rectangle(0, 0, 100, 100);
+        this.position = new Vector(0,0);
+        this.size = new Size(100, 100);
         this.image = image;
 	}
 
     public void draw(Graphics graphics)
     {
-        graphics.DrawImage(image, rect);
+        graphics.DrawImage(image, position.x, position.y, size.Width, size.Height);
     }
 
-    public void moveRight()
+    public void pickup(Vector pickupPos)
     {
-        rect.X += 10;
-    }
+        pickupOffset = position - pickupPos;
+     }
 
-    public void moveTo(Point pos)
+    public void moveTo(Vector pos)
     {
-        rect.X = pos.X;
-        rect.Y = pos.Y;
+        position = pos + pickupOffset;
     }
 }

@@ -28,22 +28,17 @@ namespace BoardGamePaint
             gameObject.draw(graphics);
         }
 
-        private void pbxImage_Click(object sender, EventArgs e)
-        {
-            gameObject.moveRight();
-            pnlSpace.Refresh();
-        }        
-
         private void pnlSpace_MouseDown(object sender, MouseEventArgs e)
         {
             mouseDown = true;
+            gameObject.pickup(e.Location.toVector());
         }
 
         private void pnlSpace_MouseMove(object sender, MouseEventArgs e)
         {
             if (mouseDown)
             {
-                gameObject.moveTo(e.Location);
+                gameObject.moveTo(e.Location.toVector());
                 pnlSpace.Refresh();
             }
         }
