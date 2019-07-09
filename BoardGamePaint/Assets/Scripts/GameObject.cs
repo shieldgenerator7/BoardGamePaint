@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-public class GameObject
+public class GameObject: IComparable<GameObject>
 {
     //Drawing Runtime Vars
     protected Vector position;
@@ -54,6 +54,11 @@ public class GameObject
     public static implicit operator Boolean(GameObject gameObject)
     {
         return gameObject != null;
+    }
+
+    public int CompareTo(GameObject go)
+    {
+        return (int)(this.size.toVector().Magnitude - go.size.toVector().Magnitude);
     }
 
     public static bool operator <(GameObject a, GameObject b)
