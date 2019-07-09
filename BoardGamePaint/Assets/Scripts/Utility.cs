@@ -7,4 +7,9 @@ public static class Utility
     {
         return new Vector(point);
     }
+
+    public static Vector toVector(this Size size)
+    {
+        return new Vector(size);
+    }
 }

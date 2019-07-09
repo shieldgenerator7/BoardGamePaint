@@ -12,8 +12,9 @@ public class Vector
         this.y = y;
 	}
 
-    public Vector(Point point) : this(point.X, point.Y) { }
     public Vector(Vector vector) : this(vector.x, vector.y) { }
+    public Vector(Point point) : this(point.X, point.Y) { }
+    public Vector(Size size) : this(size.Width, size.Height) { }
 
     public float Magnitude
     {
@@ -31,4 +32,10 @@ public class Vector
 
     public static Vector operator -(Vector a, Vector b)
         => new Vector(a.x - b.x, a.y - b.y);
+
+    public static Vector operator *(Vector v, float f)
+        => new Vector(v.x * f, v.y * f);
+
+    public static Vector operator /(Vector v, float f)
+        => new Vector(v.x / f, v.y / f);
 }

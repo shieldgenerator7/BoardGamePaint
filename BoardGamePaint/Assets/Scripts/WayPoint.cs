@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-public class WayPoint: GameObject
+public class WayPoint : GameObject
 {
     public enum Shape
     {
@@ -10,7 +10,7 @@ public class WayPoint: GameObject
     }
     Shape shape;
 
-	public WayPoint(Image image, Vector pos, Size size, Shape shape): base(image)
+    public WayPoint(Image image, Vector pos, Size size, Shape shape) : base(image)
     {
         this.position = pos;
         this.size = size;
@@ -28,7 +28,7 @@ public class WayPoint: GameObject
         switch (shape)
         {
             case Shape.CIRCLE:
-                return (position - pos).Magnitude <= size.Width/2;
+                return (position - pos).Magnitude <= size.Width / 2;
             case Shape.RECTANGLE:
                 return base.containsPosition(pos);
             default:

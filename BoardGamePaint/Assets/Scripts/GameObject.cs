@@ -24,13 +24,21 @@ public class GameObject
 
     public void draw(Graphics graphics)
     {
-        graphics.DrawImage(image, position.x, position.y, size.Width, size.Height);
+        graphics.DrawImage(
+            image,
+            position.x - size.Width / 2,
+            position.y - size.Height / 2,
+            size.Width,
+            size.Height
+            );
     }
 
     public virtual bool containsPosition(Vector pos)
     {
-        return pos.x >= position.x && pos.x <= position.x + size.Width
-            && pos.y >= position.y && pos.y <= position.y + size.Height;
+        float halfWidth = size.Width / 2;
+        float halfHeight = size.Height / 2;
+        return pos.x >= position.x - halfWidth && pos.x <= position.x + halfWidth
+            && pos.y >= position.y - halfHeight && pos.y <= position.y + halfHeight;
     }
 
     public void pickup(Vector pickupPos)
@@ -43,7 +51,7 @@ public class GameObject
         position = pos + pickupOffset;
     }
 
-    public static implicit operator Boolean (GameObject gameObject)
+    public static implicit operator Boolean(GameObject gameObject)
     {
         return gameObject != null;
     }
