@@ -50,6 +50,12 @@ namespace BoardGamePaint
                     gameObject.draw(graphics);
                 }
             }
+            graphics.DrawString("(" + this.Width + ", " + this.Height + ")",
+                label1.Font,
+                new SolidBrush(Color.Black),
+                0,
+                0
+                );
         }
 
         private void pnlSpace_MouseDown(object sender, MouseEventArgs e)

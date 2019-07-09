@@ -32,6 +32,7 @@
             this.pnlSpace = new System.Windows.Forms.Panel();
             this.pbxWayPoint = new System.Windows.Forms.PictureBox();
             this.pbxImage = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.pnlSpace.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxWayPoint)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxImage)).BeginInit();
@@ -43,6 +44,7 @@
             this.pnlSpace.AutoSize = true;
             this.pnlSpace.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.pnlSpace.BackColor = System.Drawing.Color.OliveDrab;
+            this.pnlSpace.Controls.Add(this.label1);
             this.pnlSpace.Controls.Add(this.pbxWayPoint);
             this.pnlSpace.Controls.Add(this.pbxImage);
             this.pnlSpace.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -77,6 +79,15 @@
             this.pbxImage.TabIndex = 0;
             this.pbxImage.TabStop = false;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(15, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(70, 25);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "label1";
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -95,6 +106,7 @@
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseUp);
             this.pnlSpace.ResumeLayout(false);
+            this.pnlSpace.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxWayPoint)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxImage)).EndInit();
             this.ResumeLayout(false);
@@ -107,5 +119,6 @@
         private System.Windows.Forms.Panel pnlSpace;
         private System.Windows.Forms.PictureBox pbxImage;
         private System.Windows.Forms.PictureBox pbxWayPoint;
+        private System.Windows.Forms.Label label1;
     }
 }
