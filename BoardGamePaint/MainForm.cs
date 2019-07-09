@@ -117,9 +117,11 @@ namespace BoardGamePaint
             string[] filenames = (string[])e.Data.GetData(DataFormats.FileDrop);
             foreach (string filename in filenames)
             {
-                addGameObject(new GameObject(
+                GameObject newObject = new GameObject(
                     Image.FromFile(filename)
-                    ));
+                    );
+                newObject.moveTo(new Vector(e.X, e.Y));
+                addGameObject(newObject);
             }
             refresh();
         }

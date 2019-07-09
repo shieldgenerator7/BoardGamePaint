@@ -28,10 +28,14 @@ public class Vector
         => new Vector(-a.x, -a.y);
 
     public static Vector operator +(Vector a, Vector b)
-        => new Vector(a.x + b.x, a.y + b.y);
+        => (a != null && b != null)
+        ?new Vector(a.x + b.x, a.y + b.y)
+        :null;
 
     public static Vector operator -(Vector a, Vector b)
-        => new Vector(a.x - b.x, a.y - b.y);
+        => (a != null && b != null)
+        ?new Vector(a.x - b.x, a.y - b.y)
+        :null;
 
     public static Vector operator *(Vector v, float f)
         => new Vector(v.x * f, v.y * f);

@@ -13,7 +13,7 @@ public class GameObject: IComparable<GameObject>
     private Image image;
 
     //Pickup Runtime Vars
-    private Vector pickupOffset;
+    private Vector pickupOffset = new Vector(0,0);
 
     public GameObject(Image image)
     {
