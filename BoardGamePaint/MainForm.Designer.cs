@@ -30,11 +30,11 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.pnlSpace = new System.Windows.Forms.Panel();
-            this.pbxImage = new System.Windows.Forms.PictureBox();
             this.pbxWayPoint = new System.Windows.Forms.PictureBox();
+            this.pbxImage = new System.Windows.Forms.PictureBox();
             this.pnlSpace.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxWayPoint)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxImage)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlSpace
@@ -50,23 +50,14 @@
             this.pnlSpace.Name = "pnlSpace";
             this.pnlSpace.Size = new System.Drawing.Size(800, 450);
             this.pnlSpace.TabIndex = 0;
+            this.pnlSpace.Visible = false;
             this.pnlSpace.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlSpace_DragDrop);
             this.pnlSpace.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlSpace_DragEnter);
-            this.pnlSpace.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlSpace_Paint);
             this.pnlSpace.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseClick);
             this.pnlSpace.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseDoubleClick);
             this.pnlSpace.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseDown);
             this.pnlSpace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseMove);
             this.pnlSpace.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseUp);
-            // 
-            // pbxImage
-            // 
-            this.pbxImage.Image = ((System.Drawing.Image)(resources.GetObject("pbxImage.Image")));
-            this.pbxImage.Location = new System.Drawing.Point(599, 24);
-            this.pbxImage.Name = "pbxImage";
-            this.pbxImage.Size = new System.Drawing.Size(100, 114);
-            this.pbxImage.TabIndex = 0;
-            this.pbxImage.TabStop = false;
             // 
             // pbxWayPoint
             // 
@@ -77,17 +68,35 @@
             this.pbxWayPoint.TabIndex = 1;
             this.pbxWayPoint.TabStop = false;
             // 
+            // pbxImage
+            // 
+            this.pbxImage.Image = ((System.Drawing.Image)(resources.GetObject("pbxImage.Image")));
+            this.pbxImage.Location = new System.Drawing.Point(599, 24);
+            this.pbxImage.Name = "pbxImage";
+            this.pbxImage.Size = new System.Drawing.Size(100, 114);
+            this.pbxImage.TabIndex = 0;
+            this.pbxImage.TabStop = false;
+            // 
             // MainForm
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.pnlSpace);
             this.Name = "MainForm";
             this.Text = "Board Game Paint";
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlSpace_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlSpace_DragEnter);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlSpace_Paint);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseClick);
+            this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseDoubleClick);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseUp);
             this.pnlSpace.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbxImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxWayPoint)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

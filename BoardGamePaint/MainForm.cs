@@ -20,6 +20,7 @@ namespace BoardGamePaint
 
         public MainForm()
         {
+            this.DoubleBuffered = true;
             InitializeComponent();
             gameObjects = new List<GameObject>();
             for (int i = 0; i < 5; i++)
@@ -142,6 +143,7 @@ namespace BoardGamePaint
         void refresh()
         {
             //pnlSpace.Invalidate();
+            this.Invalidate();
         }
     }
 }
