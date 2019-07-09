@@ -18,7 +18,7 @@ public class GameObject
     public GameObject(Image image)
     {
         this.position = new Vector(0, 0);
-        this.size = new Size(100, 100);
+        this.size = image.Size;
         this.image = image;
     }
 
