@@ -38,4 +38,9 @@ public class GameObject
     {
         position = pos + pickupOffset;
     }
+
+    public static implicit operator Boolean (GameObject gameObject)
+    {
+        return gameObject != null;
+    }
 }

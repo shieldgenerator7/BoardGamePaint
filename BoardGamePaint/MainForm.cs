@@ -11,31 +11,42 @@ namespace BoardGamePaint
 {
     public partial class MainForm : Form
     {
-        GameObject gameObject;
+        List<GameObject> gameObjects;
 
         bool mouseDown = false;
-        bool selected = false;
+        GameObject selected = null;
 
         public MainForm()
         {
             InitializeComponent();
-            gameObject = new GameObject(pbxImage.Image);
+            gameObjects = new List<GameObject>();
+            for (int i = 0; i < 5; i++)
+            {
+                gameObjects.Add(new GameObject(pbxImage.Image));
+            }
         }
 
         private void pnlSpace_Paint(object sender, PaintEventArgs e)
         {
             Graphics graphics = this.pnlSpace.CreateGraphics();
             graphics.Clear(Color.Wheat);
-            gameObject.draw(graphics);
+            foreach (GameObject gameObject in gameObjects)
+            {
+                gameObject.draw(graphics);
+            }
         }
 
         private void pnlSpace_MouseDown(object sender, MouseEventArgs e)
         {
             mouseDown = true;
-            if (gameObject.containsPosition(e.Location.toVector()))
+            foreach (GameObject gameObject in gameObjects)
             {
-                selected = true;
-                gameObject.pickup(e.Location.toVector());
+                if (gameObject.containsPosition(e.Location.toVector()))
+                {
+                    selected = gameObject;
+                    selected.pickup(e.Location.toVector());
+                    break;
+                }
             }
         }
 
@@ -45,7 +56,7 @@ namespace BoardGamePaint
             {
                 if (selected)
                 {
-                    gameObject.moveTo(e.Location.toVector());
+                    selected.moveTo(e.Location.toVector());
                 }
                 pnlSpace.Refresh();
             }
@@ -54,7 +65,7 @@ namespace BoardGamePaint
         private void pnlSpace_MouseUp(object sender, MouseEventArgs e)
         {
             mouseDown = false;
-            selected = false;
+            selected = null;
         }
     }
 }
