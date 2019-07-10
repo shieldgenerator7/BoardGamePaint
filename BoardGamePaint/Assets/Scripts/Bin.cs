@@ -8,7 +8,7 @@ public class Bin : GameObject
         size = new Size(100, 100);
     }
 
-    public GameObject getNewObject()
+    public GameObject makeNewObject()
     {
         return new GameObject(image);
     }

@@ -26,6 +26,18 @@ public class BinManager : GameObject
         bins.Add(newBin);
     }
 
+    public Bin getBin(Vector mousePos)
+    {
+        foreach(Bin bin in bins)
+        {
+            if (bin.containsPosition(mousePos))
+            {
+                return bin;
+            }
+        }
+        return null;
+    }
+
     public override void draw(Graphics graphics)
     {
         graphics.FillRectangle(backBrush, backRect);
@@ -33,5 +45,11 @@ public class BinManager : GameObject
         {
             bin.draw(graphics);
         }
+    }
+
+    public override bool containsPosition(Vector pos)
+    {
+        return pos.x >= backRect.X && pos.x <= backRect.X + backRect.Width
+            && pos.y >= backRect.Y && pos.y <= backRect.Y + backRect.Height;
     }
 }

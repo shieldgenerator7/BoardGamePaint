@@ -66,14 +66,25 @@ namespace BoardGamePaint
         private void pnlSpace_MouseDown(object sender, MouseEventArgs e)
         {
             mouseDown = true;
-            //Find an object to select
-            foreach (GameObject gameObject in gameObjects)
+            Vector mouseVector = e.Location.toVector();
+            if (binManager.containsPosition(mouseVector))
             {
-                if (gameObject.containsPosition(e.Location.toVector()))
+                selected = binManager.getBin(mouseVector).makeNewObject();
+                addGameObject(selected);
+                selected.moveTo(mouseVector, false);
+                selected.pickup(mouseVector);
+            }
+            if (!selected)
+            {
+                //Find an object to select
+                foreach (GameObject gameObject in gameObjects)
                 {
-                    selected = gameObject;
-                    selected.pickup(e.Location.toVector());
-                    break;
+                    if (gameObject.containsPosition(mouseVector))
+                    {
+                        selected = gameObject;
+                        selected.pickup(mouseVector);
+                        break;
+                    }
                 }
             }
         }
