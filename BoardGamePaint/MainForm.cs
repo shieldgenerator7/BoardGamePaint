@@ -20,6 +20,8 @@ namespace BoardGamePaint
         GameObject selected = null;
         Point mousePosition;
 
+        readonly BinManager binManager = new BinManager();
+
         public MainForm()
         {
             this.DoubleBuffered = true;
@@ -46,6 +48,7 @@ namespace BoardGamePaint
                     gameObject.draw(graphics);
                 }
             }
+            binManager.draw(graphics);
             graphics.DrawString("(" + this.Width + ", " + this.Height + ")",
                 label1.Font,
                 new SolidBrush(Color.Black),
@@ -125,11 +128,7 @@ namespace BoardGamePaint
             string[] filenames = (string[])e.Data.GetData(DataFormats.FileDrop);
             foreach (string filename in filenames)
             {
-                GameObject newObject = new GameObject(
-                    Image.FromFile(filename)
-                    );
-                newObject.moveTo(new Vector(25,25), false);
-                addGameObject(newObject);
+                binManager.makeBin(Image.FromFile(filename));
             }
             refresh();
         }

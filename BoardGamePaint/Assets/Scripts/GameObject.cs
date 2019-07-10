@@ -14,7 +14,7 @@ public class GameObject : IComparable<GameObject>
     {
         get { return new Size(size.Width, size.Height); }
     }
-    private Image image;
+    protected Image image;
 
     //Pickup Runtime Vars
     private Vector pickupOffset = new Vector(0, 0);
@@ -22,11 +22,14 @@ public class GameObject : IComparable<GameObject>
     public GameObject(Image image)
     {
         this.position = new Vector(0, 0);
-        this.size = image.Size;
-        this.image = image;
+        if (image != null)
+        {
+            this.size = image.Size;
+            this.image = image;
+        }
     }
 
-    public void draw(Graphics graphics)
+    public virtual void draw(Graphics graphics)
     {
         graphics.DrawImage(
             image,
