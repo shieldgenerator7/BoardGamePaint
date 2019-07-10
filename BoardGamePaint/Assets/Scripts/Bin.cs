@@ -3,9 +3,9 @@ using System.Drawing;
 
 public class Bin : GameObject
 {
-    public Bin(Image image) : base(image)
+    public Bin(Image image, int binSize) : base(image)
     {
-        size = new Size(100, 100);
+        size = new Size(binSize, binSize);
     }
 
     public GameObject makeNewObject()

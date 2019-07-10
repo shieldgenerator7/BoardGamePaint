@@ -69,10 +69,19 @@ namespace BoardGamePaint
             Vector mouseVector = e.Location.toVector();
             if (binManager.containsPosition(mouseVector))
             {
-                selected = binManager.getBin(mouseVector).makeNewObject();
-                addGameObject(selected);
-                selected.moveTo(mouseVector, false);
-                selected.pickup(mouseVector);
+                Bin selectedBin = binManager.getBin(mouseVector);
+                if (selectedBin)
+                {
+                    selected = selectedBin.makeNewObject();
+                    addGameObject(selected);
+                    selected.moveTo(mouseVector, false);
+                    selected.pickup(mouseVector);
+                }
+                else
+                {
+                    selected = binManager;
+                    selected.pickup(mouseVector);
+                }
             }
             if (!selected)
             {

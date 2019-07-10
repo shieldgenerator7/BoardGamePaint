@@ -53,7 +53,7 @@ public class GameObject : IComparable<GameObject>
         pickupOffset = position - pickupPos;
     }
 
-    public void moveTo(Vector pos, bool useOffset = true)
+    public virtual void moveTo(Vector pos, bool useOffset = true)
     {
         if (useOffset)
         {
