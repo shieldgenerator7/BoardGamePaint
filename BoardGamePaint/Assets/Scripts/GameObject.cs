@@ -4,8 +4,8 @@ using System.Drawing;
 
 public class GameObject : IComparable<GameObject>
 {
-    int MAX_VISIBLE_CARD_COUNT = 10;
-    int CARD_SPACING = 2;
+    int MAX_VISIBLE_CARD_COUNT = 100;
+    float CARD_SPACING = 0.5f;
 
     //Drawing Runtime Vars
     protected Vector position;
