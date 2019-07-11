@@ -4,6 +4,9 @@ using System.Drawing;
 
 public class GameObject : IComparable<GameObject>
 {
+    int MAX_VISIBLE_CARD_COUNT = 10;
+    int CARD_SPACING = 2;
+
     //Drawing Runtime Vars
     protected Vector position;
     public Vector Position
@@ -77,15 +80,13 @@ public class GameObject : IComparable<GameObject>
             );
         if (isDeckOfCards && images.Count > 1)
         {
-            int count = 10;
-            int spacing = 2;
-            int limit = Math.Min(count, images.Count);
+            int limit = Math.Min(MAX_VISIBLE_CARD_COUNT, images.Count);
             for (int i = 1; i < limit; i++)
             {
                 graphics.DrawImage(
                 image,
                 position.x - size.Width / 2,
-                position.y - size.Height / 2 - i * spacing,
+                position.y - size.Height / 2 - i * CARD_SPACING,
                 size.Width,
                 size.Height
                 );
@@ -97,8 +98,21 @@ public class GameObject : IComparable<GameObject>
     {
         float halfWidth = size.Width / 2;
         float halfHeight = size.Height / 2;
-        return pos.x >= position.x - halfWidth && pos.x <= position.x + halfWidth
-            && pos.y >= position.y - halfHeight && pos.y <= position.y + halfHeight;
+        float bonusHeight = getBonusHeight();
+        return pos.x >= position.x - halfWidth
+            && pos.x <= position.x + halfWidth
+            && pos.y >= position.y - halfHeight - bonusHeight
+            && pos.y <= position.y + halfHeight;
+    }
+
+    public float getBonusHeight()
+    {
+        if (isDeckOfCards)
+        {
+            int limit = Math.Min(MAX_VISIBLE_CARD_COUNT, images.Count);
+            return limit * CARD_SPACING;
+        }
+        return 0;
     }
 
     public void pickup(Vector pickupPos)
@@ -173,7 +187,12 @@ public class GameObject : IComparable<GameObject>
 
     public virtual Rectangle getRect()
     {
-        return new Rectangle((int)position.x - size.Width / 2, (int)position.y - size.Height / 2, size.Width, size.Height);
+        int bonusHeight = (int)getBonusHeight();
+        return new Rectangle(
+            (int)position.x - size.Width / 2,
+            (int)position.y - size.Height / 2 - bonusHeight,
+            size.Width,
+            size.Height + bonusHeight);
     }
 
     public static implicit operator Boolean(GameObject gameObject)
@@ -187,11 +206,11 @@ public class GameObject : IComparable<GameObject>
         float goSize = go.size.toVector().Magnitude;
         return (thisSize == goSize)
             ? (this.isDeckOfCards)
-                ?1
-                :(go.isDeckOfCards)
-                    ?-1
-                    :0
-            :(int)(this.size.toVector().Magnitude - go.size.toVector().Magnitude);
+                ? 1
+                : (go.isDeckOfCards)
+                    ? -1
+                    : 0
+            : (int)(this.size.toVector().Magnitude - go.size.toVector().Magnitude);
     }
 
     public static bool operator <(GameObject a, GameObject b)
