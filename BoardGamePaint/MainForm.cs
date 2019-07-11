@@ -160,7 +160,7 @@ namespace BoardGamePaint
             string backImageFileName = null;
             foreach (string filename in filenames)
             {
-                if (filename.Contains("[back]"))
+                if (filename.ToLower().Contains("[back]"))
                 {
                     backImageFileName = filename;
                 }
