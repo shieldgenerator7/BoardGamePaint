@@ -114,21 +114,32 @@ namespace BoardGamePaint
 
         private void pnlSpace_MouseUp(object sender, MouseEventArgs e)
         {
+            Vector mouseVector = e.Location.toVector();
             mouseDown = false;
             if (selected)
             {
-                WayPoint selectedWayPoint = null;
-                foreach (WayPoint wayPoint in wayPoints)
+                if (selected != binManager)
                 {
-                    if (wayPoint.containsPosition(e.Location.toVector()))
+                    if (binManager.containsPosition(mouseVector))
                     {
-                        //If twice the waypoint size is bigger than the selected
-                        if (wayPoint.Size.toVector() * 2 > selected.Size.toVector())
+                        removeGameObject(selected);
+                    }
+                    else
+                    {
+                        WayPoint selectedWayPoint = null;
+                        foreach (WayPoint wayPoint in wayPoints)
                         {
-                            selectedWayPoint = wayPoint;
-                            selected.pickup(selected.Position);
-                            selected.moveTo(wayPoint.Position);
-                            break;
+                            if (wayPoint.containsPosition(mouseVector))
+                            {
+                                //If twice the waypoint size is bigger than the selected
+                                if (wayPoint.Size.toVector() * 2 > selected.Size.toVector())
+                                {
+                                    selectedWayPoint = wayPoint;
+                                    selected.pickup(selected.Position);
+                                    selected.moveTo(wayPoint.Position);
+                                    break;
+                                }
+                            }
                         }
                     }
                 }
@@ -207,6 +218,14 @@ namespace BoardGamePaint
             gameObjects.Add(gameObject);
             gameObjects.Sort();
             renderOrder.Add(gameObject);
+            renderOrder.Sort();
+            renderOrder.Reverse();
+        }
+        public void removeGameObject(GameObject gameObject)
+        {
+            gameObjects.Remove(gameObject);
+            gameObjects.Sort();
+            renderOrder.Remove(gameObject);
             renderOrder.Sort();
             renderOrder.Reverse();
         }
