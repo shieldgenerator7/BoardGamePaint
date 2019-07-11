@@ -1,0 +1,22 @@
+{
+	"name": "shotgun",
+	"type": "die",
+	"images": {
+		"100":{
+			"image": "shot100.png",
+			"quantity": 2
+		},
+		"50":{
+			"image": "shot050.png",
+			"quantity": 2
+		},
+		"25":{
+			"image": "shot025.png",
+			"quantity": 3
+		},
+		"0":{
+			"image": "shot000.png",
+			"quantity": 1
+		}
+	}
+}
