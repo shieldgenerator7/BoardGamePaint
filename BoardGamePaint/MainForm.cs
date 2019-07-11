@@ -21,10 +21,11 @@ namespace BoardGamePaint
         GameObject mousedOver = null;
         Point mousePosition;
 
-        Brush drawBrush;
-        Pen drawPen;
-        Brush deleteBrush;
+        Pen selectPen;
         Pen deletePen;
+        Pen anchorPen;
+        Pen changePen;
+        Pen createPen;
 
         readonly BinManager binManager = new BinManager();
 
@@ -33,10 +34,11 @@ namespace BoardGamePaint
             this.DoubleBuffered = true;
             InitializeComponent();
             //
-            drawBrush = new SolidBrush(Color.FromArgb(52, 175, 0));
-            drawPen = new Pen(drawBrush, 5);
-            deleteBrush = new SolidBrush(Color.FromArgb(247, 70, 70));
-            deletePen = new Pen(deleteBrush, 5);
+            selectPen = new Pen(Color.FromArgb(155, 155, 155), 5);
+            deletePen = new Pen(Color.FromArgb(247, 70, 70), 5);
+            anchorPen = new Pen(Color.FromArgb(52, 175, 0), 5);
+            changePen = new Pen(Color.FromArgb(137, 206, 255), 5);
+            createPen = new Pen(Color.FromArgb(255, 230, 107), 5);
             //
             gameObjects = new List<GameObject>();
             for (int i = 0; i < 5; i++)
@@ -67,15 +69,60 @@ namespace BoardGamePaint
             }
             if (mousedOver)
             {
-                if (mousedOver != binManager 
-                    && !(mousedOver is Bin)
-                    && binManager.containsPosition(mousePosition.toVector()))
+                if (mouseDown)
                 {
-                    graphics.DrawRectangle(deletePen, mousedOver.getRect());
+                    Vector mouseVector = mousePosition.toVector();
+                    //in the middle of a drag
+                    if (mousedOver != binManager
+                        && !(mousedOver is Bin)
+                        && binManager.containsPosition(mouseVector))
+                    {
+                        graphics.DrawRectangle(deletePen, mousedOver.getRect());
+                    }
+                    else if (mousedOver == binManager)
+                    {
+                        graphics.DrawRectangle(selectPen, mousedOver.getRect());
+                    }
+                    else
+                    {
+                        //check to see if it's going to anchor on anything
+                        GameObject anchorObject = null;
+                        foreach (GameObject gameObject in gameObjects)
+                        {
+                            if (gameObject != mousedOver
+                                && gameObject.containsPosition(mouseVector)
+                                && gameObject > mousedOver)
+                            {
+                                anchorObject = gameObject;
+                                break;
+                            }
+                        }
+                        if (anchorObject)
+                        {
+                            graphics.DrawRectangle(anchorPen, mousedOver.getRect());
+                            graphics.DrawRectangle(anchorPen, anchorObject.getRect());
+                        }
+                        else
+                        {
+                            graphics.DrawRectangle(selectPen, mousedOver.getRect());
+                        }
+                    }
                 }
                 else
                 {
-                    graphics.DrawRectangle(drawPen, mousedOver.getRect());
+                    //just mousing over things
+                    if (mousedOver is Bin)
+                    {
+                        graphics.DrawRectangle(createPen, mousedOver.getRect());
+                    }
+                    else if (mousedOver.canChangeState())
+                    {
+                        graphics.DrawRectangle(changePen, mousedOver.getRect());
+                    }
+                    else
+                    {
+                        graphics.DrawRectangle(selectPen, mousedOver.getRect());
+                    }
                 }
             }
             //Debug info

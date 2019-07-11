@@ -133,4 +133,9 @@ public class BinManager : GameObject
     {
         return backRect;
     }
+
+    public override bool canChangeState()
+    {
+        return false;
+    }
 }
