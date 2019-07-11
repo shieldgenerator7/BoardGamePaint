@@ -75,6 +75,22 @@ public class GameObject : IComparable<GameObject>
             size.Width,
             size.Height
             );
+        if (isDeckOfCards && images.Count > 1)
+        {
+            int count = 10;
+            int spacing = 2;
+            int limit = Math.Min(count, images.Count);
+            for (int i = 1; i < limit; i++)
+            {
+                graphics.DrawImage(
+                image,
+                position.x - size.Width / 2,
+                position.y - size.Height / 2 - i * spacing,
+                size.Width,
+                size.Height
+                );
+            }
+        }
     }
 
     public virtual bool containsPosition(Vector pos)
