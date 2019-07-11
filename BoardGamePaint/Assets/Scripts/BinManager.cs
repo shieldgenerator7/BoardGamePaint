@@ -20,9 +20,12 @@ public class BinManager : GameObject
         backRect = new Rectangle(0, 0, binSize * 2, binSize);
     }
 
-    public void addImage(Image image)
+    public void addImage(Image image, int count = 1)
     {
-        imagesToProcess.Add(image);
+        for (int i = 0; i < count; i++)
+        {
+            imagesToProcess.Add(image);
+        }
     }
 
     public void processImages(MainForm mf, Image backImage = null)

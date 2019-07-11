@@ -166,7 +166,17 @@ namespace BoardGamePaint
                 }
                 else
                 {
-                    binManager.addImage(Image.FromFile(filename));
+                    int cardCount = 1;
+                    if (filename.Contains("[") && filename.Contains("]"))
+                    {
+                        int iLeft = filename.LastIndexOf("[");
+                        int iRight= filename.LastIndexOf("]");
+                        int.TryParse(
+                            filename.Substring(iLeft + 1, iRight - iLeft - 1),
+                            out cardCount
+                            );
+                    }
+                    binManager.addImage(Image.FromFile(filename), cardCount);
                 }
             }
             Image backImage = (backImageFileName != null)
