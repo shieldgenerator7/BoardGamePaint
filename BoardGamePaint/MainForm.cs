@@ -171,10 +171,14 @@ namespace BoardGamePaint
                     {
                         int iLeft = filename.LastIndexOf("[");
                         int iRight= filename.LastIndexOf("]");
-                        int.TryParse(
+                        bool parsed = int.TryParse(
                             filename.Substring(iLeft + 1, iRight - iLeft - 1),
                             out cardCount
                             );
+                        if (cardCount < 1 && !parsed)
+                        {
+                            cardCount = 1;
+                        }
                     }
                     binManager.addImage(Image.FromFile(filename), cardCount);
                 }

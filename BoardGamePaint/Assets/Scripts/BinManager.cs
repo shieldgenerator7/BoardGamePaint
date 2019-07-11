@@ -40,7 +40,7 @@ public class BinManager : GameObject
                 break;
             }
         }
-        if (allSameSize)
+        if (allSameSize && imagesToProcess.Count > 1)
         {
             //make it all one object
             if (backImage != null)
