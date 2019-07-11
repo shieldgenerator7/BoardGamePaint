@@ -42,6 +42,13 @@ public class GameObject : IComparable<GameObject>
     //Pickup Runtime Vars
     private Vector pickupOffset = new Vector(0, 0);
 
+    /// <summary>
+    /// The object this object is anchored to
+    /// So that it can move when its anchored object moves
+    /// </summary>
+    private GameObject anchorObject;
+    readonly private List<GameObject> anchoredObjects = new List<GameObject>();
+
     public GameObject(Image image)
     {
         this.position = new Vector(0, 0);
@@ -118,6 +125,10 @@ public class GameObject : IComparable<GameObject>
     public void pickup(Vector pickupPos)
     {
         pickupOffset = position - pickupPos;
+        foreach(GameObject anchored in anchoredObjects)
+        {
+            anchored.pickup(pickupPos);
+        }
     }
 
     public virtual void moveTo(Vector pos, bool useOffset = true)
@@ -129,6 +140,29 @@ public class GameObject : IComparable<GameObject>
         else
         {
             position = pos;
+        }
+        foreach (GameObject anchored in anchoredObjects)
+        {
+            anchored.moveTo(pos, useOffset);
+        }
+    }
+
+    public void anchorTo(GameObject anchor)
+    {
+        if (this.anchorObject)
+        {
+            anchorOff();
+        }
+        this.anchorObject = anchor;
+        this.anchorObject.anchoredObjects.Add(this);
+    }
+
+    public void anchorOff()
+    {
+        if (anchorObject)
+        {
+            this.anchorObject.anchoredObjects.Remove(this);
+            this.anchorObject = null;
         }
     }
 

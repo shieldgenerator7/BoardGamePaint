@@ -12,6 +12,8 @@ namespace BoardGamePaint
 {
     public partial class MainForm : Form
     {
+        int BRUSH_THICKNESS = 4;
+
         List<GameObject> gameObjects;
         List<WayPoint> wayPoints;
         List<GameObject> renderOrder;
@@ -246,6 +248,26 @@ namespace BoardGamePaint
                                     break;
                                 }
                             }
+                        }
+                        //Anchoring to other objects
+                        GameObject anchorObject = null;
+                        foreach (GameObject gameObject in gameObjects)
+                        {
+                            if (gameObject != selected
+                                && gameObject.containsPosition(mouseVector)
+                                && gameObject > selected)
+                            {
+                                anchorObject = gameObject;
+                                break;
+                            }
+                        }
+                        if (anchorObject)
+                        {
+                            selected.anchorTo(anchorObject);
+                        }
+                        else
+                        {
+                            selected.anchorOff();
                         }
                     }
                 }
