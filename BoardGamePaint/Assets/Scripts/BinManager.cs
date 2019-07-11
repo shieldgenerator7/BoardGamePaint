@@ -25,7 +25,7 @@ public class BinManager : GameObject
         imagesToProcess.Add(image);
     }
 
-    public void processImages(MainForm mf)
+    public void processImages(MainForm mf, Image backImage = null)
     {
         Size firstSize = imagesToProcess[0].Size;
         bool allSameSize = true;
@@ -40,9 +40,20 @@ public class BinManager : GameObject
         if (allSameSize)
         {
             //make it all one object
-            GameObject gameObject = new GameObject(imagesToProcess);
-            gameObject.moveTo(new Vector(100, 100), false);
-            mf.addGameObject(gameObject);
+            if (backImage != null)
+            {
+                //make it a deck of cards
+                GameObject gameObject = new GameObject(imagesToProcess, backImage);
+                gameObject.moveTo(new Vector(100, 100), false);
+                mf.addGameObject(gameObject);
+            }
+            else
+            {
+                //else make it an object with many states
+                GameObject gameObject = new GameObject(imagesToProcess);
+                gameObject.moveTo(new Vector(100, 100), false);
+                mf.addGameObject(gameObject);
+            }
         }
         else
         {

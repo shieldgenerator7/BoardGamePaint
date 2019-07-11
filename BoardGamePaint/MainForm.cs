@@ -146,11 +146,22 @@ namespace BoardGamePaint
         private void pnlSpace_DragDrop(object sender, DragEventArgs e)
         {
             string[] filenames = (string[])e.Data.GetData(DataFormats.FileDrop);
+            string backImageFileName = null;
             foreach (string filename in filenames)
             {
-                binManager.addImage(Image.FromFile(filename));
+                if (filename.Contains("[back]"))
+                {
+                    backImageFileName = filename;
+                }
+                else
+                {
+                    binManager.addImage(Image.FromFile(filename));
+                }
             }
-            binManager.processImages(this);
+            Image backImage = (backImageFileName != null)
+                ? Image.FromFile(backImageFileName)
+                : null;
+            binManager.processImages(this, backImage);
             refresh();
         }
 
@@ -169,8 +180,12 @@ namespace BoardGamePaint
                 if (gameObject.canChangeState()
                     && gameObject.containsPosition(mouseVector))
                 {
-                    gameObject.changeState();
                     changedObjectState = true;
+                    GameObject result = gameObject.changeState();
+                    if (result)
+                    {
+                        addGameObject(result);
+                    }
                     break;
                 }
             }

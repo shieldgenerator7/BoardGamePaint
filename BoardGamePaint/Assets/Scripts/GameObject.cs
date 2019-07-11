@@ -34,6 +34,8 @@ public class GameObject : IComparable<GameObject>
         }
     }
 
+    bool isDeckOfCards = false;
+
     //Pickup Runtime Vars
     private Vector pickupOffset = new Vector(0, 0);
 
@@ -52,6 +54,16 @@ public class GameObject : IComparable<GameObject>
         this.images = images;
         this.imageIndex = 0;
         this.size = this.image.Size;
+    }
+    /// <summary>
+    /// Turns this multi-sprite game object into a deck of cards
+    /// </summary>
+    /// <param name="images"></param>
+    /// <param name="backImage"></param>
+    public GameObject(List<Image> images, Image backImage) : this(images)
+    {
+        this.images.Insert(0, backImage);
+        this.isDeckOfCards = true;
     }
 
     public virtual void draw(Graphics graphics)
@@ -95,25 +107,52 @@ public class GameObject : IComparable<GameObject>
         return images.Count > 1;
     }
 
-    public void changeState()
+    public GameObject changeState()
     {
         if (images.Count >= 2)
         {
-            if (images.Count == 2)
+            if (isDeckOfCards)
             {
-                imageIndex = (imageIndex + 1) % 2;
+                //Draw a card
+                Random rand = new Random();
+                int cardIndex = rand.Next(1, images.Count);
+                return drawCard(cardIndex);
             }
             else
             {
-                Random rand = new Random();
-                int newIndex = imageIndex;
-                while (newIndex == imageIndex)
-                {                 
-                    newIndex = rand.Next(images.Count);
+                //Change state
+                if (images.Count == 2)
+                {
+                    //Flip
+                    imageIndex = (imageIndex + 1) % 2;
                 }
-                imageIndex = newIndex;
+                else
+                {
+                    //Randomly roll
+                    Random rand = new Random();
+                    int newIndex = imageIndex;
+                    while (newIndex == imageIndex)
+                    {
+                        newIndex = rand.Next(images.Count);
+                    }
+                    imageIndex = newIndex;
+                }
             }
         }
+        return null;
+    }
+
+    protected GameObject drawCard(int cardIndex)
+    {
+        Image cardImage = images[cardIndex];
+        GameObject newCard = new GameObject(
+            new List<Image>(
+                new Image[] { images[0], images[cardIndex] }
+                )
+            );
+        newCard.moveTo(position + new Vector(10, 10), false);
+        images.RemoveAt(cardIndex);
+        return newCard;
     }
 
     public static implicit operator Boolean(GameObject gameObject)
