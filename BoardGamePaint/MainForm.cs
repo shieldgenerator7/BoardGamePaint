@@ -13,6 +13,7 @@ namespace BoardGamePaint
     public partial class MainForm : Form
     {
         int BRUSH_THICKNESS = 4;
+        bool WAYPOINTS_ENABLED = false;
 
         List<GameObject> gameObjects;
         List<WayPoint> wayPoints;
@@ -343,7 +344,8 @@ namespace BoardGamePaint
                 }
             }
 
-            if (!changedObjectState)
+            if (!changedObjectState
+                && WAYPOINTS_ENABLED)
             {
                 addWayPoint(new WayPoint(
                     pbxWayPoint.Image,
