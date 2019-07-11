@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BoardGamePaint;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 
@@ -12,7 +13,7 @@ public class BinManager : GameObject
     Brush backBrush;
     Rectangle backRect;
 
-    public BinManager() : base(null)
+    public BinManager() : base((Image)null)
     {
         backBrush = new SolidBrush(Color.FromArgb(206, 117, 57));
         position = new Vector(0, 0);
@@ -24,11 +25,32 @@ public class BinManager : GameObject
         imagesToProcess.Add(image);
     }
 
-    public void processImages()
+    public void processImages(MainForm mf)
     {
+        Size firstSize = imagesToProcess[0].Size;
+        bool allSameSize = true;
         foreach(Image image in imagesToProcess)
         {
-            makeBin(image);
+            if (image.Size != firstSize)
+            {
+                allSameSize = false;
+                break;
+            }
+        }
+        if (allSameSize)
+        {
+            //make it all one object
+            GameObject gameObject = new GameObject(imagesToProcess);
+            gameObject.moveTo(new Vector(100, 100), false);
+            mf.addGameObject(gameObject);
+        }
+        else
+        {
+            //make them separate objects
+            foreach (Image image in imagesToProcess)
+            {
+                makeBin(image);
+            }
         }
         imagesToProcess = new List<Image>();
     }

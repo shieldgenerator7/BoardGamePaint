@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 
 public class GameObject : IComparable<GameObject>
@@ -14,7 +15,24 @@ public class GameObject : IComparable<GameObject>
     {
         get { return new Size(size.Width, size.Height); }
     }
-    protected Image image;
+    protected List<Image> images;
+    protected int imageIndex = 0;
+    protected Image image
+    {
+        get { return images?[imageIndex]; }
+        set
+        {
+            if (images == null)
+            {
+                images = new List<Image>();
+            }
+            if (!images.Contains(value))
+            {
+                images.Add(value);
+            }
+            imageIndex = images.IndexOf(value);
+        }
+    }
 
     //Pickup Runtime Vars
     private Vector pickupOffset = new Vector(0, 0);
@@ -27,6 +45,13 @@ public class GameObject : IComparable<GameObject>
             this.size = image.Size;
             this.image = image;
         }
+    }
+    public GameObject(List<Image> images)
+    {
+        this.position = new Vector(0, 0);
+        this.images = images;
+        this.imageIndex = 0;
+        this.size = this.image.Size;
     }
 
     public virtual void draw(Graphics graphics)
@@ -62,6 +87,32 @@ public class GameObject : IComparable<GameObject>
         else
         {
             position = pos;
+        }
+    }
+
+    public bool canChangeState()
+    {
+        return images.Count > 1;
+    }
+
+    public void changeState()
+    {
+        if (images.Count >= 2)
+        {
+            if (images.Count == 2)
+            {
+                imageIndex = (imageIndex + 1) % 2;
+            }
+            else
+            {
+                Random rand = new Random();
+                int newIndex = imageIndex;
+                while (newIndex == imageIndex)
+                {                 
+                    newIndex = rand.Next(images.Count);
+                }
+                imageIndex = newIndex;
+            }
         }
     }
 

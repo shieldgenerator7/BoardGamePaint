@@ -150,7 +150,7 @@ namespace BoardGamePaint
             {
                 binManager.addImage(Image.FromFile(filename));
             }
-            binManager.processImages();
+            binManager.processImages(this);
             refresh();
         }
 
@@ -161,16 +161,33 @@ namespace BoardGamePaint
 
         private void pnlSpace_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            addWayPoint(new WayPoint(
-                pbxWayPoint.Image,
-                e.Location.toVector(),
-                new Size(100, 100),
-                WayPoint.Shape.CIRCLE
-                ));
+            bool changedObjectState = false;
+            Vector mouseVector = e.Location.toVector();
+            //Find an object to change its state
+            foreach (GameObject gameObject in gameObjects)
+            {
+                if (gameObject.canChangeState()
+                    && gameObject.containsPosition(mouseVector))
+                {
+                    gameObject.changeState();
+                    changedObjectState = true;
+                    break;
+                }
+            }
+
+            if (!changedObjectState)
+            {
+                addWayPoint(new WayPoint(
+                    pbxWayPoint.Image,
+                    e.Location.toVector(),
+                    new Size(100, 100),
+                    WayPoint.Shape.CIRCLE
+                    ));
+            }
             refresh();
         }
 
-        void addGameObject(GameObject gameObject)
+        public void addGameObject(GameObject gameObject)
         {
             gameObjects.Add(gameObject);
             gameObjects.Sort();
