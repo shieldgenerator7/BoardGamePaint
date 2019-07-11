@@ -34,11 +34,11 @@ namespace BoardGamePaint
             this.DoubleBuffered = true;
             InitializeComponent();
             //
-            selectPen = new Pen(Color.FromArgb(155, 155, 155), 5);
-            deletePen = new Pen(Color.FromArgb(247, 70, 70), 5);
-            anchorPen = new Pen(Color.FromArgb(52, 175, 0), 5);
-            changePen = new Pen(Color.FromArgb(137, 206, 255), 5);
-            createPen = new Pen(Color.FromArgb(255, 230, 107), 5);
+            selectPen = new Pen(Color.FromArgb(155, 155, 155), BRUSH_THICKNESS);
+            deletePen = new Pen(Color.FromArgb(247, 70, 70), BRUSH_THICKNESS);
+            anchorPen = new Pen(Color.FromArgb(52, 175, 0), BRUSH_THICKNESS);
+            changePen = new Pen(Color.FromArgb(137, 206, 255), BRUSH_THICKNESS);
+            createPen = new Pen(Color.FromArgb(255, 230, 107), BRUSH_THICKNESS);
             //
             gameObjects = new List<GameObject>();
             for (int i = 0; i < 5; i++)
