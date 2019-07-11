@@ -148,8 +148,9 @@ namespace BoardGamePaint
             string[] filenames = (string[])e.Data.GetData(DataFormats.FileDrop);
             foreach (string filename in filenames)
             {
-                binManager.makeBin(Image.FromFile(filename));
+                binManager.addImage(Image.FromFile(filename));
             }
+            binManager.processImages();
             refresh();
         }
 

@@ -5,6 +5,7 @@ using System.Drawing;
 public class BinManager : GameObject
 {
     readonly List<Bin> bins = new List<Bin>();
+    List<Image> imagesToProcess = new List<Image>();
 
     int binSize = 50;
 
@@ -18,7 +19,21 @@ public class BinManager : GameObject
         backRect = new Rectangle(0, 0, binSize * 2, binSize);
     }
 
-    public void makeBin(Image image)
+    public void addImage(Image image)
+    {
+        imagesToProcess.Add(image);
+    }
+
+    public void processImages()
+    {
+        foreach(Image image in imagesToProcess)
+        {
+            makeBin(image);
+        }
+        imagesToProcess = new List<Image>();
+    }
+
+    private void makeBin(Image image)
     {
         backRect.Width += binSize;
         Bin newBin = new Bin(image, binSize);
