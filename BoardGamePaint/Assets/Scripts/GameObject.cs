@@ -120,7 +120,7 @@ public class GameObject : IComparable<GameObject>
 
     public bool canChangeState()
     {
-        return images.Count > 1;
+        return images.Count > 1 || isDeckOfCards;
     }
 
     public GameObject changeState()
@@ -178,7 +178,15 @@ public class GameObject : IComparable<GameObject>
 
     public int CompareTo(GameObject go)
     {
-        return (int)(this.size.toVector().Magnitude - go.size.toVector().Magnitude);
+        float thisSize = this.size.toVector().Magnitude;
+        float goSize = go.size.toVector().Magnitude;
+        return (thisSize == goSize)
+            ? (this.isDeckOfCards)
+                ?1
+                :(go.isDeckOfCards)
+                    ?-1
+                    :0
+            :(int)(this.size.toVector().Magnitude - go.size.toVector().Magnitude);
     }
 
     public static bool operator <(GameObject a, GameObject b)
