@@ -171,6 +171,11 @@ public class GameObject : IComparable<GameObject>
         return newCard;
     }
 
+    public virtual Rectangle getRect()
+    {
+        return new Rectangle((int)position.x - size.Width / 2, (int)position.y - size.Height / 2, size.Width, size.Height);
+    }
+
     public static implicit operator Boolean(GameObject gameObject)
     {
         return gameObject != null;

@@ -128,4 +128,9 @@ public class BinManager : GameObject
                 );
         }
     }
+
+    public override Rectangle getRect()
+    {
+        return backRect;
+    }
 }

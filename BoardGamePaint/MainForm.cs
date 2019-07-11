@@ -18,7 +18,13 @@ namespace BoardGamePaint
 
         bool mouseDown = false;
         GameObject selected = null;
+        GameObject mousedOver = null;
         Point mousePosition;
+
+        Brush drawBrush;
+        Pen drawPen;
+        Brush deleteBrush;
+        Pen deletePen;
 
         readonly BinManager binManager = new BinManager();
 
@@ -26,6 +32,12 @@ namespace BoardGamePaint
         {
             this.DoubleBuffered = true;
             InitializeComponent();
+            //
+            drawBrush = new SolidBrush(Color.FromArgb(52, 175, 0));
+            drawPen = new Pen(drawBrush, 5);
+            deleteBrush = new SolidBrush(Color.FromArgb(247, 70, 70));
+            deletePen = new Pen(deleteBrush, 5);
+            //
             gameObjects = new List<GameObject>();
             for (int i = 0; i < 5; i++)
             {
@@ -49,6 +61,24 @@ namespace BoardGamePaint
                 }
             }
             binManager.draw(graphics);
+            if (!mousedOver)
+            {
+                mousedOver = selected;
+            }
+            if (mousedOver)
+            {
+                if (mousedOver != binManager 
+                    && !(mousedOver is Bin)
+                    && binManager.containsPosition(mousePosition.toVector()))
+                {
+                    graphics.DrawRectangle(deletePen, mousedOver.getRect());
+                }
+                else
+                {
+                    graphics.DrawRectangle(drawPen, mousedOver.getRect());
+                }
+            }
+            //Debug info
             graphics.DrawString("(" + this.Width + ", " + this.Height + ")",
                 label1.Font,
                 new SolidBrush(Color.Black),
@@ -76,6 +106,7 @@ namespace BoardGamePaint
                     addGameObject(selected);
                     selected.moveTo(mouseVector, false);
                     selected.pickup(mouseVector);
+                    mousedOver = selected;
                 }
                 else
                 {
@@ -101,14 +132,42 @@ namespace BoardGamePaint
         private void pnlSpace_MouseMove(object sender, MouseEventArgs e)
         {
             mousePosition = e.Location;
+            Vector mouseVector = e.Location.toVector();
             refresh();
             if (mouseDown)
             {
                 if (selected)
                 {
-                    selected.moveTo(e.Location.toVector());
+                    selected.moveTo(mouseVector);
                 }
                 refresh();
+            }
+            else
+            {
+                mousedOver = null;
+                if (binManager.containsPosition(mouseVector))
+                {
+                    Bin mousedOverBin = binManager.getBin(mouseVector);
+                    if (mousedOverBin)
+                    {
+                        mousedOver = mousedOverBin;
+                    }
+                    else
+                    {
+                        mousedOver = binManager;
+                    }
+                }
+                if (!mousedOver)
+                {
+                    foreach (GameObject gameObject in gameObjects)
+                    {
+                        if (gameObject.containsPosition(mouseVector))
+                        {
+                            mousedOver = gameObject;
+                            break;
+                        }
+                    }
+                }
             }
         }
 
@@ -170,7 +229,7 @@ namespace BoardGamePaint
                     if (filename.Contains("[") && filename.Contains("]"))
                     {
                         int iLeft = filename.LastIndexOf("[");
-                        int iRight= filename.LastIndexOf("]");
+                        int iRight = filename.LastIndexOf("]");
                         bool parsed = int.TryParse(
                             filename.Substring(iLeft + 1, iRight - iLeft - 1),
                             out cardCount
