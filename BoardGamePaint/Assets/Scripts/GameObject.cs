@@ -166,8 +166,20 @@ public class GameObject : IComparable<GameObject>
     }
 
     public static bool operator <(GameObject a, GameObject b)
-        => a.size.toVector() < b.size.toVector();
+    {
+        float aSize = a.size.toVector().Magnitude;
+        float bSize = b.size.toVector().Magnitude;
+        return (aSize == bSize)
+            ? b.isDeckOfCards
+            : aSize < bSize;
+    }
 
     public static bool operator >(GameObject a, GameObject b)
-        => a.size.toVector() > b.size.toVector();
+    {
+        float aSize = a.size.toVector().Magnitude;
+        float bSize = b.size.toVector().Magnitude;
+        return (aSize == bSize)
+            ? a.isDeckOfCards
+            : aSize > bSize;
+    }
 }
