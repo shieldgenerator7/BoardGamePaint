@@ -16,6 +16,10 @@ public static class ObjectImportManager
 
     public static string getReadableFileName(string filename)
     {
+        if (filename == null)
+        {
+            return null;
+        }
         string[] split = filename.Split('\\');
         filename = split[split.Length - 1].Split('.')[0];
         if (filename.Contains("["))
@@ -170,11 +174,11 @@ public static class ObjectImportManager
         }
         else
         {
-            ////make them separate objects
-            //foreach (Image image in imagesToProcess)
-            //{
-            //    makeBin(image);
-            //}
+            //make them separate objects
+            foreach (GameObject gameobject in objectsToProcess)
+            {
+                mf.binManager.makeBin(gameobject.image);
+            }
         }
     }
 

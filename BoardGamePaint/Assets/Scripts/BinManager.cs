@@ -72,7 +72,7 @@ public class BinManager : GameObject
         imagesToProcess = new List<Image>();
     }
 
-    private void makeBin(Image image)
+    public void makeBin(Image image)
     {
         backRect.Width += binSize;
         Bin newBin = new Bin(image, binSize);

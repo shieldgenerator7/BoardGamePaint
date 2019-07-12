@@ -31,7 +31,7 @@ namespace BoardGamePaint
         Pen changePen;
         Pen createPen;
 
-        readonly BinManager binManager = new BinManager();
+        readonly public BinManager binManager = new BinManager();
 
         public MainForm()
         {
