@@ -52,10 +52,6 @@ public class BinManager : GameObject
             //make it all one object
             if (backImage != null)
             {
-                //make it a deck of cards
-                GameObject gameObject = new GameObject(imagesToProcess, backImage);
-                gameObject.moveTo(new Vector(100, 100), false);
-                mf.addGameObject(gameObject);
             }
             else
             {

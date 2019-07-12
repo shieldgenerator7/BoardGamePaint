@@ -4,8 +4,6 @@ using System.Drawing;
 
 public class GameObject : IComparable<GameObject>
 {
-    int MAX_VISIBLE_CARD_COUNT = 100;
-    float CARD_SPACING = 0.5f;
 
     //Drawing Runtime Vars
     protected Vector position;
@@ -20,7 +18,7 @@ public class GameObject : IComparable<GameObject>
     }
     protected List<Image> images;
     protected int imageIndex = 0;
-    protected Image image
+    public Image image
     {
         get { return images?[imageIndex]; }
         set
@@ -34,15 +32,6 @@ public class GameObject : IComparable<GameObject>
                 images.Add(value);
             }
             imageIndex = images.IndexOf(value);
-        }
-    }
-
-    private bool isDeckOfCards = false;
-    public bool IsDeckOfCards
-    {
-        get
-        {
-            return isDeckOfCards;
         }
     }
 
@@ -68,6 +57,17 @@ public class GameObject : IComparable<GameObject>
             }
             return null;
         }
+        set
+        {
+            if (images.Count < 2)
+            {
+                images.Insert(0, value);
+            }
+            else
+            {
+                images[0] = value;
+            }
+        }
     }
 
     private string description = null;
@@ -84,44 +84,30 @@ public class GameObject : IComparable<GameObject>
     }
     public virtual string getTypeString()
     {
-        if (IsDeckOfCards)
+        if (images == null)
         {
-            return "Deck of Cards"
-                + ((images.Count == 1)
-                ? " (Empty)"
-                : ""
-                );
+            return "Bin Drawer";
         }
-        else
+        if (images.Count == 1)
         {
-            if (images == null)
+            if (anchoredObjects.Count > 0)
             {
-                return "Bin Drawer";
-            }
-            if (images.Count == 1)
-            {
-                if (anchoredObjects.Count > 0)
-                {
-                    return "Board";
-                }
-                else
-                {
-                    return "Piece";
-                }
-            }
-            else if (images.Count == 2)
-            {
-                return "Card";
-            }
-            else if (images.Count > 2)
-            {
-                return "Die";
+                return "Board";
             }
             else
             {
-                return "Bin";
+                return "Piece";
             }
         }
+        else if (images.Count == 2)
+        {
+            return "Card";
+        }
+        else if (images.Count > 2)
+        {
+            return "Die";
+        }
+        return "Unknown";
     }
 
     //Pickup Runtime Vars
@@ -150,17 +136,7 @@ public class GameObject : IComparable<GameObject>
         this.imageIndex = 0;
         this.size = this.image.Size;
     }
-    /// <summary>
-    /// Turns this multi-sprite game object into a deck of cards
-    /// </summary>
-    /// <param name="images"></param>
-    /// <param name="backImage"></param>
-    public GameObject(List<Image> images, Image backImage) : this(images)
-    {
-        this.images.Insert(0, backImage);
-        this.isDeckOfCards = true;
-    }
-
+    
     public virtual void draw(Graphics graphics)
     {
         graphics.DrawImage(
@@ -170,41 +146,16 @@ public class GameObject : IComparable<GameObject>
             size.Width,
             size.Height
             );
-        if (isDeckOfCards && images.Count > 1)
-        {
-            int limit = Math.Min(MAX_VISIBLE_CARD_COUNT, images.Count);
-            for (int i = 1; i < limit; i++)
-            {
-                graphics.DrawImage(
-                image,
-                position.x - size.Width / 2,
-                position.y - size.Height / 2 - i * CARD_SPACING,
-                size.Width,
-                size.Height
-                );
-            }
-        }
     }
 
     public virtual bool containsPosition(Vector pos)
     {
         float halfWidth = size.Width / 2;
         float halfHeight = size.Height / 2;
-        float bonusHeight = getBonusHeight();
         return pos.x >= position.x - halfWidth
             && pos.x <= position.x + halfWidth
-            && pos.y >= position.y - halfHeight - bonusHeight
+            && pos.y >= position.y - halfHeight
             && pos.y <= position.y + halfHeight;
-    }
-
-    public float getBonusHeight()
-    {
-        if (isDeckOfCards)
-        {
-            int limit = Math.Min(MAX_VISIBLE_CARD_COUNT, images.Count);
-            return limit * CARD_SPACING;
-        }
-        return 0;
     }
 
     public void pickup(Vector pickupPos)
@@ -256,71 +207,38 @@ public class GameObject : IComparable<GameObject>
         return images.Count > 1;
     }
 
-    public GameObject changeState()
+    public virtual GameObject changeState()
     {
         if (images.Count >= 2)
         {
-            if (isDeckOfCards)
+            //Change state
+            if (images.Count == 2)
             {
-                //Draw a card
-                Random rand = new Random();
-                int cardIndex = rand.Next(1, images.Count);
-                return drawCard(cardIndex);
+                //Flip
+                imageIndex = (imageIndex + 1) % 2;
             }
             else
             {
-                //Change state
-                if (images.Count == 2)
+                //Randomly roll
+                Random rand = new Random();
+                int newIndex = imageIndex;
+                while (newIndex == imageIndex)
                 {
-                    //Flip
-                    imageIndex = (imageIndex + 1) % 2;
+                    newIndex = rand.Next(images.Count);
                 }
-                else
-                {
-                    //Randomly roll
-                    Random rand = new Random();
-                    int newIndex = imageIndex;
-                    while (newIndex == imageIndex)
-                    {
-                        newIndex = rand.Next(images.Count);
-                    }
-                    imageIndex = newIndex;
-                }
+                imageIndex = newIndex;
             }
         }
         return null;
     }
 
-    protected GameObject drawCard(int cardIndex)
-    {
-        Image cardImage = images[cardIndex];
-        GameObject newCard = new GameObject(
-            new List<Image>(
-                new Image[] { images[0], images[cardIndex] }
-                )
-            );
-        newCard.moveTo(position + new Vector(10, 10), false);
-        images.RemoveAt(cardIndex);
-        return newCard;
-    }
-
-    public bool fitsInDeck(GameObject other)
-        => other.Back == this.Back
-        && other.size == this.size;
-
-    public void acceptCard(GameObject card)
-    {
-        images.Add(card.Face);
-    }
-
     public virtual Rectangle getRect()
     {
-        int bonusHeight = (int)getBonusHeight();
         return new Rectangle(
             (int)position.x - size.Width / 2,
-            (int)position.y - size.Height / 2 - bonusHeight,
+            (int)position.y - size.Height / 2,
             size.Width,
-            size.Height + bonusHeight);
+            size.Height);
     }
 
     public static implicit operator Boolean(GameObject gameObject)
@@ -333,9 +251,9 @@ public class GameObject : IComparable<GameObject>
         float thisSize = this.size.toVector().Magnitude;
         float goSize = go.size.toVector().Magnitude;
         return (thisSize == goSize)
-            ? (this.isDeckOfCards)
+            ? (this is CardDeck)
                 ? 1
-                : (go.isDeckOfCards)
+                : (go is CardDeck)
                     ? -1
                     : 0
             : (int)(this.size.toVector().Magnitude - go.size.toVector().Magnitude);
@@ -346,7 +264,7 @@ public class GameObject : IComparable<GameObject>
         float aSize = a.size.toVector().Magnitude;
         float bSize = b.size.toVector().Magnitude;
         return (aSize == bSize)
-            ? b.isDeckOfCards
+            ? b is CardDeck
             : aSize < bSize;
     }
 
@@ -355,7 +273,7 @@ public class GameObject : IComparable<GameObject>
         float aSize = a.size.toVector().Magnitude;
         float bSize = b.size.toVector().Magnitude;
         return (aSize == bSize)
-            ? a.isDeckOfCards
+            ? a is CardDeck
             : aSize > bSize;
     }
 }

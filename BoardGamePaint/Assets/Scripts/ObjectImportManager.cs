@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 
 public static class ObjectImportManager
 {
@@ -15,7 +16,7 @@ public static class ObjectImportManager
 
     public static void importObject(MainForm mf, string filename)
     {
-        List<Image> imagesToProcess = new List<Image>();
+        List<GameObject> objectsToProcess = new List<GameObject>();
         if (isFileJSON(filename))
         {
             string foldername = filename.Substring(0, filename.LastIndexOf("\\") + 1);
@@ -47,7 +48,8 @@ public static class ObjectImportManager
                 Image image = Image.FromFile(imageFilename);
                 for (int i = 0; i < cardCount; i++)
                 {
-                    imagesToProcess.Add(image);
+                    GameObject gameObject = new GameObject(image);
+                    objectsToProcess.Add(gameObject);
                 }
             }
             string backFilename = foldername + (string)jo["back"];
@@ -55,42 +57,51 @@ public static class ObjectImportManager
             Image backImage = (File.Exists(backFilename))
                 ? Image.FromFile(backFilename)
                 : null;
-            processImages(mf, imagesToProcess, backImage);
+            processImages(mf, objectsToProcess, backImage);
         }
     }
 
-    public static void processImages(MainForm mf, List<Image> imagesToProcess, Image backImage = null)
+    public static void processImages(MainForm mf, List<GameObject> objectsToProcess, Image backImage = null)
     {
         //If there are no images,
-        if (imagesToProcess.Count < 1)
+        if (objectsToProcess.Count < 1)
         {
             //Don't process any images
             return;
         }
-        Size firstSize = imagesToProcess[0].Size;
+        Size firstSize = objectsToProcess[0].Size;
         bool allSameSize = true;
-        foreach (Image image in imagesToProcess)
+        foreach (GameObject go in objectsToProcess)
         {
-            if (image.Size != firstSize)
+            if (go.Size != firstSize)
             {
                 allSameSize = false;
                 break;
             }
         }
-        if (allSameSize && imagesToProcess.Count > 1)
+        if (allSameSize && objectsToProcess.Count > 1)
         {
             //make it all one object
             if (backImage != null)
             {
                 //make it a deck of cards
-                GameObject gameObject = new GameObject(imagesToProcess, backImage);
-                gameObject.moveTo(new Vector(100, 100), false);
-                mf.addGameObject(gameObject);
+                foreach(GameObject gameObject in objectsToProcess)
+                {
+                    gameObject.Back = backImage;
+                }
+                GameObject cardDeck = new CardDeck(objectsToProcess, backImage);
+                cardDeck.moveTo(new Vector(100, 100), false);
+                mf.addGameObject(cardDeck);
             }
             else
             {
                 //else make it an object with many states
-                GameObject gameObject = new GameObject(imagesToProcess);
+                List<Image> images = new List<Image>(
+                    from go in objectsToProcess
+                    select go.image
+                    );
+
+                GameObject gameObject = new GameObject(images);
                 gameObject.moveTo(new Vector(100, 100), false);
                 mf.addGameObject(gameObject);
             }
