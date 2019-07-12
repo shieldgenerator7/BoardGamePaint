@@ -293,7 +293,7 @@ namespace BoardGamePaint
                 {
                     backImageFileName = filename;
                 }
-                else if (filename.EndsWith(".txt"))
+                else if (ObjectImportManager.isFileJSON(filename))
                 {
                     ObjectImportManager.importObject(this, filename);
                 }

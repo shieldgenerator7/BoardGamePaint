@@ -9,17 +9,21 @@ using System.IO;
 public static class ObjectImportManager
 {
 
+    public static bool isFileJSON(string filename)
+        => filename.ToLower().EndsWith(".txt")
+        || filename.ToLower().EndsWith(".json");
+
     public static void importObject(MainForm mf, string filename)
     {
         List<Image> imagesToProcess = new List<Image>();
-        if (filename.EndsWith(".txt"))
+        if (isFileJSON(filename))
         {
             string foldername = filename.Substring(0, filename.LastIndexOf("\\") + 1);
             //parse the JSON file
             JObject jo = JObject.Parse(File.ReadAllText(filename));
             foreach (JToken joImage in jo["images"])
             {
-                string imageFilename="default.png";
+                string imageFilename = "default.png";
                 int cardCount = 1;
                 foreach (JToken jotkn in joImage.Children())
                 {
