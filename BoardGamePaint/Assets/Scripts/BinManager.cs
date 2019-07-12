@@ -6,7 +6,6 @@ using System.Drawing;
 public class BinManager : GameObject
 {
     readonly List<Bin> bins = new List<Bin>();
-    List<Image> imagesToProcess = new List<Image>();
 
     int binSize = 50;
 
@@ -18,58 +17,6 @@ public class BinManager : GameObject
         backBrush = new SolidBrush(Color.FromArgb(206, 117, 57));
         position = new Vector(0, 0);
         backRect = new Rectangle(0, 0, binSize * 2, binSize);
-    }
-
-    public void addImage(Image image, int count = 1)
-    {
-        for (int i = 0; i < count; i++)
-        {
-            imagesToProcess.Add(image);
-        }
-    }
-
-    public void processImages(MainForm mf, Image backImage = null)
-    {
-        //If there are no images,
-        if (imagesToProcess.Count < 1)
-        {
-            //Don't process any images
-            imagesToProcess = new List<Image>();
-            return;
-        }
-        Size firstSize = imagesToProcess[0].Size;
-        bool allSameSize = true;
-        foreach(Image image in imagesToProcess)
-        {
-            if (image.Size != firstSize)
-            {
-                allSameSize = false;
-                break;
-            }
-        }
-        if (allSameSize && imagesToProcess.Count > 1)
-        {
-            //make it all one object
-            if (backImage != null)
-            {
-            }
-            else
-            {
-                //else make it an object with many states
-                GameObject gameObject = new GameObject(imagesToProcess);
-                gameObject.moveTo(new Vector(100, 100), false);
-                mf.addGameObject(gameObject);
-            }
-        }
-        else
-        {
-            //make them separate objects
-            foreach (Image image in imagesToProcess)
-            {
-                makeBin(image);
-            }
-        }
-        imagesToProcess = new List<Image>();
     }
 
     public void makeBin(Image image)
