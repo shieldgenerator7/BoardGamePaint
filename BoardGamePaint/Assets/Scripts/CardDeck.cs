@@ -28,7 +28,7 @@ public class CardDeck : GameObject
         base.draw(graphics);
         if (cards.Count > 1)
         {
-            int limit = Math.Min(MAX_VISIBLE_CARD_COUNT, images.Count);
+            int limit = Math.Min(MAX_VISIBLE_CARD_COUNT, cards.Count);
             for (int i = 1; i < limit; i++)
             {
                 graphics.DrawImage(
@@ -55,7 +55,7 @@ public class CardDeck : GameObject
 
     public float getBonusHeight()
     {
-        int limit = Math.Min(MAX_VISIBLE_CARD_COUNT, images.Count);
+        int limit = Math.Min(MAX_VISIBLE_CARD_COUNT, cards.Count);
         return limit * CARD_SPACING;
     }
 
