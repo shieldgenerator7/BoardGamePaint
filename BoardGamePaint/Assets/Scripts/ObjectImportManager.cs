@@ -40,13 +40,22 @@ public static class ObjectImportManager
                     Trace.WriteLine("joimage chldrn: " + imageFilename);
                     Trace.WriteLine("joimage chldrn: " + cardCount);
                 }
+                if (!File.Exists(imageFilename))
+                {
+                    continue;
+                }
                 Image image = Image.FromFile(imageFilename);
                 for (int i = 0; i < cardCount; i++)
                 {
                     imagesToProcess.Add(image);
                 }
             }
-            processImages(mf, imagesToProcess);
+            string backFilename = foldername + (string)jo["back"];
+            Trace.WriteLine("jo back: " + backFilename);
+            Image backImage = (File.Exists(backFilename))
+                ? Image.FromFile(backFilename)
+                : null;
+            processImages(mf, imagesToProcess, backImage);
         }
     }
 
