@@ -23,6 +23,7 @@ namespace BoardGamePaint
         GameObject selected = null;
         GameObject mousedOver = null;
         Point mousePosition;
+        bool mouseHover = false;
 
         Pen selectPen;
         Pen deletePen;
@@ -135,25 +136,36 @@ namespace BoardGamePaint
                     {
                         graphics.DrawRectangle(selectPen, mousedOver.getRect());
                     }
+                    //Object Description
+                    if (true || mouseHover)
+                    {
+                        graphics.DrawString(mousedOver.Description,
+                            label1.Font,
+                            new SolidBrush(Color.Black),
+                            mousePosition.X - 5,
+                            mousePosition.Y - 25
+                            );
+                    }
                 }
             }
-            //Debug info
-            graphics.DrawString("(" + this.Width + ", " + this.Height + ")",
-                label1.Font,
-                new SolidBrush(Color.Black),
-                0,
-                0
-                );
-            graphics.DrawString("(" + mousePosition.X + ", " + mousePosition.Y + ")",
-                label1.Font,
-                new SolidBrush(Color.Black),
-                0,
-                10
-                );
+            ////Debug info
+            //graphics.DrawString("(" + this.Width + ", " + this.Height + ")",
+            //    label1.Font,
+            //    new SolidBrush(Color.Black),
+            //    0,
+            //    0
+            //    );
+            //graphics.DrawString("(" + mousePosition.X + ", " + mousePosition.Y + ")",
+            //    label1.Font,
+            //    new SolidBrush(Color.Black),
+            //    0,
+            //    10
+            //    );
         }
 
         private void pnlSpace_MouseDown(object sender, MouseEventArgs e)
         {
+            mouseHover = false;
             mouseDown = true;
             Vector mouseVector = e.Location.toVector();
             if (binManager.containsPosition(mouseVector))
@@ -407,6 +419,11 @@ namespace BoardGamePaint
         {
             //pnlSpace.Invalidate();
             this.Invalidate();
+        }
+
+        private void MainForm_MouseHover(object sender, EventArgs e)
+        {
+            mouseHover = true;
         }
     }
 }

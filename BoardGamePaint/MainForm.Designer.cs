@@ -30,9 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.pnlSpace = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.pbxWayPoint = new System.Windows.Forms.PictureBox();
             this.pbxImage = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.pnlSpace.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxWayPoint)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxImage)).BeginInit();
@@ -61,6 +61,16 @@
             this.pnlSpace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseMove);
             this.pnlSpace.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseUp);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(15, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(169, 61);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "label1";
+            // 
             // pbxWayPoint
             // 
             this.pbxWayPoint.Image = ((System.Drawing.Image)(resources.GetObject("pbxWayPoint.Image")));
@@ -79,15 +89,6 @@
             this.pbxImage.TabIndex = 0;
             this.pbxImage.TabStop = false;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(70, 25);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "label1";
-            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -103,6 +104,7 @@
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseClick);
             this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseDoubleClick);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseDown);
+            this.MouseHover += new System.EventHandler(this.MainForm_MouseHover);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseUp);
             this.pnlSpace.ResumeLayout(false);

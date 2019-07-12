@@ -52,7 +52,7 @@ public class GameObject : IComparable<GameObject>
         {
             if (images.Count > 0)
             {
-                return images[images.Count-1];
+                return images[images.Count - 1];
             }
             return null;
         }
@@ -67,6 +67,60 @@ public class GameObject : IComparable<GameObject>
                 return images[0];
             }
             return null;
+        }
+    }
+
+    private string description = null;
+    public string Description
+    {
+        get
+        {
+            if (description == null)
+            {
+                return getTypeString();
+            }
+            return description;
+        }
+    }
+    public virtual string getTypeString()
+    {
+        if (IsDeckOfCards)
+        {
+            return "Deck of Cards"
+                + ((images.Count == 1)
+                ? " (Empty)"
+                : ""
+                );
+        }
+        else
+        {
+            if (images == null)
+            {
+                return "Bin Drawer";
+            }
+            if (images.Count == 1)
+            {
+                if (anchoredObjects.Count > 0)
+                {
+                    return "Board";
+                }
+                else
+                {
+                    return "Piece";
+                }
+            }
+            else if (images.Count == 2)
+            {
+                return "Card";
+            }
+            else if (images.Count > 2)
+            {
+                return "Die";
+            }
+            else
+            {
+                return "Bin";
+            }
         }
     }
 

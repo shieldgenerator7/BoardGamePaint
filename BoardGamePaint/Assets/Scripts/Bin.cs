@@ -12,4 +12,9 @@ public class Bin : GameObject
     {
         return new GameObject(image);
     }
+
+    public override string getTypeString()
+    {
+        return "Piece"+" Bin";
+    }
 }
