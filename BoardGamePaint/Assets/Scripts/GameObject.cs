@@ -37,7 +37,38 @@ public class GameObject : IComparable<GameObject>
         }
     }
 
-    bool isDeckOfCards = false;
+    private bool isDeckOfCards = false;
+    public bool IsDeckOfCards
+    {
+        get
+        {
+            return isDeckOfCards;
+        }
+    }
+
+    public Image Face
+    {
+        get
+        {
+            if (images.Count > 0)
+            {
+                return images[images.Count-1];
+            }
+            return null;
+        }
+    }
+
+    public Image Back
+    {
+        get
+        {
+            if (images.Count > 0)
+            {
+                return images[0];
+            }
+            return null;
+        }
+    }
 
     //Pickup Runtime Vars
     private Vector pickupOffset = new Vector(0, 0);
@@ -125,7 +156,7 @@ public class GameObject : IComparable<GameObject>
     public void pickup(Vector pickupPos)
     {
         pickupOffset = position - pickupPos;
-        foreach(GameObject anchored in anchoredObjects)
+        foreach (GameObject anchored in anchoredObjects)
         {
             anchored.pickup(pickupPos);
         }
@@ -217,6 +248,15 @@ public class GameObject : IComparable<GameObject>
         newCard.moveTo(position + new Vector(10, 10), false);
         images.RemoveAt(cardIndex);
         return newCard;
+    }
+
+    public bool fitsInDeck(GameObject other)
+        => other.Back == this.Back
+        && other.size == this.size;
+
+    public void acceptCard(GameObject card)
+    {
+        images.Add(card.Face);
     }
 
     public virtual Rectangle getRect()

@@ -102,8 +102,17 @@ namespace BoardGamePaint
                         }
                         if (anchorObject)
                         {
-                            graphics.DrawRectangle(anchorPen, mousedOver.getRect());
-                            graphics.DrawRectangle(anchorPen, anchorObject.getRect());
+                            if (anchorObject.IsDeckOfCards
+                                && anchorObject.fitsInDeck(mousedOver))
+                            {
+                                graphics.DrawRectangle(changePen, mousedOver.getRect());
+                                graphics.DrawRectangle(changePen, anchorObject.getRect());
+                            }
+                            else
+                            {
+                                graphics.DrawRectangle(anchorPen, mousedOver.getRect());
+                                graphics.DrawRectangle(anchorPen, anchorObject.getRect());
+                            }
                         }
                         else
                         {
@@ -264,7 +273,16 @@ namespace BoardGamePaint
                         }
                         if (anchorObject)
                         {
-                            selected.anchorTo(anchorObject);
+                            if (anchorObject.IsDeckOfCards
+                                && anchorObject.fitsInDeck(selected))
+                            {
+                                anchorObject.acceptCard(selected);
+                                removeGameObject(selected);
+                            }
+                            else
+                            {
+                                selected.anchorTo(anchorObject);
+                            }
                         }
                         else
                         {
