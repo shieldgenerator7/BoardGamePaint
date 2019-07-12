@@ -75,7 +75,9 @@ public class GameObject : IComparable<GameObject>
     {
         get
         {
-            if (description == null)
+            if (description == null
+                //if it's a facedown card
+                || images.Count == 2 && imageIndex == 0)
             {
                 return getTypeString();
             }
@@ -120,7 +122,7 @@ public class GameObject : IComparable<GameObject>
     private GameObject anchorObject;
     readonly private List<GameObject> anchoredObjects = new List<GameObject>();
 
-    public GameObject(Image image)
+    public GameObject(Image image, string description = null)
     {
         this.position = new Vector(0, 0);
         if (image != null)
@@ -128,6 +130,7 @@ public class GameObject : IComparable<GameObject>
             this.size = image.Size;
             this.image = image;
         }
+        this.description = description;
     }
     public GameObject(List<Image> images)
     {

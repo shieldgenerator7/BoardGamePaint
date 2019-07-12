@@ -25,10 +25,12 @@ public static class ObjectImportManager
             foreach (JToken joImage in jo["images"])
             {
                 string imageFilename = "default.png";
+                string description = null;
                 int cardCount = 1;
                 foreach (JToken jotkn in joImage.Children())
                 {
                     imageFilename = foldername + (string)jotkn.SelectToken("image");
+                    description = (string)jotkn.SelectToken("description");
                     try
                     {
                         cardCount = (int)jotkn.SelectToken("quantity");
@@ -48,7 +50,7 @@ public static class ObjectImportManager
                 Image image = Image.FromFile(imageFilename);
                 for (int i = 0; i < cardCount; i++)
                 {
-                    GameObject gameObject = new GameObject(image);
+                    GameObject gameObject = new GameObject(image, description);
                     objectsToProcess.Add(gameObject);
                 }
             }
@@ -57,11 +59,12 @@ public static class ObjectImportManager
             Image backImage = (File.Exists(backFilename))
                 ? Image.FromFile(backFilename)
                 : null;
-            processImages(mf, objectsToProcess, backImage);
+            string objectDesc = (string)jo["description"];
+            processImages(mf, objectsToProcess, backImage, objectDesc);
         }
     }
 
-    public static void processImages(MainForm mf, List<GameObject> objectsToProcess, Image backImage = null)
+    public static void processImages(MainForm mf, List<GameObject> objectsToProcess, Image backImage = null, string description = null)
     {
         //If there are no images,
         if (objectsToProcess.Count < 1)
@@ -89,7 +92,7 @@ public static class ObjectImportManager
                 {
                     gameObject.Back = backImage;
                 }
-                GameObject cardDeck = new CardDeck(objectsToProcess, backImage);
+                GameObject cardDeck = new CardDeck(objectsToProcess, backImage, description);
                 cardDeck.moveTo(new Vector(100, 100), false);
                 mf.addGameObject(cardDeck);
             }

@@ -11,7 +11,7 @@ public class CardDeck : GameObject
 
     readonly Random random = new Random();
 
-    public CardDeck(List<GameObject> cards, Image backImage) : base(backImage)
+    public CardDeck(List<GameObject> cards, Image backImage, string description = null) : base(backImage, description)
     {
         this.cards = cards;
     }

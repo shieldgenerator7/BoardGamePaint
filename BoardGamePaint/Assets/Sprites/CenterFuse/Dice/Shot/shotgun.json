@@ -1,22 +1,28 @@
 {
 	"name": "shotgun",
 	"type": "die",
+	"description": "Shotgun: 8 damage/shot, 2 range, 2 shots/turn",
 	"images": {
 		"100":{
 			"image": "shot100.png",
+			"description": "8 Shotgun Damage",
 			"quantity": 2
 		},
 		"50":{
 			"image": "shot050.png",
+			"description": "4 Shotgun Damage",
 			"quantity": 2
 		},
 		"25":{
 			"image": "shot025.png",
+			"description": "2 Shotgun Damage",
 			"quantity": 3
 		},
 		"0":{
 			"image": "shot000.png",
+			"description": "0 Shotgun Damage",
 			"quantity": 1
 		}
-	}
+	},
+	"back": "shotDodge.png"
 }
