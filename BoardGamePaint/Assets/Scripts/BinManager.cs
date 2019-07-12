@@ -30,6 +30,13 @@ public class BinManager : GameObject
 
     public void processImages(MainForm mf, Image backImage = null)
     {
+        //If there are no images,
+        if (imagesToProcess.Count < 1)
+        {
+            //Don't process any images
+            imagesToProcess = new List<Image>();
+            return;
+        }
         Size firstSize = imagesToProcess[0].Size;
         bool allSameSize = true;
         foreach(Image image in imagesToProcess)

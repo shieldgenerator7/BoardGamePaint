@@ -52,7 +52,6 @@ public static class ObjectImportManager
         if (imagesToProcess.Count < 1)
         {
             //Don't process any images
-            imagesToProcess = new List<Image>();
             return;
         }
         Size firstSize = imagesToProcess[0].Size;
@@ -91,6 +90,5 @@ public static class ObjectImportManager
             //    makeBin(image);
             //}
         }
-        imagesToProcess = new List<Image>();
     }
 }
