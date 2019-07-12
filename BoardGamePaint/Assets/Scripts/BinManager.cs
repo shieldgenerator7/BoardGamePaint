@@ -19,10 +19,10 @@ public class BinManager : GameObject
         backRect = new Rectangle(0, 0, binSize * 2, binSize);
     }
 
-    public void makeBin(Image image)
+    public void makeBin(GameObject gameObject)
     {
         backRect.Width += binSize;
-        Bin newBin = new Bin(image, binSize);
+        Bin newBin = new Bin(gameObject, binSize);
         newBin.moveTo(
             getBinPosition(bins.Count),
             false

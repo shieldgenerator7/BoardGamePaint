@@ -177,7 +177,7 @@ public static class ObjectImportManager
             //make them separate objects
             foreach (GameObject gameobject in objectsToProcess)
             {
-                mf.binManager.makeBin(gameobject.image);
+                mf.binManager.makeBin(gameobject);
             }
         }
     }

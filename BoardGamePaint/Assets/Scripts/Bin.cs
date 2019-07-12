@@ -3,7 +3,7 @@ using System.Drawing;
 
 public class Bin : GameObject
 {
-    public Bin(Image image, int binSize) : base(image)
+    public Bin(GameObject gameObject, int binSize) : base(gameObject.image)
     {
         size = new Size(binSize, binSize);
     }
