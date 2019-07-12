@@ -14,6 +14,23 @@ public static class ObjectImportManager
         => filename.ToLower().EndsWith(".txt")
         || filename.ToLower().EndsWith(".json");
 
+    public static string getReadableFileName(string filename)
+    {
+        string[] split = filename.Split('\\');
+        filename = split[split.Length - 1].Split('.')[0];
+        if (filename.Contains("["))
+        {
+            filename = filename.Substring(0, filename.LastIndexOf("["));
+        }
+        return filename;
+    }
+
+    public static string getParentFolderName(string filename)
+    {
+        string[] split = filename.Split('\\');
+        return split[split.Length - 2];
+    }
+
     public static void importObjects(MainForm mf, IEnumerable<string> filenames)
     {
         List<GameObject> objectsToProcess = new List<GameObject>();
@@ -47,16 +64,14 @@ public static class ObjectImportManager
                 Image image = Image.FromFile(filename);
                 for (int i = 0; i < cardCount; i++)
                 {
-                    objectsToProcess.Add(new GameObject(image));
+                    objectsToProcess.Add(new GameObject(image, getReadableFileName(filename)));
                 }
             }
         }
         Image backImage = (backImageFileName != null)
             ? Image.FromFile(backImageFileName)
-            : null;
-        string[] split = backImageFileName.Split('\\');
-        string parentFolderName = split[split.Length - 2];
-        processObjects(mf, objectsToProcess, backImage, parentFolderName);
+            : null;        
+        processObjects(mf, objectsToProcess, backImage, getReadableFileName(backImageFileName));
     }
 
     public static void importObject(MainForm mf, string filename)
