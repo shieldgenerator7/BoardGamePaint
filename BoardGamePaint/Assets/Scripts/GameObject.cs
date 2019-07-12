@@ -168,7 +168,7 @@ public class GameObject : IComparable<GameObject>
 
     public virtual bool canChangeState()
     {
-        return images.Count > 1 || isDeckOfCards;
+        return images.Count > 1;
     }
 
     public GameObject changeState()
