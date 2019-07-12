@@ -316,40 +316,7 @@ namespace BoardGamePaint
         private void pnlSpace_DragDrop(object sender, DragEventArgs e)
         {
             string[] filenames = (string[])e.Data.GetData(DataFormats.FileDrop);
-            string backImageFileName = null;
-            foreach (string filename in filenames)
-            {
-                if (filename.ToLower().Contains("[back]"))
-                {
-                    backImageFileName = filename;
-                }
-                else if (ObjectImportManager.isFileJSON(filename))
-                {
-                    ObjectImportManager.importObject(this, filename);
-                }
-                else
-                {
-                    int cardCount = 1;
-                    if (filename.Contains("[") && filename.Contains("]"))
-                    {
-                        int iLeft = filename.LastIndexOf("[");
-                        int iRight = filename.LastIndexOf("]");
-                        bool parsed = int.TryParse(
-                            filename.Substring(iLeft + 1, iRight - iLeft - 1),
-                            out cardCount
-                            );
-                        if (cardCount < 1 && !parsed)
-                        {
-                            cardCount = 1;
-                        }
-                    }
-                    binManager.addImage(Image.FromFile(filename), cardCount);
-                }
-            }
-            Image backImage = (backImageFileName != null)
-                ? Image.FromFile(backImageFileName)
-                : null;
-            binManager.processImages(this, backImage);
+            ObjectImportManager.importObjects(this, filenames);
             refresh();
         }
 

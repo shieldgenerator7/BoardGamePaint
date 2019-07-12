@@ -14,57 +14,107 @@ public static class ObjectImportManager
         => filename.ToLower().EndsWith(".txt")
         || filename.ToLower().EndsWith(".json");
 
-    public static void importObject(MainForm mf, string filename)
+    public static void importObjects(MainForm mf, IEnumerable<string> filenames)
     {
         List<GameObject> objectsToProcess = new List<GameObject>();
-        if (isFileJSON(filename))
+        string backImageFileName = null;
+        foreach (string filename in filenames)
         {
-            string foldername = filename.Substring(0, filename.LastIndexOf("\\") + 1);
-            //parse the JSON file
-            JObject jo = JObject.Parse(File.ReadAllText(filename));
-            foreach (JToken joImage in jo["images"])
+            if (isFileJSON(filename))
             {
-                string imageFilename = "default.png";
-                string description = null;
+                importJSONObject(mf, filename);
+            }
+            else if (filename.ToLower().Contains("[back]"))
+            {
+                backImageFileName = filename;
+            }
+            else
+            {
                 int cardCount = 1;
-                foreach (JToken jotkn in joImage.Children())
+                if (filename.Contains("[") && filename.Contains("]"))
                 {
-                    imageFilename = foldername + (string)jotkn.SelectToken("image");
-                    description = (string)jotkn.SelectToken("description");
-                    try
-                    {
-                        cardCount = (int)jotkn.SelectToken("quantity");
-                    }
-                    catch (System.ArgumentNullException)
+                    int iLeft = filename.LastIndexOf("[");
+                    int iRight = filename.LastIndexOf("]");
+                    bool parsed = int.TryParse(
+                        filename.Substring(iLeft + 1, iRight - iLeft - 1),
+                        out cardCount
+                        );
+                    if (cardCount < 1 && !parsed)
                     {
                         cardCount = 1;
                     }
-                    Trace.WriteLine("joimage name: " + joImage.Path);
-                    Trace.WriteLine("joimage chldrn: " + imageFilename);
-                    Trace.WriteLine("joimage chldrn: " + cardCount);
                 }
-                if (!File.Exists(imageFilename))
-                {
-                    continue;
-                }
-                Image image = Image.FromFile(imageFilename);
+                Image image = Image.FromFile(filename);
                 for (int i = 0; i < cardCount; i++)
                 {
-                    GameObject gameObject = new GameObject(image, description);
-                    objectsToProcess.Add(gameObject);
+                    objectsToProcess.Add(new GameObject(image));
                 }
             }
-            string backFilename = foldername + (string)jo["back"];
-            Trace.WriteLine("jo back: " + backFilename);
-            Image backImage = (File.Exists(backFilename))
-                ? Image.FromFile(backFilename)
-                : null;
-            string objectDesc = (string)jo["description"];
-            processImages(mf, objectsToProcess, backImage, objectDesc);
+        }
+        Image backImage = (backImageFileName != null)
+            ? Image.FromFile(backImageFileName)
+            : null;
+        string[] split = backImageFileName.Split('\\');
+        string parentFolderName = split[split.Length - 2];
+        processObjects(mf, objectsToProcess, backImage, parentFolderName);
+    }
+
+    public static void importObject(MainForm mf, string filename)
+    {
+        if (isFileJSON(filename))
+        {
+            importJSONObject(mf, filename);
         }
     }
 
-    public static void processImages(MainForm mf, List<GameObject> objectsToProcess, Image backImage = null, string description = null)
+    static void importJSONObject(MainForm mf, string filename)
+    {
+        List<GameObject> objectsToProcess = new List<GameObject>();
+        string foldername = filename.Substring(0, filename.LastIndexOf("\\") + 1);
+        //parse the JSON file
+        JObject jo = JObject.Parse(File.ReadAllText(filename));
+        foreach (JToken joImage in jo["images"])
+        {
+            string imageFilename = "default.png";
+            string description = null;
+            int cardCount = 1;
+            foreach (JToken jotkn in joImage.Children())
+            {
+                imageFilename = foldername + (string)jotkn.SelectToken("image");
+                description = (string)jotkn.SelectToken("description");
+                try
+                {
+                    cardCount = (int)jotkn.SelectToken("quantity");
+                }
+                catch (System.ArgumentNullException)
+                {
+                    cardCount = 1;
+                }
+                Trace.WriteLine("joimage name: " + joImage.Path);
+                Trace.WriteLine("joimage chldrn: " + imageFilename);
+                Trace.WriteLine("joimage chldrn: " + cardCount);
+            }
+            if (!File.Exists(imageFilename))
+            {
+                continue;
+            }
+            Image image = Image.FromFile(imageFilename);
+            for (int i = 0; i < cardCount; i++)
+            {
+                GameObject gameObject = new GameObject(image, description);
+                objectsToProcess.Add(gameObject);
+            }
+        }
+        string backFilename = foldername + (string)jo["back"];
+        Trace.WriteLine("jo back: " + backFilename);
+        Image backImage = (File.Exists(backFilename))
+            ? Image.FromFile(backFilename)
+            : null;
+        string objectDesc = (string)jo["description"];
+        processObjects(mf, objectsToProcess, backImage, objectDesc);
+    }
+
+    public static void processObjects(MainForm mf, List<GameObject> objectsToProcess, Image backImage = null, string description = null)
     {
         //If there are no images,
         if (objectsToProcess.Count < 1)
@@ -88,13 +138,7 @@ public static class ObjectImportManager
             if (backImage != null)
             {
                 //make it a deck of cards
-                foreach(GameObject gameObject in objectsToProcess)
-                {
-                    gameObject.Back = backImage;
-                }
-                GameObject cardDeck = new CardDeck(objectsToProcess, backImage, description);
-                cardDeck.moveTo(new Vector(100, 100), false);
-                mf.addGameObject(cardDeck);
+                makeDeck(mf, objectsToProcess, backImage, description);
             }
             else
             {
@@ -117,5 +161,16 @@ public static class ObjectImportManager
             //    makeBin(image);
             //}
         }
+    }
+
+    static void makeDeck(MainForm mf, List<GameObject> objects, Image backImage, string description)
+    {
+        foreach (GameObject gameObject in objects)
+        {
+            gameObject.Back = backImage;
+        }
+        GameObject cardDeck = new CardDeck(objects, backImage, description);
+        cardDeck.moveTo(new Vector(100, 100), false);
+        mf.addGameObject(cardDeck);
     }
 }
