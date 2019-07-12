@@ -1,5 +1,5 @@
 {
-	"name": "shotgun",
+	"name": "shotgun2",
 	"type": "die",
 	"description": "Shotgun: 8 damage/shot, 2 range, 2 shots/turn",
 	"images": {
@@ -24,5 +24,5 @@
 			"quantity": 1
 		}
 	},
-	"back": "shotBack[back].png"
+	"back": "shotDodge.png"
 }

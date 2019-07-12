@@ -253,10 +253,12 @@ public class GameObject : IComparable<GameObject>
     {
         float thisSize = this.size.toVector().Magnitude;
         float goSize = go.size.toVector().Magnitude;
+        bool thisCardDeck = (this is CardDeck);
+        bool goCardDeck = (go is CardDeck);
         return (thisSize == goSize)
-            ? (this is CardDeck)
+            ? (thisCardDeck && ! goCardDeck)
                 ? 1
-                : (go is CardDeck)
+                : (goCardDeck && ! thisCardDeck)
                     ? -1
                     : 0
             : (int)(this.size.toVector().Magnitude - go.size.toVector().Magnitude);
