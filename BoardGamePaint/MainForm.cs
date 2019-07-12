@@ -293,6 +293,10 @@ namespace BoardGamePaint
                 {
                     backImageFileName = filename;
                 }
+                else if (filename.EndsWith(".txt"))
+                {
+                    ObjectImportManager.importObject(this, filename);
+                }
                 else
                 {
                     int cardCount = 1;
