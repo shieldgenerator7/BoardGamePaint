@@ -7,52 +7,52 @@
       "Engine_Lasers":{
          "image": "Engine_Lasers[25].png",
          "description": "Engine_Lasers",
-         "quantity": 25
+         "quantity": 15
       },
       "Engine_Shields":{
          "image": "Engine_Shields[25].png",
          "description": "Engine_Shields",
-         "quantity": 25
+         "quantity": 15
       },
       "Engines":{
          "image": "Engines[25].png",
          "description": "Engines",
-         "quantity": 25
+         "quantity": 15
       },
       "Laser_Turret":{
          "image": "Laser_Turret[25].png",
          "description": "Laser_Turret",
-         "quantity": 25
+         "quantity": 10
       },
       "Shield_Generator":{
          "image": "Shield_Generator[25].png",
          "description": "Shield_Generator",
-         "quantity": 25
+         "quantity": 10
       },
       "Shielded_Turrets":{
          "image": "Shielded_Turrets[25].png",
          "description": "Shielded_Turrets",
-         "quantity": 25
+         "quantity": 10
       },
       "Sniper_Laser":{
          "image": "Sniper_Laser[25].png",
          "description": "Sniper_Laser",
-         "quantity": 25
+         "quantity": 5
       },
       "Targetting_Array":{
          "image": "Targetting_Array[25].png",
          "description": "Targetting_Array",
-         "quantity": 25
+         "quantity": 5
       },
       "Auto-Positioning_Array":{
          "image": "Auto-Positioning_Array[25].png",
          "description": "Auto-Positioning_Array",
-         "quantity": 25
+         "quantity": 10
       },
       "Electro-Magnetic_Adjuster":{
          "image": "Electro-Magnetic_Adjuster[25].png",
          "description": "Electro-Magnetic_Adjuster",
-         "quantity": 25
+         "quantity": 5
       },
    }
 }

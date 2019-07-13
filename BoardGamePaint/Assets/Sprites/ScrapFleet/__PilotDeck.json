@@ -7,62 +7,62 @@
       "Accuracy_Jack_Pilot":{
          "image": "Accuracy_Jack_Pilot[5].png",
          "description": "Accuracy_Jack_Pilot",
-         "quantity": 5
+         "quantity": 2
       },
       "Accuracy_Master_Pilot":{
          "image": "Accuracy_Master_Pilot[4].png",
          "description": "Accuracy_Master_Pilot",
-         "quantity": 4
+         "quantity": 2
       },
       "Fire_Rate_Ace_Pilot":{
          "image": "Fire_Rate_Ace_Pilot[3].png",
          "description": "Fire_Rate_Ace_Pilot",
-         "quantity": 3
+         "quantity": 1
       },
       "Fire_Rate_Jack_Pilot":{
          "image": "Fire_Rate_Jack_Pilot[5].png",
          "description": "Fire_Rate_Jack_Pilot",
-         "quantity": 5
+         "quantity": 2
       },
       "Fire_Rate_Master_Pilot":{
          "image": "Fire_Rate_Master_Pilot[4].png",
          "description": "Fire_Rate_Master_Pilot",
-         "quantity": 4
+         "quantity": 2
       },
       "Shield_Jack_Pilot":{
          "image": "Shield_Jack_Pilot[5].png",
          "description": "Shield_Jack_Pilot",
-         "quantity": 5
+         "quantity": 2
       },
       "Shields_Ace_Pilot":{
          "image": "Shields_Ace_Pilot[3].png",
          "description": "Shields_Ace_Pilot",
-         "quantity": 3
+         "quantity": 1
       },
       "Shields_Master_Pilot":{
          "image": "Shields_Master_Pilot[4].png",
          "description": "Shields_Master_Pilot",
-         "quantity": 4
+         "quantity": 2
       },
       "Speed_Ace_Pilot":{
          "image": "Speed_Ace_Pilot[3].png",
          "description": "Speed_Ace_Pilot",
-         "quantity": 3
+         "quantity": 1
       },
       "Speed_Jack_Pilot":{
          "image": "Speed_Jack_Pilot[5].png",
          "description": "Speed_Jack_Pilot",
-         "quantity": 5
+         "quantity": 2
       },
       "Speed_Master_Pilot":{
          "image": "Speed_Master_Pilot[4].png",
          "description": "Speed_Master_Pilot",
-         "quantity": 4
+         "quantity": 2
       },
       "Accuracy_Ace_Pilot":{
          "image": "Accuracy_Ace_Pilot[3].png",
          "description": "Accuracy_Ace_Pilot",
-         "quantity": 3
+         "quantity": 1
       },
    }
 }

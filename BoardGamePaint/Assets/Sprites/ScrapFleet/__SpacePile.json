@@ -7,7 +7,7 @@
       "space":{
          "image": "space[50].png",
          "description": "Space",
-         "quantity": 50
+         "quantity": 20
       },
    }
 }
