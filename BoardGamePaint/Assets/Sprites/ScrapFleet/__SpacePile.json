@@ -1,0 +1,13 @@
+{
+   "name": "Space Pile",
+   "type": "deck",
+   "description": "Space Pile",
+   "back": "space[50].png",
+   "images": {
+      "space":{
+         "image": "space[50].png",
+         "description": "Space",
+         "quantity": 50
+      },
+   }
+}

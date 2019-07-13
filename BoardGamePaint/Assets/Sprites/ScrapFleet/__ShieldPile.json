@@ -1,0 +1,13 @@
+{
+   "name": "Shield Pile",
+   "type": "deck",
+   "description": "Shield Pile",
+   "back": "shield[50].png",
+   "images": {
+      "shield":{
+         "image": "shield[50].png",
+         "description": "Shield",
+         "quantity": 50
+      },
+   }
+}

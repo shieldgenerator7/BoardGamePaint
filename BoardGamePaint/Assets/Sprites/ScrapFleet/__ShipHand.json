@@ -1,0 +1,13 @@
+{
+   "name": "Ship Hand",
+   "type": "deck",
+   "description": "Ship Hand",
+   "back": "_ScrapFleet[back].png",
+   "images": {
+      "space":{
+         "image": "space[50].png",
+         "description": "Delete this card",
+         "quantity": 2
+      },
+   }
+}
