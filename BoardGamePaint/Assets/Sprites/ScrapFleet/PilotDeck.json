@@ -1,0 +1,68 @@
+{
+   "name": "Pilot Deck",
+   "type": "deck",
+   "description": "Pilot Deck",
+   "back": "_ScrapFleet[back].png",
+   "images": {
+      "Accuracy_Jack_Pilot":{
+         "image": "Accuracy_Jack_Pilot[5].png",
+         "description": "Accuracy_Jack_Pilot",
+         "quantity": 5
+      },
+      "Accuracy_Master_Pilot":{
+         "image": "Accuracy_Master_Pilot[4].png",
+         "description": "Accuracy_Master_Pilot",
+         "quantity": 4
+      },
+      "Fire_Rate_Ace_Pilot":{
+         "image": "Fire_Rate_Ace_Pilot[3].png",
+         "description": "Fire_Rate_Ace_Pilot",
+         "quantity": 3
+      },
+      "Fire_Rate_Jack_Pilot":{
+         "image": "Fire_Rate_Jack_Pilot[5].png",
+         "description": "Fire_Rate_Jack_Pilot",
+         "quantity": 5
+      },
+      "Fire_Rate_Master_Pilot":{
+         "image": "Fire_Rate_Master_Pilot[4].png",
+         "description": "Fire_Rate_Master_Pilot",
+         "quantity": 4
+      },
+      "Shield_Jack_Pilot":{
+         "image": "Shield_Jack_Pilot[5].png",
+         "description": "Shield_Jack_Pilot",
+         "quantity": 5
+      },
+      "Shields_Ace_Pilot":{
+         "image": "Shields_Ace_Pilot[3].png",
+         "description": "Shields_Ace_Pilot",
+         "quantity": 3
+      },
+      "Shields_Master_Pilot":{
+         "image": "Shields_Master_Pilot[4].png",
+         "description": "Shields_Master_Pilot",
+         "quantity": 4
+      },
+      "Speed_Ace_Pilot":{
+         "image": "Speed_Ace_Pilot[3].png",
+         "description": "Speed_Ace_Pilot",
+         "quantity": 3
+      },
+      "Speed_Jack_Pilot":{
+         "image": "Speed_Jack_Pilot[5].png",
+         "description": "Speed_Jack_Pilot",
+         "quantity": 5
+      },
+      "Speed_Master_Pilot":{
+         "image": "Speed_Master_Pilot[4].png",
+         "description": "Speed_Master_Pilot",
+         "quantity": 4
+      },
+      "Accuracy_Ace_Pilot":{
+         "image": "Accuracy_Ace_Pilot[3].png",
+         "description": "Accuracy_Ace_Pilot",
+         "quantity": 3
+      },
+   }
+}
