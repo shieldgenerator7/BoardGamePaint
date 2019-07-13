@@ -90,7 +90,7 @@ public class CardDeck : GameObject
     }
 
     public bool fitsInDeck(GameObject other)
-        => other.Back == this.Back
+        => other.Back.Size == this.Back.Size
         && other.Size == this.Size;
 
     public void acceptCard(GameObject card)
