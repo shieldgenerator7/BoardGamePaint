@@ -14,14 +14,23 @@ public static class ObjectImportManager
         => filename.ToLower().EndsWith(".txt")
         || filename.ToLower().EndsWith(".json");
 
-    public static string getReadableFileName(string filename)
+    public static string getRelativeFileName(string filename)
     {
         if (filename == null)
         {
             return null;
         }
         string[] split = filename.Split('\\');
-        filename = split[split.Length - 1].Split('.')[0];
+        return split[split.Length - 1];
+    }
+
+    public static string getReadableFileName(string filename)
+    {
+        if (filename == null)
+        {
+            return null;
+        }
+        filename = getRelativeFileName(filename).Split('.')[0];
         if (filename.Contains("["))
         {
             filename = filename.Substring(0, filename.LastIndexOf("["));
@@ -33,6 +42,31 @@ public static class ObjectImportManager
     {
         string[] split = filename.Split('\\');
         return split[split.Length - 2];
+    }
+
+    public static string getFolderPathName(string filename)
+    {
+        int lastSlash = filename.LastIndexOf("\\");
+        return filename.Substring(0, lastSlash);
+    }
+
+    public static int getQuantityFromFileName(string filename)
+    {
+        int quantity = 1;
+        if (filename.Contains("[") && filename.Contains("]"))
+        {
+            int iLeft = filename.LastIndexOf("[");
+            int iRight = filename.LastIndexOf("]");
+            bool parsed = int.TryParse(
+                filename.Substring(iLeft + 1, iRight - iLeft - 1),
+                out quantity
+                );
+            if (quantity < 1 && !parsed)
+            {
+                quantity = 1;
+            }
+        }
+        return quantity;
     }
 
     public static void importObjects(MainForm mf, IEnumerable<string> filenames)
@@ -51,20 +85,7 @@ public static class ObjectImportManager
             }
             else
             {
-                int cardCount = 1;
-                if (filename.Contains("[") && filename.Contains("]"))
-                {
-                    int iLeft = filename.LastIndexOf("[");
-                    int iRight = filename.LastIndexOf("]");
-                    bool parsed = int.TryParse(
-                        filename.Substring(iLeft + 1, iRight - iLeft - 1),
-                        out cardCount
-                        );
-                    if (cardCount < 1 && !parsed)
-                    {
-                        cardCount = 1;
-                    }
-                }
+                int cardCount = getQuantityFromFileName(filename);
                 Image image = Image.FromFile(filename);
                 for (int i = 0; i < cardCount; i++)
                 {
@@ -76,6 +97,10 @@ public static class ObjectImportManager
             ? Image.FromFile(backImageFileName)
             : null;        
         processObjects(mf, objectsToProcess, backImage, getReadableFileName(backImageFileName));
+        if (objectsToProcess.Count > 1 && backImageFileName != null)
+        {
+            writeJSONDeck(filenames, backImageFileName);
+        }
     }
 
     public static void importObject(MainForm mf, string filename)
@@ -191,5 +216,36 @@ public static class ObjectImportManager
         GameObject cardDeck = new CardDeck(objects, backImage, description);
         cardDeck.moveTo(new Vector(100, 100), false);
         mf.addGameObject(cardDeck);
+    }
+
+    static void writeJSONDeck(IEnumerable<string> filenames, string backFilename)
+    {
+        string deckName = getReadableFileName(backFilename);
+        string json = "{" + "\n"
+            + "\"name\": \"" + deckName + "\"," + "\n"
+            + "\"type\": \"deck\"," + "\n"
+            + "\"description\": \"" + deckName + "\"," + "\n"
+            + "\"back\": \"" + getRelativeFileName(backFilename) + "\"," + "\n"
+            + "\"images\": {" + "\n";
+        foreach (string filename in filenames)
+        {
+            if (filename != backFilename)
+            {
+                string cardName = getReadableFileName(filename);
+                json += "\"" + cardName + "\":{" + "\n"
+                    + "\"image\": \"" + getRelativeFileName(filename) + "\"," + "\n"
+                    + "\"description\": \"" + cardName + "\"," + "\n"
+                    + "\"quantity\": " + getQuantityFromFileName(filename) + "\n"
+                    + "}," + "\n";
+            }
+        }
+        //TODO: remove ending comma
+        json += "}" + "\n"//end "images"
+            + "}";//end json
+
+        //Write json to file
+        string folder = getFolderPathName(backFilename);
+        string jsonFileName = folder + "\\" + deckName + ".json";
+        File.WriteAllText(jsonFileName, json);
     }
 }
