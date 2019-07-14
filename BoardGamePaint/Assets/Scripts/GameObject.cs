@@ -112,6 +112,19 @@ public class GameObject : IComparable<GameObject>
         return "Unknown";
     }
 
+    private string fileName = null;
+    public string FileName
+    {
+        get => fileName;
+        set
+        {
+            if (fileName == null || fileName == "")
+            {
+                fileName = value;
+            }
+        }
+    }
+
     //Pickup Runtime Vars
     private Vector pickupOffset = new Vector(0, 0);
 
@@ -132,6 +145,12 @@ public class GameObject : IComparable<GameObject>
         }
         this.description = description;
     }
+    public GameObject(string fileName, string description = null)
+        : this(Image.FromFile(fileName), description)
+    {
+        this.FileName = fileName;
+    }
+
     public GameObject(List<Image> images)
     {
         this.position = new Vector(0, 0);
@@ -139,7 +158,7 @@ public class GameObject : IComparable<GameObject>
         this.imageIndex = 0;
         this.size = this.image.Size;
     }
-    
+
     public virtual void draw(Graphics graphics)
     {
         graphics.DrawImage(
@@ -256,9 +275,9 @@ public class GameObject : IComparable<GameObject>
         bool thisCardDeck = (this is CardDeck);
         bool goCardDeck = (go is CardDeck);
         return (thisSize == goSize)
-            ? (thisCardDeck && ! goCardDeck)
+            ? (thisCardDeck && !goCardDeck)
                 ? 1
-                : (goCardDeck && ! thisCardDeck)
+                : (goCardDeck && !thisCardDeck)
                     ? -1
                     : 0
             : (int)(this.size.toVector().Magnitude - go.size.toVector().Magnitude);

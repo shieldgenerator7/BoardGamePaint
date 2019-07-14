@@ -89,14 +89,16 @@ public static class ObjectImportManager
                 Image image = Image.FromFile(filename);
                 for (int i = 0; i < cardCount; i++)
                 {
-                    objectsToProcess.Add(new GameObject(image, getReadableFileName(filename)));
+                    GameObject gameObject = new GameObject(image, getReadableFileName(filename));
+                    gameObject.FileName = filename;
+                    objectsToProcess.Add(gameObject);
                 }
             }
         }
-        Image backImage = (backImageFileName != null)
-            ? Image.FromFile(backImageFileName)
-            : null;        
-        processObjects(mf, objectsToProcess, backImage, getReadableFileName(backImageFileName));
+        GameObject backImageObject = (backImageFileName != null)
+            ? new GameObject(backImageFileName)
+            : null;
+        processObjects(mf, objectsToProcess, backImageObject, getReadableFileName(backImageFileName));
         if (objectsToProcess.Count > 1 && backImageFileName != null)
         {
             writeJSONDeck(filenames, backImageFileName);
@@ -146,19 +148,20 @@ public static class ObjectImportManager
             for (int i = 0; i < cardCount; i++)
             {
                 GameObject gameObject = new GameObject(image, description);
+                gameObject.FileName = imageFilename;
                 objectsToProcess.Add(gameObject);
             }
         }
         string backFilename = foldername + (string)jo["back"];
         Trace.WriteLine("jo back: " + backFilename);
-        Image backImage = (File.Exists(backFilename))
-            ? Image.FromFile(backFilename)
+        GameObject backImageObject = (File.Exists(backFilename))
+            ? new GameObject(backFilename)
             : null;
         string objectDesc = (string)jo["description"];
-        processObjects(mf, objectsToProcess, backImage, objectDesc);
+        processObjects(mf, objectsToProcess, backImageObject, objectDesc);
     }
 
-    public static void processObjects(MainForm mf, List<GameObject> objectsToProcess, Image backImage = null, string description = null)
+    public static void processObjects(MainForm mf, List<GameObject> objectsToProcess, GameObject backImageObject = null, string description = null)
     {
         //If there are no images,
         if (objectsToProcess.Count < 1)
@@ -179,10 +182,10 @@ public static class ObjectImportManager
         if (allSameSize && objectsToProcess.Count > 1)
         {
             //make it all one object
-            if (backImage != null)
+            if (backImageObject)
             {
                 //make it a deck of cards
-                makeDeck(mf, objectsToProcess, backImage, description);
+                makeDeck(mf, objectsToProcess, backImageObject.image, description);
             }
             else
             {
