@@ -11,9 +11,12 @@ public class CardDeck : GameObject
 
     readonly Random random = new Random();
 
+    Size outerSize;
+
     public CardDeck(List<GameObject> cards, Image backImage, string description = null) : base(backImage, description)
     {
         this.cards = cards;
+        outerSize = new Size(size.Width + 25, size.Height + 25);
     }
 
     public override string getTypeString()
@@ -44,13 +47,30 @@ public class CardDeck : GameObject
 
     public override bool containsPosition(Vector pos)
     {
+        return containsPositionInner(pos)
+            || containsPositionOuter(pos);
+    }
+    public bool containsPositionInner(Vector pos)
+    {
         float halfWidth = size.Width / 2;
         float halfHeight = size.Height / 2;
         float bonusHeight = getBonusHeight();
-        return pos.x >= position.x - halfWidth
+        return
+            pos.x >= position.x - halfWidth
             && pos.x <= position.x + halfWidth
             && pos.y >= position.y - halfHeight - bonusHeight
             && pos.y <= position.y + halfHeight;
+    }
+
+    public bool containsPositionOuter(Vector pos)
+    {
+        float halfWidthOuter = outerSize.Width / 2;
+        float halfHeightOuter = outerSize.Height / 2;
+        return
+            pos.x >= position.x - halfWidthOuter
+            && pos.x <= position.x + halfWidthOuter
+            && pos.y >= position.y - halfHeightOuter
+            && pos.y <= position.y + halfHeightOuter;
     }
 
     public float getBonusHeight()
@@ -61,12 +81,26 @@ public class CardDeck : GameObject
 
     public override Rectangle getRect()
     {
-        int bonusHeight = (int)getBonusHeight();
-        return new Rectangle(
-            (int)position.x - size.Width / 2,
-            (int)position.y - size.Height / 2 - bonusHeight,
-            size.Width,
-            size.Height + bonusHeight);
+        Vector pickupPos = getPickupPosition();
+        bool outsideOnly = containsPositionOuter(pickupPos)
+                       && !containsPositionInner(pickupPos);
+        if (outsideOnly)
+        {
+            return new Rectangle(
+            (int)position.x - outerSize.Width / 2,
+            (int)position.y - outerSize.Height / 2,
+            outerSize.Width,
+            outerSize.Height);
+        }
+        else
+        {
+            int bonusHeight = (int)getBonusHeight();
+            return new Rectangle(
+                (int)position.x - size.Width / 2,
+                (int)position.y - size.Height / 2 - bonusHeight,
+                size.Width,
+                size.Height + bonusHeight);
+        }
     }
 
     public override bool canChangeState()
@@ -75,6 +109,18 @@ public class CardDeck : GameObject
     }
 
     public override GameObject changeState()
+    {
+        //Draw a card
+        int cardIndex = random.Next(0, cards.Count);
+        return drawCard(cardIndex);
+    }
+
+    public override bool canMakeNewObject(Vector mousePos)
+    {
+        return cards.Count > 0 && containsPositionInner(mousePos);
+    }
+
+    public override GameObject makeNewObject()
     {
         //Draw a card
         int cardIndex = random.Next(0, cards.Count);

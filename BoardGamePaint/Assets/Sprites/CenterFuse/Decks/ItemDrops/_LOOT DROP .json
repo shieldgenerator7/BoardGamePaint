@@ -1,0 +1,153 @@
+{
+   "name": "_LOOT DROP ",
+   "type": "deck",
+   "description": "_LOOT DROP ",
+   "back": "_LOOT DROP [BACK].png",
+   "images": {
+      "armor_basic":{
+         "image": "armor_basic[8].png",
+         "description": "armor_basic",
+         "quantity": 8
+      },
+      "armor_good":{
+         "image": "armor_good[4].png",
+         "description": "armor_good",
+         "quantity": 4
+      },
+      "armor_super":{
+         "image": "armor_super[2].png",
+         "description": "armor_super",
+         "quantity": 2
+      },
+      "boots_basic":{
+         "image": "boots_basic[8].png",
+         "description": "boots_basic",
+         "quantity": 8
+      },
+      "boots_good":{
+         "image": "boots_good[4].png",
+         "description": "boots_good",
+         "quantity": 4
+      },
+      "boots_super":{
+         "image": "boots_super[2].png",
+         "description": "boots_super",
+         "quantity": 2
+      },
+      "jetpack_basic":{
+         "image": "jetpack_basic[4].png",
+         "description": "jetpack_basic",
+         "quantity": 4
+      },
+      "jetpack_good":{
+         "image": "jetpack_good[2].png",
+         "description": "jetpack_good",
+         "quantity": 2
+      },
+      "jetpack_super":{
+         "image": "jetpack_super[1].png",
+         "description": "jetpack_super",
+         "quantity": 1
+      },
+      "medkit_basic":{
+         "image": "medkit_basic[16].png",
+         "description": "medkit_basic",
+         "quantity": 16
+      },
+      "medkit_good":{
+         "image": "medkit_good[8].png",
+         "description": "medkit_good",
+         "quantity": 8
+      },
+      "medkit_super":{
+         "image": "medkit_super[4].png",
+         "description": "medkit_super",
+         "quantity": 4
+      },
+      "shield_basic":{
+         "image": "shield_basic[8].png",
+         "description": "shield_basic",
+         "quantity": 8
+      },
+      "shield_good":{
+         "image": "shield_good[4].png",
+         "description": "shield_good",
+         "quantity": 4
+      },
+      "shield_super":{
+         "image": "shield_super[2].png",
+         "description": "shield_super",
+         "quantity": 2
+      },
+      "skill_aimdownsights":{
+         "image": "skill_aimdownsights[6].png",
+         "description": "skill_aimdownsights",
+         "quantity": 6
+      },
+      "skill_combatroll":{
+         "image": "skill_combatroll[6].png",
+         "description": "skill_combatroll",
+         "quantity": 6
+      },
+      "weapon_gun_machinegun":{
+         "image": "weapon_gun_machinegun[4].png",
+         "description": "weapon_gun_machinegun",
+         "quantity": 4
+      },
+      "weapon_gun_pistol":{
+         "image": "weapon_gun_pistol[4].png",
+         "description": "weapon_gun_pistol",
+         "quantity": 4
+      },
+      "weapon_gun_revolver":{
+         "image": "weapon_gun_revolver[4].png",
+         "description": "weapon_gun_revolver",
+         "quantity": 4
+      },
+      "weapon_gun_rifle_assault":{
+         "image": "weapon_gun_rifle_assault[4].png",
+         "description": "weapon_gun_rifle_assault",
+         "quantity": 4
+      },
+      "weapon_gun_shotgun":{
+         "image": "weapon_gun_shotgun[4].png",
+         "description": "weapon_gun_shotgun",
+         "quantity": 4
+      },
+      "weapon_gun_smg":{
+         "image": "weapon_gun_smg[4].png",
+         "description": "weapon_gun_smg",
+         "quantity": 4
+      },
+      "weapon_gun_taser":{
+         "image": "weapon_gun_taser[4].png",
+         "description": "weapon_gun_taser",
+         "quantity": 4
+      },
+      "weapon_melee_boomerang":{
+         "image": "weapon_melee_boomerang[2].png",
+         "description": "weapon_melee_boomerang",
+         "quantity": 2
+      },
+      "weapon_melee_dagger":{
+         "image": "weapon_melee_dagger[2].png",
+         "description": "weapon_melee_dagger",
+         "quantity": 2
+      },
+      "weapon_melee_hammer":{
+         "image": "weapon_melee_hammer[2].png",
+         "description": "weapon_melee_hammer",
+         "quantity": 2
+      },
+      "weapon_melee_sword":{
+         "image": "weapon_melee_sword[2].png",
+         "description": "weapon_melee_sword",
+         "quantity": 2
+      },
+      "weapon_melee_whip":{
+         "image": "weapon_melee_whip[2].png",
+         "description": "weapon_melee_whip",
+         "quantity": 2
+      },
+   }
+}

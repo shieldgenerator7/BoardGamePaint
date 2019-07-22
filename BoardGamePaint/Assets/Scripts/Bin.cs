@@ -8,7 +8,12 @@ public class Bin : GameObject
         size = new Size(binSize, binSize);
     }
 
-    public GameObject makeNewObject()
+    public override bool canMakeNewObject(Vector mousePos)
+    {
+        return true;
+    }
+
+    public override GameObject makeNewObject()
     {
         return new GameObject(image);
     }

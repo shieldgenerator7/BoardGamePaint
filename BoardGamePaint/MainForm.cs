@@ -124,7 +124,7 @@ namespace BoardGamePaint
                 else
                 {
                     //just mousing over things
-                    if (mousedOver is Bin)
+                    if (mousedOver is Bin || mousedOver.canMakeNewObject(mousePosition.toVector()))
                     {
                         graphics.DrawRectangle(createPen, mousedOver.getRect());
                     }
@@ -194,6 +194,14 @@ namespace BoardGamePaint
                     {
                         selected = gameObject;
                         selected.pickup(mouseVector);
+                        if (gameObject.canMakeNewObject(mouseVector))
+                        {
+                            selected = gameObject.makeNewObject();
+                            addGameObject(selected);
+                            selected.moveTo(mouseVector, false);
+                            selected.pickup(mouseVector);
+                            mousedOver = selected;
+                        }
                         break;
                     }
                 }
@@ -235,6 +243,7 @@ namespace BoardGamePaint
                         if (gameObject.containsPosition(mouseVector))
                         {
                             mousedOver = gameObject;
+                            mousedOver.pickup(mouseVector);
                             break;
                         }
                     }

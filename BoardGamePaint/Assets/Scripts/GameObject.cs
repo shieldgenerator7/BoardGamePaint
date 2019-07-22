@@ -189,6 +189,11 @@ public class GameObject : IComparable<GameObject>
         }
     }
 
+    public Vector getPickupPosition()
+    {
+        return position - pickupOffset;
+    }
+
     public virtual void moveTo(Vector pos, bool useOffset = true)
     {
         if (useOffset)
@@ -252,6 +257,16 @@ public class GameObject : IComparable<GameObject>
             }
         }
         return null;
+    }
+
+    public virtual bool canMakeNewObject(Vector mousePos)
+    {
+        return false;
+    }
+
+    public virtual GameObject makeNewObject()
+    {
+        throw new NotImplementedException("Class " + GetType() + " does not implement GameObject.makeNewObject().");
     }
 
     public virtual Rectangle getRect()
