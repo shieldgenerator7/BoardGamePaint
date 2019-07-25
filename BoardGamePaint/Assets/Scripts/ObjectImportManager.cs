@@ -152,34 +152,35 @@ public static class ObjectImportManager
                 objectsToProcess.Add(gameObject);
             }
         }
+        //Description
+        string objectDesc = (string)jo["description"];
+        //Type
+        string objectType = ((string)jo["type"])?.ToLower();
+        GameObject backImageObject = null;
         string backFilename = foldername + (string)jo["back"];
         Trace.WriteLine("jo back: " + backFilename);
-        GameObject backImageObject = (File.Exists(backFilename))
-            ? new GameObject(backFilename)
-            : null;
-        string objectDesc = (string)jo["description"];
-        processObjects(mf, objectsToProcess, backImageObject, objectDesc);
+        if (objectType == "deck"
+            || objectType == null && File.Exists(backFilename))
+        {
+            backImageObject = new GameObject(backFilename);
+            makeDeck(mf, objectsToProcess, Image.FromFile(backFilename), objectDesc);
+        }
+        else
+        {
+            makeDie(mf, objectsToProcess, objectDesc);
+        }
     }
 
     public static void processObjects(MainForm mf, List<GameObject> objectsToProcess, GameObject backImageObject = null, string description = null)
     {
-        //If there are no images,
+        //If there are no objects,
         if (objectsToProcess.Count < 1)
         {
-            //Don't process any images
+            //Don't process any objects
             return;
         }
-        Size firstSize = objectsToProcess[0].Size;
-        bool allSameSize = true;
-        foreach (GameObject go in objectsToProcess)
-        {
-            if (go.Size != firstSize)
-            {
-                allSameSize = false;
-                break;
-            }
-        }
-        if (allSameSize && objectsToProcess.Count > 1)
+        if (allObjectsSameSize(objectsToProcess)
+            && objectsToProcess.Count > 1)
         {
             //make it all one object
             if (backImageObject)
@@ -190,14 +191,7 @@ public static class ObjectImportManager
             else
             {
                 //else make it an object with many states
-                List<Image> images = new List<Image>(
-                    from go in objectsToProcess
-                    select go.image
-                    );
-
-                GameObject gameObject = new GameObject(images);
-                gameObject.moveTo(new Vector(100, 100), false);
-                mf.addGameObject(gameObject);
+                makeDie(mf, objectsToProcess, description);
             }
         }
         else
@@ -219,6 +213,30 @@ public static class ObjectImportManager
         GameObject cardDeck = new CardDeck(objects, backImage, description);
         cardDeck.moveTo(new Vector(100, 100), false);
         mf.addGameObject(cardDeck);
+    }
+
+    static void makeDie(MainForm mf, List<GameObject> objects, string description)
+    {
+        List<Image> images = new List<Image>(
+            from go in objects
+            select go.image
+            );
+        GameObject gameObject = new GameObject(images);
+        gameObject.moveTo(new Vector(100, 100), false);
+        mf.addGameObject(gameObject);
+    }
+
+    static bool allObjectsSameSize(List<GameObject> objectsToProcess)
+    {
+        Size firstSize = objectsToProcess[0].Size;
+        foreach (GameObject go in objectsToProcess)
+        {
+            if (go.Size != firstSize)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     static void writeJSONDeck(IEnumerable<string> filenames, string backFilename)

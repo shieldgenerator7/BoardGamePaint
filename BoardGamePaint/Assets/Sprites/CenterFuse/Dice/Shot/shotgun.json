@@ -1,6 +1,7 @@
 {
 	"name": "shotgun",
-	"type": "die",
+	"type": "deck",
+	"back": "shotBack[back].png",
 	"description": "Shotgun: 8 damage/shot, 2 range, 2 shots/turn",
 	"images": {
 		"100":{
@@ -23,6 +24,5 @@
 			"description": "0 Shotgun Damage",
 			"quantity": 1
 		}
-	},
-	"back": "shotBack[back].png"
+	}
 }
