@@ -66,10 +66,11 @@ public class CardDeck : GameObject
     {
         float halfWidthOuter = outerSize.Width / 2;
         float halfHeightOuter = outerSize.Height / 2;
+        float bonusHeight = getBonusHeight();
         return
             pos.x >= position.x - halfWidthOuter
             && pos.x <= position.x + halfWidthOuter
-            && pos.y >= position.y - halfHeightOuter
+            && pos.y >= position.y - halfHeightOuter - bonusHeight
             && pos.y <= position.y + halfHeightOuter;
     }
 
@@ -82,19 +83,19 @@ public class CardDeck : GameObject
     public override Rectangle getRect()
     {
         Vector pickupPos = getPickupPosition();
+        int bonusHeight = (int)getBonusHeight();
         bool outsideOnly = containsPositionOuter(pickupPos)
                        && !containsPositionInner(pickupPos);
         if (outsideOnly)
         {
             return new Rectangle(
             (int)position.x - outerSize.Width / 2,
-            (int)position.y - outerSize.Height / 2,
+            (int)position.y - outerSize.Height / 2 - bonusHeight,
             outerSize.Width,
-            outerSize.Height);
+            outerSize.Height + bonusHeight);
         }
         else
         {
-            int bonusHeight = (int)getBonusHeight();
             return new Rectangle(
                 (int)position.x - size.Width / 2,
                 (int)position.y - size.Height / 2 - bonusHeight,
