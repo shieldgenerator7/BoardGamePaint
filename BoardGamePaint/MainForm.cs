@@ -173,11 +173,7 @@ namespace BoardGamePaint
                 Bin selectedBin = binManager.getBin(mouseVector);
                 if (selectedBin)
                 {
-                    selected = selectedBin.makeNewObject();
-                    addGameObject(selected);
-                    selected.moveTo(mouseVector, false);
-                    selected.pickup(mouseVector);
-                    mousedOver = selected;
+                    selected = selectedBin;
                 }
                 else
                 {
@@ -194,17 +190,17 @@ namespace BoardGamePaint
                     {
                         selected = gameObject;
                         selected.pickup(mouseVector);
-                        if (gameObject.canMakeNewObject(mouseVector))
-                        {
-                            selected = gameObject.makeNewObject();
-                            addGameObject(selected);
-                            selected.moveTo(mouseVector, false);
-                            selected.pickup(mouseVector);
-                            mousedOver = selected;
-                        }
                         break;
                     }
                 }
+            }
+            if (selected.canMakeNewObject(mouseVector))
+            {
+                selected = selected.makeNewObject();
+                addGameObject(selected);
+                selected.moveTo(mouseVector, false);
+                selected.pickup(mouseVector);
+                mousedOver = selected;
             }
         }
 
