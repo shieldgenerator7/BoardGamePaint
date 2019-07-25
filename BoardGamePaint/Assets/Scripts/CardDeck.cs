@@ -113,7 +113,9 @@ public class CardDeck : GameObject
     {
         //Draw a card
         int cardIndex = random.Next(0, cards.Count);
-        return drawCard(cardIndex);
+        GameObject card = drawCard(cardIndex);
+        card.moveTo(getPickupPosition(), false);
+        return card;
     }
 
     public override bool canMakeNewObject(Vector mousePos)
