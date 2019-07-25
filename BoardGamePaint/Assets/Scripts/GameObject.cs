@@ -45,6 +45,26 @@ public class GameObject : IComparable<GameObject>
             }
             return null;
         }
+
+        protected set
+        {
+            if (images.Count > 2)
+            {
+                images[images.Count - 1] = value;
+            }
+            else
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    if (i > images.Count - 1
+                        || images[i] == null)
+                    {
+                        images.Add(value);
+                    }
+                }
+                images[1] = value;
+            }
+        }
     }
 
     public Image Back

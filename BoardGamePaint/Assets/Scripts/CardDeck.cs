@@ -7,13 +7,13 @@ public class CardDeck : GameObject
     int MAX_VISIBLE_CARD_COUNT = 100;
     float CARD_SPACING = 0.5f;
 
-    readonly List<GameObject> cards = new List<GameObject>();
+    readonly List<Card> cards = new List<Card>();
 
     readonly Random random = new Random();
 
-    Size outerSize;
+    protected Size outerSize;
 
-    public CardDeck(List<GameObject> cards, Image backImage, string description = null) : base(backImage, description)
+    public CardDeck(List<Card> cards, Image backImage, string description = null) : base(backImage, description)
     {
         this.cards = cards;
         outerSize = new Size(size.Width + 25, size.Height + 25);
@@ -29,9 +29,10 @@ public class CardDeck : GameObject
     public override void draw(Graphics graphics)
     {
         base.draw(graphics);
-        if (cards.Count > 1)
+        int cardCount = (cards != null) ? cards.Count : images.Count;
+        if (cardCount > 1)
         {
-            int limit = Math.Min(MAX_VISIBLE_CARD_COUNT, cards.Count);
+            int limit = Math.Min(MAX_VISIBLE_CARD_COUNT, cardCount);
             for (int i = 1; i < limit; i++)
             {
                 graphics.DrawImage(
@@ -76,7 +77,8 @@ public class CardDeck : GameObject
 
     public float getBonusHeight()
     {
-        int limit = Math.Min(MAX_VISIBLE_CARD_COUNT, cards.Count);
+        int cardCount = (cards != null) ? cards.Count : images.Count;
+        int limit = Math.Min(MAX_VISIBLE_CARD_COUNT, cardCount);
         return limit * CARD_SPACING;
     }
 
@@ -139,10 +141,11 @@ public class CardDeck : GameObject
     }
 
     public bool fitsInDeck(GameObject other)
-        => other.Back.Size == this.Back.Size
+        => other is Card
+        && other.Back.Size == this.Back.Size
         && other.Size == this.Size;
 
-    public void acceptCard(GameObject card)
+    public virtual void acceptCard(Card card)
     {
         card.image = card.Back;
         cards.Add(card);

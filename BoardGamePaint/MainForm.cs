@@ -15,6 +15,8 @@ namespace BoardGamePaint
         int BRUSH_THICKNESS = 4;
         bool WAYPOINTS_ENABLED = false;
 
+        public static MainForm instance;
+
         List<GameObject> gameObjects;
         List<WayPoint> wayPoints;
         List<GameObject> renderOrder;
@@ -35,6 +37,7 @@ namespace BoardGamePaint
 
         public MainForm()
         {
+            instance = this;
             this.DoubleBuffered = true;
             InitializeComponent();
             //
@@ -194,7 +197,7 @@ namespace BoardGamePaint
                     }
                 }
             }
-            if (selected.canMakeNewObject(mouseVector))
+            if (selected && selected.canMakeNewObject(mouseVector))
             {
                 selected = selected.makeNewObject();
                 addGameObject(selected);
@@ -293,7 +296,7 @@ namespace BoardGamePaint
                             if (anchorObject is CardDeck
                                 && ((CardDeck)anchorObject).fitsInDeck(selected))
                             {
-                                ((CardDeck)anchorObject).acceptCard(selected);
+                                ((CardDeck)anchorObject).acceptCard((Card)selected);
                                 removeGameObject(selected);
                             }
                             else
@@ -363,6 +366,10 @@ namespace BoardGamePaint
             refresh();
         }
 
+        public static void add(GameObject gameObject)
+        {
+            instance.addGameObject(gameObject);
+        }
         public void addGameObject(GameObject gameObject)
         {
             gameObjects.Add(gameObject);
@@ -370,6 +377,10 @@ namespace BoardGamePaint
             renderOrder.Add(gameObject);
             renderOrder.Sort();
             renderOrder.Reverse();
+        }
+        public static void remove(GameObject gameObject)
+        {
+            instance.removeGameObject(gameObject);
         }
         public void removeGameObject(GameObject gameObject)
         {

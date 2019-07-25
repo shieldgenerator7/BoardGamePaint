@@ -206,11 +206,12 @@ public static class ObjectImportManager
 
     static void makeDeck(MainForm mf, List<GameObject> objects, Image backImage, string description)
     {
+        List<Card> cards = new List<Card>();
         foreach (GameObject gameObject in objects)
         {
-            gameObject.Back = backImage;
+            cards.Add(new Card(gameObject, backImage));
         }
-        GameObject cardDeck = new CardDeck(objects, backImage, description);
+        CardDeck cardDeck = new CardDeck(cards, backImage, description);
         cardDeck.moveTo(new Vector(100, 100), false);
         mf.addGameObject(cardDeck);
     }
