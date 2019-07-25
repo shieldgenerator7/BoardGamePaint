@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BoardGamePaint;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 
@@ -137,6 +138,10 @@ public class CardDeck : GameObject
         GameObject newCard = cards[cardIndex];
         newCard.moveTo(position + new Vector(10, 10), false);
         cards.RemoveAt(cardIndex);
+        if (cards.Count == 0)
+        {
+            MainForm.remove(this);
+        }
         return newCard;
     }
 
