@@ -141,7 +141,7 @@ public class CardDeck : GameObject
         cards.RemoveAt(cardIndex);
         if (cards.Count == 0)
         {
-            MainForm.remove(this);
+            Managers.Form.removeGameObject(this);
         }
         return newCard;
     }

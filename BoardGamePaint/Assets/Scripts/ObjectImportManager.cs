@@ -199,7 +199,7 @@ public static class ObjectImportManager
             //make them separate objects
             foreach (GameObject gameobject in objectsToProcess)
             {
-                mf.binManager.makeBin(gameobject);
+                Managers.Bin.makeBin(gameobject);
             }
         }
     }
@@ -212,7 +212,7 @@ public static class ObjectImportManager
             cards.Add(new Card(gameObject, backImage));
         }
         CardDeck cardDeck = new CardDeck(cards, backImage, description);
-        MainForm.instance.binManager.makeBin(cardDeck);
+        Managers.Bin.makeBin(cardDeck);
     }
 
     static void makeDie(MainForm mf, List<GameObject> objects, string description)
@@ -222,7 +222,7 @@ public static class ObjectImportManager
             select go.image
             );
         GameObject gameObject = new GameObject(images);
-        MainForm.instance.binManager.makeBin(gameObject);
+        Managers.Bin.makeBin(gameObject);
     }
 
     static bool allObjectsSameSize(List<GameObject> objectsToProcess)

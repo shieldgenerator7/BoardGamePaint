@@ -15,8 +15,6 @@ namespace BoardGamePaint
         int BRUSH_THICKNESS = 4;
         bool WAYPOINTS_ENABLED = false;
 
-        public static MainForm instance;
-
         List<GameObject> gameObjects;
         List<WayPoint> wayPoints;
         List<GameObject> renderOrder;
@@ -33,11 +31,8 @@ namespace BoardGamePaint
         Pen changePen;
         Pen createPen;
 
-        readonly public BinManager binManager = new BinManager();
-
         public MainForm()
         {
-            instance = this;
             this.DoubleBuffered = true;
             InitializeComponent();
             //
@@ -54,6 +49,8 @@ namespace BoardGamePaint
             }
             wayPoints = new List<WayPoint>();
             renderOrder = new List<GameObject>();
+            //
+            Managers.init(this);
         }
 
         private void pnlSpace_Paint(object sender, PaintEventArgs e)
@@ -69,7 +66,7 @@ namespace BoardGamePaint
                     gameObject.draw(graphics);
                 }
             }
-            binManager.draw(graphics);
+            Managers.Bin.draw(graphics);
             if (!mousedOver)
             {
                 mousedOver = selected;
@@ -80,13 +77,13 @@ namespace BoardGamePaint
                 {
                     Vector mouseVector = mousePosition.toVector();
                     //in the middle of a drag
-                    if (mousedOver != binManager
+                    if (mousedOver != Managers.Bin
                         && !(mousedOver is Bin)
-                        && binManager.containsPosition(mouseVector))
+                        && Managers.Bin.containsPosition(mouseVector))
                     {
                         graphics.DrawRectangle(deletePen, mousedOver.getRect());
                     }
-                    else if (mousedOver == binManager)
+                    else if (mousedOver == Managers.Bin)
                     {
                         graphics.DrawRectangle(selectPen, mousedOver.getRect());
                     }
@@ -171,16 +168,16 @@ namespace BoardGamePaint
             mouseHover = false;
             mouseDown = true;
             Vector mouseVector = e.Location.toVector();
-            if (binManager.containsPosition(mouseVector))
+            if (Managers.Bin.containsPosition(mouseVector))
             {
-                Bin selectedBin = binManager.getBin(mouseVector);
+                Bin selectedBin = Managers.Bin.getBin(mouseVector);
                 if (selectedBin)
                 {
                     selected = selectedBin;
                 }
                 else
                 {
-                    selected = binManager;
+                    selected = Managers.Bin;
                     selected.pickup(mouseVector);
                 }
             }
@@ -223,16 +220,16 @@ namespace BoardGamePaint
             else
             {
                 mousedOver = null;
-                if (binManager.containsPosition(mouseVector))
+                if (Managers.Bin.containsPosition(mouseVector))
                 {
-                    Bin mousedOverBin = binManager.getBin(mouseVector);
+                    Bin mousedOverBin = Managers.Bin.getBin(mouseVector);
                     if (mousedOverBin)
                     {
                         mousedOver = mousedOverBin;
                     }
                     else
                     {
-                        mousedOver = binManager;
+                        mousedOver = Managers.Bin;
                     }
                 }
                 if (!mousedOver)
@@ -256,9 +253,9 @@ namespace BoardGamePaint
             mouseDown = false;
             if (selected)
             {
-                if (selected != binManager)
+                if (selected != Managers.Bin)
                 {
-                    if (binManager.containsPosition(mouseVector))
+                    if (Managers.Bin.containsPosition(mouseVector))
                     {
                         removeGameObject(selected);
                     }
@@ -366,10 +363,6 @@ namespace BoardGamePaint
             refresh();
         }
 
-        public static void add(GameObject gameObject)
-        {
-            instance.addGameObject(gameObject);
-        }
         public void addGameObject(GameObject gameObject)
         {
             gameObjects.Add(gameObject);
@@ -377,10 +370,6 @@ namespace BoardGamePaint
             renderOrder.Add(gameObject);
             renderOrder.Sort();
             renderOrder.Reverse();
-        }
-        public static void remove(GameObject gameObject)
-        {
-            instance.removeGameObject(gameObject);
         }
         public void removeGameObject(GameObject gameObject)
         {
@@ -390,6 +379,7 @@ namespace BoardGamePaint
             renderOrder.Sort();
             renderOrder.Reverse();
         }
+
         void addWayPoint(WayPoint wayPoint)
         {
             wayPoints.Add(wayPoint);

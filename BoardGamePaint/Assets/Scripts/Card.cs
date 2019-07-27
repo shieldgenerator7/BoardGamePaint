@@ -52,9 +52,9 @@ public class Card : CardDeck
             );
         newParent.moveTo(Position, false);
         card.image = card.Back;
-        MainForm.add(newParent);
-        MainForm.remove(this);
-        MainForm.remove(card);
+        Managers.Form.addGameObject(newParent);
+        Managers.Form.removeGameObject(this);
+        Managers.Form.removeGameObject(card);
     }
 
     public override object Clone()
