@@ -132,6 +132,19 @@ public class GameObject : IComparable<GameObject>, ICloneable
         return "Unknown";
     }
 
+    private int stateChangeCount = 0;
+    protected virtual string getFooterNumberString()
+    {
+        if (canChangeState())
+        {
+            return "" + stateChangeCount;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
     private string fileName = null;
     public string FileName
     {
@@ -188,6 +201,23 @@ public class GameObject : IComparable<GameObject>, ICloneable
             size.Width,
             size.Height
             );
+        drawFooterNumber(graphics);
+    }
+    public void drawFooterNumber(Graphics graphics)
+    {
+        string footerString = getFooterNumberString();
+        if (footerString != null && footerString != "")
+        {
+            Font font = new Font("Ariel", 18);
+            Brush brush = new SolidBrush(Color.Black);
+            graphics.DrawString(
+                footerString,
+                font,
+                brush,
+                position.x + size.Width / 2,
+                position.y + size.Height / 2
+                );
+        }
     }
 
     public virtual bool containsPosition(Vector pos)
@@ -254,10 +284,11 @@ public class GameObject : IComparable<GameObject>, ICloneable
         return images.Count > 1;
     }
 
-    public virtual GameObject changeState()
+    public virtual void changeState()
     {
         if (images.Count >= 2)
         {
+            stateChangeCount++;
             //Change state
             if (images.Count == 2)
             {
@@ -276,7 +307,6 @@ public class GameObject : IComparable<GameObject>, ICloneable
                 imageIndex = newIndex;
             }
         }
-        return null;
     }
 
     public virtual bool canMakeNewObject(Vector mousePos)

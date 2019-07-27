@@ -28,6 +28,11 @@ public class CardDeck : GameObject
             : ""
             );
 
+    protected override string getFooterNumberString()
+    {
+        return "" + cards.Count;
+    }
+
     public override void draw(Graphics graphics)
     {
         base.draw(graphics);
@@ -46,6 +51,7 @@ public class CardDeck : GameObject
                 );
             }
         }
+        drawFooterNumber(graphics);
     }
 
     public override bool containsPosition(Vector pos)
@@ -113,13 +119,13 @@ public class CardDeck : GameObject
         return cards.Count > 0;
     }
 
-    public override GameObject changeState()
+    public override void changeState()
     {
         //Draw a card
         int cardIndex = random.Next(0, cards.Count);
         GameObject card = drawCard(cardIndex);
         card.moveTo(getPickupPosition(), false);
-        return card;
+        Managers.Form.addGameObject(card);
     }
 
     public override bool canMakeNewObject(Vector mousePos)
@@ -146,7 +152,7 @@ public class CardDeck : GameObject
         return newCard;
     }
 
-    public bool fitsInDeck(GameObject other)
+    public virtual bool fitsInDeck(GameObject other)
         => (other is Card || other is CardDeck)
         && other.Back.Size == this.Back.Size
         && other.Size == this.Size;

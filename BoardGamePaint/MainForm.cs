@@ -341,11 +341,7 @@ namespace BoardGamePaint
                     && gameObject.containsPosition(mouseVector))
                 {
                     changedObjectState = true;
-                    GameObject result = gameObject.changeState();
-                    if (result)
-                    {
-                        addGameObject(result);
-                    }
+                    gameObject.changeState();
                     break;
                 }
             }

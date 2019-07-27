@@ -22,12 +22,17 @@ public class Card : CardDeck
         return "Card";
     }
 
+    protected override string getFooterNumberString()
+    {
+        return null;
+    }
+
     public override bool canChangeState()
     {
         return true;
     }
 
-    public override GameObject changeState()
+    public override void changeState()
     {
         //Change state
         if (images.Count == 2)
@@ -35,7 +40,6 @@ public class Card : CardDeck
             //Flip
             imageIndex = (imageIndex + 1) % 2;
         }
-        return null;
     }
 
     public override bool canMakeNewObject(Vector mousePos)
@@ -43,8 +47,17 @@ public class Card : CardDeck
         return false;
     }
 
+    public override bool fitsInDeck(GameObject other)
+    {
+        return other is Card && base.fitsInDeck(other);
+    }
+
     public override void acceptCard(CardDeck cardDeck)
     {
+        if (!(cardDeck is Card))
+        {
+            return;
+        }
         Card card = (Card)cardDeck;
         CardDeck newParent = new CardDeck(
             new List<Card>() { this, card },
