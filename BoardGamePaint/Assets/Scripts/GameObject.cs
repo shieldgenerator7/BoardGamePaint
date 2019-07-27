@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-public class GameObject : IComparable<GameObject>
+public class GameObject : IComparable<GameObject>, ICloneable
 {
 
     //Drawing Runtime Vars
@@ -90,7 +90,7 @@ public class GameObject : IComparable<GameObject>
         }
     }
 
-    private string description = null;
+    protected string description = null;
     public string Description
     {
         get
@@ -334,5 +334,13 @@ public class GameObject : IComparable<GameObject>
         return (aSize == bSize)
             ? a is CardDeck
             : aSize > bSize;
+    }
+
+    public virtual object Clone()
+    {
+        GameObject newGO = new GameObject(images);
+        newGO.description = (string)this.description;
+        newGO.fileName = (string)this.fileName;
+        return newGO;
     }
 }

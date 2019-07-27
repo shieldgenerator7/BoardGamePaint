@@ -212,8 +212,7 @@ public static class ObjectImportManager
             cards.Add(new Card(gameObject, backImage));
         }
         CardDeck cardDeck = new CardDeck(cards, backImage, description);
-        cardDeck.moveTo(new Vector(100, 100), false);
-        mf.addGameObject(cardDeck);
+        MainForm.instance.binManager.makeBin(cardDeck);
     }
 
     static void makeDie(MainForm mf, List<GameObject> objects, string description)
@@ -223,8 +222,7 @@ public static class ObjectImportManager
             select go.image
             );
         GameObject gameObject = new GameObject(images);
-        gameObject.moveTo(new Vector(100, 100), false);
-        mf.addGameObject(gameObject);
+        MainForm.instance.binManager.makeBin(gameObject);
     }
 
     static bool allObjectsSameSize(List<GameObject> objectsToProcess)

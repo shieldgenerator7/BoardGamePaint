@@ -3,8 +3,11 @@ using System.Drawing;
 
 public class Bin : GameObject
 {
+    private GameObject template;
+
     public Bin(GameObject gameObject, int binSize) : base(gameObject.image)
     {
+        this.template = gameObject;
         size = new Size(binSize, binSize);
     }
 
@@ -15,11 +18,11 @@ public class Bin : GameObject
 
     public override GameObject makeNewObject()
     {
-        return new GameObject(image);
+        return (GameObject)template.Clone();
     }
 
     public override string getTypeString()
     {
-        return "Piece"+" Bin";
+        return template.Description + " Bin";
     }
 }

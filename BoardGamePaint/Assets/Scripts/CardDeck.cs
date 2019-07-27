@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 public class CardDeck : GameObject
 {
@@ -154,5 +155,15 @@ public class CardDeck : GameObject
     {
         card.image = card.Back;
         cards.Add(card);
+    }
+
+    public override object Clone()
+    {
+        List<Card> newCards = new List<Card>(
+            from card in this.cards
+            select (Card)card.Clone()
+            );
+        CardDeck newDeck = new CardDeck(newCards, this.Back, this.description);
+        return newDeck;
     }
 }

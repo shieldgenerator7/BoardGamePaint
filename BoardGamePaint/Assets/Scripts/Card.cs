@@ -56,4 +56,11 @@ public class Card : CardDeck
         MainForm.remove(this);
         MainForm.remove(card);
     }
+
+    public override object Clone()
+    {
+        Card newCard = new Card(this.Face, this.Back, this.description);
+        newCard.FileName = (string)this.FileName;
+        return newCard;
+    }
 }
