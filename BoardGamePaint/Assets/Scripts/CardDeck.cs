@@ -147,14 +147,22 @@ public class CardDeck : GameObject
     }
 
     public bool fitsInDeck(GameObject other)
-        => other is Card
+        => (other is Card || other is CardDeck)
         && other.Back.Size == this.Back.Size
         && other.Size == this.Size;
 
-    public virtual void acceptCard(Card card)
+    public virtual void acceptCard(CardDeck card)
     {
-        card.image = card.Back;
-        cards.Add(card);
+        if (card is Card)
+        {
+            card.image = card.Back;
+            cards.Add((Card)card);
+        }
+        else
+        {
+            cards.AddRange(card.cards);
+            Managers.Form.removeGameObject(card);
+        }
     }
 
     public override object Clone()

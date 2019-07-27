@@ -43,8 +43,9 @@ public class Card : CardDeck
         return false;
     }
 
-    public override void acceptCard(Card card)
+    public override void acceptCard(CardDeck cardDeck)
     {
+        Card card = (Card)cardDeck;
         CardDeck newParent = new CardDeck(
             new List<Card>() { this, card },
             card.Back,
