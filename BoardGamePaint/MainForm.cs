@@ -244,6 +244,14 @@ namespace BoardGamePaint
                         }
                     }
                 }
+                if (mousedOver)
+                {
+                    Cursor.Current = Cursors.SizeAll;
+                }
+                else
+                {
+                    Cursor.Current = Cursors.Default;
+                }
             }
         }
 
