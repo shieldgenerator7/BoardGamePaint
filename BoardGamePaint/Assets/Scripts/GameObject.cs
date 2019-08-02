@@ -20,7 +20,7 @@ public class GameObject : IComparable<GameObject>, ICloneable
     public virtual Image image { get; protected set; }
 
     protected string description = null;
-    public string Description
+    public virtual string Description
     {
         get
         {

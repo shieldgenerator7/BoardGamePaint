@@ -22,6 +22,10 @@ public class Card : CardDeck
         get => (FaceUp) ? Face : Back;
     }
 
+    public override string Description {
+        get => (FaceUp) ? description : getTypeString();
+    }
+
     public override string getTypeString()
     {
         return "Card";
