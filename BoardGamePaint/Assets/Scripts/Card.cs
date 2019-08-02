@@ -14,7 +14,7 @@ public class Card : CardDeck
     }
 
     public Card(GameObject cardToBe, Image backImage) :
-        this(cardToBe.Face, backImage, cardToBe.Description)
+        this(cardToBe.image, backImage, cardToBe.Description)
     { }
 
     public override string getTypeString()

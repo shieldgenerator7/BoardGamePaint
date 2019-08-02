@@ -21,6 +21,61 @@ public class CardDeck : GameObject
         outerSize = new Size(size.Width + 25, size.Height + 25);
     }
 
+    public Image Face
+    {
+        get
+        {
+            if (images.Count > 0)
+            {
+                return images[images.Count - 1];
+            }
+            return null;
+        }
+
+        protected set
+        {
+            if (images.Count > 2)
+            {
+                images[images.Count - 1] = value;
+            }
+            else
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    if (i > images.Count - 1
+                        || images[i] == null)
+                    {
+                        images.Add(value);
+                    }
+                }
+                images[1] = value;
+            }
+        }
+    }
+
+    public Image Back
+    {
+        get
+        {
+            if (images.Count > 0)
+            {
+                return images[0];
+            }
+            return null;
+        }
+        set
+        {
+            if (images.Count < 2)
+            {
+                images.Insert(0, value);
+            }
+            else
+            {
+                images[0] = value;
+            }
+        }
+    }
+
     public override string getTypeString()
         => "Deck of Cards"
         + ((cards.Count == 0)
@@ -154,7 +209,7 @@ public class CardDeck : GameObject
 
     public virtual bool fitsInDeck(GameObject other)
         => (other is Card || other is CardDeck)
-        && other.Back.Size == this.Back.Size
+        && ((CardDeck)other).Back.Size == this.Back.Size
         && other.Size == this.Size;
 
     public virtual void acceptCard(CardDeck card)

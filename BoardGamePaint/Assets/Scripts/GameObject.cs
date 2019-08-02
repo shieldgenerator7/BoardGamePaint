@@ -35,61 +35,6 @@ public class GameObject : IComparable<GameObject>, ICloneable
         }
     }
 
-    public Image Face
-    {
-        get
-        {
-            if (images.Count > 0)
-            {
-                return images[images.Count - 1];
-            }
-            return null;
-        }
-
-        protected set
-        {
-            if (images.Count > 2)
-            {
-                images[images.Count - 1] = value;
-            }
-            else
-            {
-                for (int i = 0; i < 2; i++)
-                {
-                    if (i > images.Count - 1
-                        || images[i] == null)
-                    {
-                        images.Add(value);
-                    }
-                }
-                images[1] = value;
-            }
-        }
-    }
-
-    public Image Back
-    {
-        get
-        {
-            if (images.Count > 0)
-            {
-                return images[0];
-            }
-            return null;
-        }
-        set
-        {
-            if (images.Count < 2)
-            {
-                images.Insert(0, value);
-            }
-            else
-            {
-                images[0] = value;
-            }
-        }
-    }
-
     protected string description = null;
     public string Description
     {
