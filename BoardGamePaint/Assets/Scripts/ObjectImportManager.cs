@@ -221,8 +221,8 @@ public static class ObjectImportManager
             from go in objects
             select go.image
             );
-        GameObject gameObject = new GameObject(images);
-        Managers.Bin.makeBin(gameObject);
+        Die die = new Die(images, description);
+        Managers.Bin.makeBin(die);
     }
 
     static bool allObjectsSameSize(List<GameObject> objectsToProcess)

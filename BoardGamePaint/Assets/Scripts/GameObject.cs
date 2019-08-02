@@ -16,33 +16,15 @@ public class GameObject : IComparable<GameObject>, ICloneable
     {
         get { return new Size(size.Width, size.Height); }
     }
-    protected List<Image> images;
-    protected int imageIndex = 0;
-    public Image image
-    {
-        get { return images?[imageIndex]; }
-        set
-        {
-            if (images == null)
-            {
-                images = new List<Image>();
-            }
-            if (!images.Contains(value))
-            {
-                images.Add(value);
-            }
-            imageIndex = images.IndexOf(value);
-        }
-    }
+
+    public virtual Image image { get; protected set; }
 
     protected string description = null;
     public string Description
     {
         get
         {
-            if (description == null
-                //if it's a facedown card
-                || images.Count == 2 && imageIndex == 0)
+            if (description == null)
             {
                 return getTypeString();
             }
@@ -51,43 +33,19 @@ public class GameObject : IComparable<GameObject>, ICloneable
     }
     public virtual string getTypeString()
     {
-        if (images == null)
+        if (anchoredObjects.Count > 0)
         {
-            return "Bin Drawer";
-        }
-        if (images.Count == 1)
-        {
-            if (anchoredObjects.Count > 0)
-            {
-                return "Board";
-            }
-            else
-            {
-                return "Piece";
-            }
-        }
-        else if (images.Count == 2)
-        {
-            return "Card";
-        }
-        else if (images.Count > 2)
-        {
-            return "Die";
-        }
-        return "Unknown";
-    }
-
-    private int stateChangeCount = 0;
-    protected virtual string getFooterNumberString()
-    {
-        if (canChangeState())
-        {
-            return "" + stateChangeCount;
+            return "Board";
         }
         else
         {
-            return null;
+            return "Piece";
         }
+    }
+
+    protected virtual string getFooterNumberString()
+    {
+        return null;
     }
 
     private string fileName = null;
@@ -127,14 +85,6 @@ public class GameObject : IComparable<GameObject>, ICloneable
         : this(Image.FromFile(fileName), description)
     {
         this.FileName = fileName;
-    }
-
-    public GameObject(List<Image> images)
-    {
-        this.position = new Vector(0, 0);
-        this.images = images;
-        this.imageIndex = 0;
-        this.size = this.image.Size;
     }
 
     public virtual void draw(Graphics graphics)
@@ -225,39 +175,12 @@ public class GameObject : IComparable<GameObject>, ICloneable
     }
 
     public virtual bool canChangeState()
-    {
-        return images.Count > 1;
-    }
+        => false;
 
-    public virtual void changeState()
-    {
-        if (images.Count >= 2)
-        {
-            stateChangeCount++;
-            //Change state
-            if (images.Count == 2)
-            {
-                //Flip
-                imageIndex = (imageIndex + 1) % 2;
-            }
-            else
-            {
-                //Randomly roll
-                Random rand = new Random();
-                int newIndex = imageIndex;
-                while (newIndex == imageIndex)
-                {
-                    newIndex = rand.Next(images.Count);
-                }
-                imageIndex = newIndex;
-            }
-        }
-    }
+    public virtual void changeState() { }
 
     public virtual bool canMakeNewObject(Vector mousePos)
-    {
-        return false;
-    }
+        => false;
 
     public virtual GameObject makeNewObject()
     {
@@ -313,7 +236,7 @@ public class GameObject : IComparable<GameObject>, ICloneable
 
     public virtual object Clone()
     {
-        GameObject newGO = new GameObject(images);
+        GameObject newGO = new GameObject(image);
         newGO.description = (string)this.description;
         newGO.fileName = (string)this.fileName;
         return newGO;

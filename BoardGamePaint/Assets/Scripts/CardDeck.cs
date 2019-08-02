@@ -19,61 +19,19 @@ public class CardDeck : GameObject
     {
         this.cards = cards;
         outerSize = new Size(size.Width + 25, size.Height + 25);
+        this.Back = backImage;
     }
 
-    public Image Face
-    {
-        get
-        {
-            if (images.Count > 0)
-            {
-                return images[images.Count - 1];
-            }
-            return null;
-        }
+    public bool FaceUp { get; set; } = false;
 
-        protected set
-        {
-            if (images.Count > 2)
-            {
-                images[images.Count - 1] = value;
-            }
-            else
-            {
-                for (int i = 0; i < 2; i++)
-                {
-                    if (i > images.Count - 1
-                        || images[i] == null)
-                    {
-                        images.Add(value);
-                    }
-                }
-                images[1] = value;
-            }
-        }
-    }
+    public Image Face { get; protected set; }
 
-    public Image Back
+    public Image Back { get; protected set; }
+
+    public override Image image
     {
-        get
-        {
-            if (images.Count > 0)
-            {
-                return images[0];
-            }
-            return null;
-        }
-        set
-        {
-            if (images.Count < 2)
-            {
-                images.Insert(0, value);
-            }
-            else
-            {
-                images[0] = value;
-            }
-        }
+        get => Back;
+        protected set => Back = value;
     }
 
     public override string getTypeString()
@@ -84,14 +42,12 @@ public class CardDeck : GameObject
             );
 
     protected override string getFooterNumberString()
-    {
-        return "" + cards.Count;
-    }
+        => "" + cards.Count;
 
     public override void draw(Graphics graphics)
     {
         base.draw(graphics);
-        int cardCount = (cards != null) ? cards.Count : images.Count;
+        int cardCount = (cards != null) ? cards.Count : 1;
         if (cardCount > 1)
         {
             int limit = Math.Min(MAX_VISIBLE_CARD_COUNT, cardCount);
@@ -140,7 +96,7 @@ public class CardDeck : GameObject
 
     public float getBonusHeight()
     {
-        int cardCount = (cards != null) ? cards.Count : images.Count;
+        int cardCount = (cards != null) ? cards.Count : 1;
         int limit = Math.Min(MAX_VISIBLE_CARD_COUNT, cardCount);
         return limit * CARD_SPACING;
     }

@@ -17,6 +17,11 @@ public class Card : CardDeck
         this(cardToBe.image, backImage, cardToBe.Description)
     { }
 
+    public override Image image
+    {
+        get => (FaceUp) ? Face : Back;
+    }
+
     public override string getTypeString()
     {
         return "Card";
@@ -34,12 +39,8 @@ public class Card : CardDeck
 
     public override void changeState()
     {
-        //Change state
-        if (images.Count == 2)
-        {
-            //Flip
-            imageIndex = (imageIndex + 1) % 2;
-        }
+        //Flip
+        FaceUp = !FaceUp;
     }
 
     public override bool canMakeNewObject(Vector mousePos)
@@ -65,8 +66,8 @@ public class Card : CardDeck
             null
             );
         newParent.moveTo(Position, false);
-        card.image = card.Back;
-        this.image = card.Back;
+        card.FaceUp = false;
+        this.FaceUp = false;
         Managers.Form.addGameObject(newParent);
         Managers.Form.removeGameObject(this);
         Managers.Form.removeGameObject(card);
