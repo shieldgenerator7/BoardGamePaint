@@ -52,29 +52,27 @@ public class Card : CardDeck
         return false;
     }
 
-    public override bool fitsInDeck(GameObject other)
-    {
-        return other is Card && base.fitsInDeck(other);
-    }
-
     public override void acceptCard(CardDeck cardDeck)
     {
-        if (!(cardDeck is Card))
+        if (cardDeck is Card)
         {
-            return;
+            Card card = (Card)cardDeck;
+            CardDeck newParent = new CardDeck(
+                new List<Card>() { this, card },
+                card.Back,
+                null
+                );
+            newParent.moveTo(Position, false);
+            card.FaceUp = false;
+            this.FaceUp = false;
+            Managers.Form.addGameObject(newParent);
+            Managers.Form.removeGameObject(this);
+            Managers.Form.removeGameObject(card);
         }
-        Card card = (Card)cardDeck;
-        CardDeck newParent = new CardDeck(
-            new List<Card>() { this, card },
-            card.Back,
-            null
-            );
-        newParent.moveTo(Position, false);
-        card.FaceUp = false;
-        this.FaceUp = false;
-        Managers.Form.addGameObject(newParent);
-        Managers.Form.removeGameObject(this);
-        Managers.Form.removeGameObject(card);
+        else
+        {
+            cardDeck.acceptCard(this);
+        }
     }
 
     public override object Clone()

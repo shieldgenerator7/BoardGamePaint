@@ -294,7 +294,6 @@ namespace BoardGamePaint
                                 && ((CardDeck)anchorObject).fitsInDeck(selected))
                             {
                                 ((CardDeck)anchorObject).acceptCard((CardDeck)selected);
-                                removeGameObject(selected);
                             }
                             else
                             {

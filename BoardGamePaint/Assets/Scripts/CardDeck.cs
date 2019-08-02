@@ -158,14 +158,14 @@ public class CardDeck : GameObject
     {
         if (card is Card)
         {
-            card.image = card.Back;
+            card.FaceUp = false;
             cards.Add((Card)card);
         }
         else
         {
             cards.AddRange(card.cards);
-            Managers.Form.removeGameObject(card);
         }
+        Managers.Form.removeGameObject(card);
     }
 
     public override object Clone()
