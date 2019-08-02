@@ -66,6 +66,7 @@ public class Card : CardDeck
             );
         newParent.moveTo(Position, false);
         card.image = card.Back;
+        this.image = card.Back;
         Managers.Form.addGameObject(newParent);
         Managers.Form.removeGameObject(this);
         Managers.Form.removeGameObject(card);
