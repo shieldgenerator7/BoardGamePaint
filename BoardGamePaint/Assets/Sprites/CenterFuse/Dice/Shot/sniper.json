@@ -1,6 +1,7 @@
 {
 	"name": "sniper",
 	"type": "die",
+	"description": "Sniper: 8 damage/shot, 16 range, 1 shot/turn",
 	"images": {
 		"200":{
 			"image": "shot200.png",

@@ -21,8 +21,8 @@ public class Bin : GameObject
         return (GameObject)template.Clone();
     }
 
-    public override string getTypeString()
+    public override string TypeString
     {
-        return template.Description + " Bin";
+        get => template.Description + " Bin";
     }
 }

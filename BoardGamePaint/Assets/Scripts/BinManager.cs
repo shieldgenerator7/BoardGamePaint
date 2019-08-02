@@ -19,6 +19,8 @@ public class BinManager : GameObject
         backRect = new Rectangle(0, 0, binSize * 2, binSize);
     }
 
+    public override string TypeString => "Bin Tray";
+
     public void makeBin(GameObject gameObject)
     {
         backRect.Width += binSize;

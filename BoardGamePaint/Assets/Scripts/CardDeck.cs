@@ -34,7 +34,7 @@ public class CardDeck : GameObject
         protected set => Back = value;
     }
 
-    public override string getTypeString()
+    public override string TypeString
         => "Deck of Cards"
         + ((cards.Count == 0)
             ? " (Empty)"

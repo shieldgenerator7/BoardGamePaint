@@ -26,20 +26,23 @@ public class GameObject : IComparable<GameObject>, ICloneable
         {
             if (description == null)
             {
-                return getTypeString();
+                return TypeString;
             }
             return description;
         }
     }
-    public virtual string getTypeString()
+    public virtual string TypeString
     {
-        if (anchoredObjects.Count > 0)
+        get
         {
-            return "Board";
-        }
-        else
-        {
-            return "Piece";
+            if (anchoredObjects.Count > 0)
+            {
+                return "Board";
+            }
+            else
+            {
+                return "Piece";
+            }
         }
     }
 

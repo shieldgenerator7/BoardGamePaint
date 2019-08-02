@@ -32,7 +32,7 @@ public class Die : GameObject
         this.size = this.image.Size;
     }
 
-    public override string getTypeString()
+    public override string TypeString
         => "Die";
 
     private int stateChangeCount = 0;

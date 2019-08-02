@@ -23,12 +23,12 @@ public class Card : CardDeck
     }
 
     public override string Description {
-        get => (FaceUp) ? description : getTypeString();
+        get => (FaceUp) ? description : TypeString;
     }
 
-    public override string getTypeString()
+    public override string TypeString
     {
-        return "Card";
+        get => "Card";
     }
 
     protected override string getFooterNumberString()
