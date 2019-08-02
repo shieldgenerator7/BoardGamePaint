@@ -123,21 +123,7 @@ public class CardDeck : GameObject
                 size.Width,
                 size.Height + bonusHeight);
         }
-    }
-
-    public override bool canChangeState()
-    {
-        return cards.Count > 0;
-    }
-
-    public override void changeState()
-    {
-        //Draw a card
-        int cardIndex = random.Next(0, cards.Count);
-        GameObject card = drawCard(cardIndex);
-        card.moveTo(getPickupPosition(), false);
-        Managers.Form.addGameObject(card);
-    }
+    }    
 
     public override bool canMakeNewObject(Vector mousePos)
     {
