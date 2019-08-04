@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Drawing;
 
-public class Bin : GameObject
+public class Bin : TrayComponent
 {
     private GameObject template;
 
-    public Bin(GameObject gameObject, int binSize) : base(gameObject.image)
+    public Bin(GameObject gameObject, int binSize) : base(gameObject.image, binSize)
     {
         this.template = gameObject;
-        size = new Size(binSize, binSize);
     }
 
     public override bool canMakeNewObject(Vector mousePos)

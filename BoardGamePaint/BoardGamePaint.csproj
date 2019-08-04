@@ -82,6 +82,8 @@
     <Compile Include="Assets\Scripts\GameObject.cs" />
     <Compile Include="Assets\Scripts\Managers.cs" />
     <Compile Include="Assets\Scripts\ObjectImportManager.cs" />
+    <Compile Include="Assets\Scripts\Tray.cs" />
+    <Compile Include="Assets\Scripts\TrayComponent.cs" />
     <Compile Include="Assets\Scripts\Utility.cs" />
     <Compile Include="Assets\Scripts\Vector.cs" />
     <Compile Include="Assets\Scripts\WayPoint.cs" />
