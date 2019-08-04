@@ -168,32 +168,34 @@ namespace BoardGamePaint
             mouseHover = false;
             mouseDown = true;
             Vector mouseVector = e.Location.toVector();
-            if (Managers.Bin.containsPosition(mouseVector))
-            {
-                Bin selectedBin = Managers.Bin.getBin(mouseVector);
-                if (selectedBin)
-                {
-                    selected = selectedBin;
-                }
-                else
-                {
-                    selected = Managers.Bin;
-                    selected.pickup(mouseVector);
-                }
-            }
-            if (!selected)
-            {
-                //Find an object to select
-                foreach (GameObject gameObject in gameObjects)
-                {
-                    if (gameObject.containsPosition(mouseVector))
-                    {
-                        selected = gameObject;
-                        selected.pickup(mouseVector);
-                        break;
-                    }
-                }
-            }
+            selected = mousedOver;
+            selected?.pickup(mouseVector);
+            //if (Managers.Bin.containsPosition(mouseVector))
+            //{
+            //    Bin selectedBin = Managers.Bin.getBin(mouseVector);
+            //    if (selectedBin)
+            //    {
+            //        selected = selectedBin;
+            //    }
+            //    else
+            //    {
+            //        selected = Managers.Bin;
+            //        selected.pickup(mouseVector);
+            //    }
+            //}
+            //if (!selected)
+            //{
+            //    //Find an object to select
+            //    foreach (GameObject gameObject in gameObjects)
+            //    {
+            //        if (gameObject.containsPosition(mouseVector))
+            //        {
+            //            selected = gameObject;
+            //            selected.pickup(mouseVector);
+            //            break;
+            //        }
+            //    }
+            //}
             if (selected && selected.canMakeNewObject(mouseVector))
             {
                 selected = selected.makeNewObject();
