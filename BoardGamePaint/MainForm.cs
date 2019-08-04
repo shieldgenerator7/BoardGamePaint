@@ -170,7 +170,7 @@ namespace BoardGamePaint
             mouseDown = true;
             Vector mouseVector = e.Location.toVector();
             selected = mousedOver;
-            selected?.pickup(mouseVector);            
+            selected?.pickup(mouseVector);
             if (selected && selected.canMakeNewObject(mouseVector))
             {
                 selected = selected.makeNewObject();
@@ -308,6 +308,7 @@ namespace BoardGamePaint
         {
             bool changedObjectState = false;
             Vector mouseVector = e.Location.toVector();
+            checkTrayDoubleClick(Managers.Command, mouseVector);
             //Find an object to change its state
             foreach (GameObject gameObject in gameObjects)
             {
@@ -387,6 +388,33 @@ namespace BoardGamePaint
                 }
             }
             return currentMousedOver;
+        }
+
+        void checkTrayDoubleClick(Tray tray, Vector mousePos)
+        {
+            GameObject currentMousedOver = null;
+            if (currentMousedOver == null)
+            {
+                if (tray.containsPosition(mousePos))
+                {
+                    TrayComponent mousedOverComponent = tray.getComponent(mousePos);
+                    if (mousedOverComponent)
+                    {
+                        currentMousedOver = mousedOverComponent;
+                    }
+                    else
+                    {
+                        currentMousedOver = tray;
+                    }
+                }
+            }
+            if (currentMousedOver)
+            {
+                if (currentMousedOver.canChangeState())
+                {
+                    currentMousedOver.changeState();
+                }
+            }
         }
     }
 }

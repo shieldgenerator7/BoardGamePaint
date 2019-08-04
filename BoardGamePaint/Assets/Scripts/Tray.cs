@@ -18,7 +18,7 @@ public class Tray : GameObject
         backRect = new Rectangle(0, 0, componentSize * 2, componentSize);
     }
 
-    protected void addComponent(TrayComponent tc)
+    public void addComponent(TrayComponent tc)
     {
         backRect.Width += componentSize;
         tc.moveTo(

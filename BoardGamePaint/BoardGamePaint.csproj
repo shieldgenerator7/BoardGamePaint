@@ -76,9 +76,11 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Bin.cs" />
     <Compile Include="Assets\Scripts\BinManager.cs" />
+    <Compile Include="Assets\Scripts\Button.cs" />
     <Compile Include="Assets\Scripts\Card.cs" />
     <Compile Include="Assets\Scripts\CardDeck.cs" />
     <Compile Include="Assets\Scripts\Die.cs" />
+    <Compile Include="Assets\Scripts\ExitButton.cs" />
     <Compile Include="Assets\Scripts\GameObject.cs" />
     <Compile Include="Assets\Scripts\Managers.cs" />
     <Compile Include="Assets\Scripts\ObjectImportManager.cs" />

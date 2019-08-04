@@ -1,5 +1,6 @@
 ﻿using BoardGamePaint;
 using System;
+using System.Drawing;
 
 public class Managers
 {
@@ -37,5 +38,6 @@ public class Managers
         this.mainForm = mf;
         this.binManager = new BinManager();
         this.commandTray = new Tray();
+        commandTray.addComponent(new ExitButton(Image.FromFile("exit.png"),50));
     }
 }
