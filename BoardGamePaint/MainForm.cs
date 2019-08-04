@@ -77,13 +77,13 @@ namespace BoardGamePaint
                 {
                     Vector mouseVector = mousePosition.toVector();
                     //in the middle of a drag
-                    if (mousedOver != Managers.Bin
-                        && !(mousedOver is Bin)
+                    if (!(mousedOver is Tray)
+                        && !(mousedOver is TrayComponent)
                         && Managers.Bin.containsPosition(mouseVector))
                     {
                         graphics.DrawRectangle(deletePen, mousedOver.getRect());
                     }
-                    else if (mousedOver == Managers.Bin)
+                    else if (mousedOver is Tray)
                     {
                         graphics.DrawRectangle(selectPen, mousedOver.getRect());
                     }
@@ -169,7 +169,6 @@ namespace BoardGamePaint
             mouseDown = true;
             Vector mouseVector = e.Location.toVector();
             selected = mousedOver;
-            selected?.pickup(mouseVector);
             //if (Managers.Bin.containsPosition(mouseVector))
             //{
             //    Bin selectedBin = Managers.Bin.getBin(mouseVector);
@@ -196,6 +195,7 @@ namespace BoardGamePaint
             //        }
             //    }
             //}
+            selected?.pickup(mouseVector);            
             if (selected && selected.canMakeNewObject(mouseVector))
             {
                 selected = selected.makeNewObject();
@@ -222,18 +222,7 @@ namespace BoardGamePaint
             else
             {
                 mousedOver = null;
-                if (Managers.Bin.containsPosition(mouseVector))
-                {
-                    Bin mousedOverBin = Managers.Bin.getBin(mouseVector);
-                    if (mousedOverBin)
-                    {
-                        mousedOver = mousedOverBin;
-                    }
-                    else
-                    {
-                        mousedOver = Managers.Bin;
-                    }
-                }
+                mousedOver = checkTrayMouseOver(Managers.Bin, mousedOver, mouseVector);
                 if (!mousedOver)
                 {
                     foreach (GameObject gameObject in gameObjects)
@@ -263,7 +252,7 @@ namespace BoardGamePaint
             mouseDown = false;
             if (selected)
             {
-                if (selected != Managers.Bin)
+                if (!(selected is Tray))
                 {
                     if (Managers.Bin.containsPosition(mouseVector))
                     {
@@ -402,6 +391,26 @@ namespace BoardGamePaint
         private void MainForm_MouseHover(object sender, EventArgs e)
         {
             mouseHover = true;
+        }
+
+        GameObject checkTrayMouseOver(Tray tray, GameObject currentMousedOver, Vector mousePos)
+        {
+            if (currentMousedOver == null)
+            {
+                if (tray.containsPosition(mousePos))
+                {
+                    TrayComponent mousedOverComponent = tray.getComponent(mousePos);
+                    if (mousedOverComponent)
+                    {
+                        return mousedOverComponent;
+                    }
+                    else
+                    {
+                        return tray;
+                    }
+                }
+            }
+            return currentMousedOver;
         }
     }
 }
