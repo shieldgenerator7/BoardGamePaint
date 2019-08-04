@@ -67,6 +67,7 @@ namespace BoardGamePaint
                 }
             }
             Managers.Bin.draw(graphics);
+            Managers.Command.draw(graphics);
             if (!mousedOver)
             {
                 mousedOver = selected;
@@ -197,6 +198,7 @@ namespace BoardGamePaint
             {
                 mousedOver = null;
                 mousedOver = checkTrayMouseOver(Managers.Bin, mousedOver, mouseVector);
+                mousedOver = checkTrayMouseOver(Managers.Command, mousedOver, mouseVector);
                 if (!mousedOver)
                 {
                     foreach (GameObject gameObject in gameObjects)

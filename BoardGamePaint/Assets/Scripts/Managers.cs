@@ -17,6 +17,12 @@ public class Managers
         get => instance.binManager;
     }
 
+    private Tray commandTray;
+    public static Tray Command
+    {
+        get => instance.commandTray;
+    }
+
     public static void init(MainForm mf)
     {
         if (instance == null)
@@ -30,5 +36,6 @@ public class Managers
         instance = this;
         this.mainForm = mf;
         this.binManager = new BinManager();
+        this.commandTray = new Tray();
     }
 }
