@@ -4,6 +4,7 @@ using System.Drawing;
 
 public class GameObject : IComparable<GameObject>, ICloneable
 {
+    public const int SNAP_THRESHOLD = 10;//the max snap distance in pixels
 
     //Drawing Runtime Vars
     protected Vector position;
@@ -188,6 +189,88 @@ public class GameObject : IComparable<GameObject>, ICloneable
     public virtual GameObject makeNewObject()
     {
         throw new NotImplementedException("Class " + GetType() + " does not implement GameObject.makeNewObject().");
+    }
+
+    public bool canSnapTo(GameObject go)
+        => canSnapToHorizontal(go)
+        || canSnapToVertical(go);
+
+    public bool canSnapToHorizontal(GameObject go)
+    {
+        Rectangle thisRect = getRect();
+        Rectangle goRect = go.getRect();
+        bool horizontal = Math.Abs(position.x - go.position.x) > Math.Abs(position.y - go.position.y);
+        //horizontal snapping
+        if (horizontal)
+        {
+            if (size.Height == go.size.Height)
+            {
+                if (Math.Abs(thisRect.Left - goRect.Right) < SNAP_THRESHOLD
+                    || Math.Abs(thisRect.Right - goRect.Left) < SNAP_THRESHOLD)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    public bool canSnapToVertical(GameObject go)
+    {
+        Rectangle thisRect = getRect();
+        Rectangle goRect = go.getRect();
+        bool vertical = Math.Abs(position.x - go.position.x) < Math.Abs(position.y - go.position.y);
+        //vertical snapping
+        if (vertical)
+        {
+            if (size.Width == go.size.Width)
+            {
+                if (Math.Abs(thisRect.Top - goRect.Bottom) < SNAP_THRESHOLD
+                    || Math.Abs(thisRect.Bottom - goRect.Top) < SNAP_THRESHOLD)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    /// <summary>
+    /// Snaps this GameObject to the given GameObject
+    /// </summary>
+    /// <param name="go"></param>
+    public void snapTo(GameObject go)
+    {
+        Rectangle thisRect = getRect();
+        Rectangle goRect = go.getRect();
+        //Snap horizontal
+        if (canSnapToHorizontal(go))
+        {
+            position.y = go.position.y;
+            //snap on left side
+            if (position.x < go.position.x)
+            {
+                position.x = goRect.Left - size.Width/2;
+            }
+            //snap on right side
+            if (position.x > go.position.x)
+            {
+                position.x = goRect.Right + size.Width / 2;
+            }
+        }
+        //Snap vertical
+        if (canSnapToVertical(go))
+        {
+            position.x = go.position.x;
+            //snap on top side
+            if (position.y < go.position.y)
+            {
+                position.y = goRect.Top - size.Height / 2;
+            }
+            //snap on bottom side
+            if (position.y > go.position.y)
+            {
+                position.y = goRect.Bottom + size.Height / 2;
+            }
+        }
     }
 
     public virtual Rectangle getRect()

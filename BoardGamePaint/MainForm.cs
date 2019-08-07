@@ -191,6 +191,21 @@ namespace BoardGamePaint
                 if (selected)
                 {
                     selected.moveTo(mouseVector);
+                    if (!(selected is Tray)
+                        && !(selected is TrayComponent))
+                    {
+                        foreach (GameObject go in gameObjects)
+                        {
+                            if (go != selected)
+                            {
+                                if (selected.canSnapTo(go))
+                                {
+                                    selected.snapTo(go);
+                                    break;
+                                }
+                            }
+                        }
+                    }
                 }
                 refresh();
             }
