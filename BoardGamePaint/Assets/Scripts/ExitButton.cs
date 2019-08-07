@@ -8,7 +8,7 @@ public class ExitButton : Button
     {
     }
 
-    protected override void activate()
+    public override void activate()
     {
         Application.Exit();
     }

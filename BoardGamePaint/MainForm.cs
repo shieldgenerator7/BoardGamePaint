@@ -179,6 +179,10 @@ namespace BoardGamePaint
                 selected.pickup(mouseVector);
                 mousedOver = selected;
             }
+            if (selected && selected is Button)
+            {
+                ((Button)selected).activate();
+            }
         }
 
         private void pnlSpace_MouseMove(object sender, MouseEventArgs e)

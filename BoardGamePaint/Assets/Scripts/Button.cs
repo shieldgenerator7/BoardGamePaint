@@ -15,5 +15,5 @@ public abstract class Button : TrayComponent
         activate();
     }
 
-    protected abstract void activate();
+    public abstract void activate();
 }
