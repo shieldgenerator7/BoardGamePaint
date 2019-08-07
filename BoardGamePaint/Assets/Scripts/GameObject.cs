@@ -201,16 +201,16 @@ public class GameObject : IComparable<GameObject>, ICloneable
         Rectangle goRect = go.getRect();
         bool horizontal = Math.Abs(position.x - go.position.x) > Math.Abs(position.y - go.position.y);
         //horizontal snapping
-        if (horizontal)
+        if (horizontal
+            && size.Height == go.size.Height
+            && Math.Abs(position.y - go.position.y) < SNAP_THRESHOLD
+            && (
+                Math.Abs(thisRect.Left - goRect.Right) < SNAP_THRESHOLD
+                || Math.Abs(thisRect.Right - goRect.Left) < SNAP_THRESHOLD
+                )
+            )
         {
-            if (size.Height == go.size.Height)
-            {
-                if (Math.Abs(thisRect.Left - goRect.Right) < SNAP_THRESHOLD
-                    || Math.Abs(thisRect.Right - goRect.Left) < SNAP_THRESHOLD)
-                {
-                    return true;
-                }
-            }
+            return true;
         }
         return false;
     }
@@ -220,16 +220,16 @@ public class GameObject : IComparable<GameObject>, ICloneable
         Rectangle goRect = go.getRect();
         bool vertical = Math.Abs(position.x - go.position.x) < Math.Abs(position.y - go.position.y);
         //vertical snapping
-        if (vertical)
+        if (vertical
+            && size.Width == go.size.Width
+            && Math.Abs(position.x - go.position.x) < SNAP_THRESHOLD
+            && (
+                Math.Abs(thisRect.Top - goRect.Bottom) < SNAP_THRESHOLD
+                || Math.Abs(thisRect.Bottom - goRect.Top) < SNAP_THRESHOLD
+                )
+            )
         {
-            if (size.Width == go.size.Width)
-            {
-                if (Math.Abs(thisRect.Top - goRect.Bottom) < SNAP_THRESHOLD
-                    || Math.Abs(thisRect.Bottom - goRect.Top) < SNAP_THRESHOLD)
-                {
-                    return true;
-                }
-            }
+            return true;
         }
         return false;
     }
@@ -249,7 +249,7 @@ public class GameObject : IComparable<GameObject>, ICloneable
             //snap on left side
             if (position.x < go.position.x)
             {
-                desiredPosition.x = goRect.Left - size.Width/2;
+                desiredPosition.x = goRect.Left - size.Width / 2;
             }
             //snap on right side
             if (position.x > go.position.x)
