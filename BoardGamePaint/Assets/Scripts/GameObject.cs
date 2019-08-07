@@ -191,6 +191,29 @@ public class GameObject : IComparable<GameObject>, ICloneable
         throw new NotImplementedException("Class " + GetType() + " does not implement GameObject.makeNewObject().");
     }
 
+    public int SnapThresholdX
+    {
+        get =>
+            (int)Math.Max(
+                size.Width * 0.10,
+                Math.Min(
+                    size.Width * 0.25,
+                    SNAP_THRESHOLD
+                    )
+                );
+    }
+    public int SnapThresholdY
+    {
+        get =>
+            (int)Math.Max(
+                size.Height * 0.10,
+                Math.Min(
+                    size.Height * 0.25,
+                    SNAP_THRESHOLD
+                    )
+                );
+    }
+
     public bool canSnapTo(GameObject go)
         => canSnapToHorizontal(go)
         || canSnapToVertical(go);
@@ -199,14 +222,15 @@ public class GameObject : IComparable<GameObject>, ICloneable
     {
         Rectangle thisRect = getRect();
         Rectangle goRect = go.getRect();
+        int snapThreshold = SnapThresholdX;
         bool horizontal = Math.Abs(position.x - go.position.x) > Math.Abs(position.y - go.position.y);
         //horizontal snapping
         if (horizontal
             && size.Height == go.size.Height
-            && Math.Abs(position.y - go.position.y) < SNAP_THRESHOLD
+            && Math.Abs(position.y - go.position.y) < snapThreshold
             && (
-                Math.Abs(thisRect.Left - goRect.Right) < SNAP_THRESHOLD
-                || Math.Abs(thisRect.Right - goRect.Left) < SNAP_THRESHOLD
+                Math.Abs(thisRect.Left - goRect.Right) < snapThreshold
+                || Math.Abs(thisRect.Right - goRect.Left) < snapThreshold
                 )
             )
         {
@@ -218,14 +242,15 @@ public class GameObject : IComparable<GameObject>, ICloneable
     {
         Rectangle thisRect = getRect();
         Rectangle goRect = go.getRect();
+        int snapThreshold = SnapThresholdY;
         bool vertical = Math.Abs(position.x - go.position.x) < Math.Abs(position.y - go.position.y);
         //vertical snapping
         if (vertical
             && size.Width == go.size.Width
-            && Math.Abs(position.x - go.position.x) < SNAP_THRESHOLD
+            && Math.Abs(position.x - go.position.x) < snapThreshold
             && (
-                Math.Abs(thisRect.Top - goRect.Bottom) < SNAP_THRESHOLD
-                || Math.Abs(thisRect.Bottom - goRect.Top) < SNAP_THRESHOLD
+                Math.Abs(thisRect.Top - goRect.Bottom) < snapThreshold
+                || Math.Abs(thisRect.Bottom - goRect.Top) < snapThreshold
                 )
             )
         {
