@@ -24,6 +24,12 @@ public class Managers
         get => instance.commandTray;
     }
 
+    private PlayerManager playerManager;
+    public static PlayerManager Players
+    {
+        get => instance.playerManager;
+    }
+
     public static void init(MainForm mf)
     {
         if (instance == null)
@@ -37,7 +43,11 @@ public class Managers
         instance = this;
         this.mainForm = mf;
         this.binManager = new BinManager();
+        //Command Tray
         this.commandTray = new Tray();
         commandTray.addComponent(new ExitButton(Image.FromFile("exit.png"),50));
+        commandTray.addComponent(new AddPlayerButton(Image.FromFile("newplayer.png"), 50));
+        //Player Manager
+        this.playerManager = new PlayerManager();
     }
 }

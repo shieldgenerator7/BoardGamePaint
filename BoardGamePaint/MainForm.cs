@@ -182,6 +182,8 @@ namespace BoardGamePaint
             if (selected && selected is Button)
             {
                 ((Button)selected).activate();
+                selected = null;
+                mousedOver = null;
             }
         }
 

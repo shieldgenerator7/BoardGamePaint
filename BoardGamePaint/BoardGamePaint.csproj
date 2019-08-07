@@ -22,7 +22,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationRevision>7</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -74,6 +74,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\AddPlayerButton.cs" />
     <Compile Include="Assets\Scripts\Bin.cs" />
     <Compile Include="Assets\Scripts\BinManager.cs" />
     <Compile Include="Assets\Scripts\Button.cs" />
@@ -84,6 +85,8 @@
     <Compile Include="Assets\Scripts\GameObject.cs" />
     <Compile Include="Assets\Scripts\Managers.cs" />
     <Compile Include="Assets\Scripts\ObjectImportManager.cs" />
+    <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\PlayerManager.cs" />
     <Compile Include="Assets\Scripts\Tray.cs" />
     <Compile Include="Assets\Scripts\TrayComponent.cs" />
     <Compile Include="Assets\Scripts\Utility.cs" />
