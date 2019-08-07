@@ -241,29 +241,30 @@ public class GameObject : IComparable<GameObject>, ICloneable
     {
         Rectangle thisRect = getRect();
         Rectangle goRect = go.getRect();
+        Vector desiredPosition = position;
         //Snap horizontal
         if (canSnapToHorizontal(go))
         {
-            position.y = go.position.y;
+            desiredPosition.y = go.position.y;
             //snap on left side
             if (position.x < go.position.x)
             {
-                position.x = goRect.Left - size.Width/2;
+                desiredPosition.x = goRect.Left - size.Width/2;
             }
             //snap on right side
             if (position.x > go.position.x)
             {
-                position.x = goRect.Right + size.Width / 2;
+                desiredPosition.x = goRect.Right + size.Width / 2;
             }
         }
         //Snap vertical
         if (canSnapToVertical(go))
         {
-            position.x = go.position.x;
+            desiredPosition.x = go.position.x;
             //snap on top side
             if (position.y < go.position.y)
             {
-                position.y = goRect.Top - size.Height / 2;
+                desiredPosition.y = goRect.Top - size.Height / 2;
             }
             //snap on bottom side
             if (position.y > go.position.y)
@@ -271,6 +272,8 @@ public class GameObject : IComparable<GameObject>, ICloneable
                 position.y = goRect.Bottom + size.Height / 2;
             }
         }
+        //Snap
+        moveTo(desiredPosition - pickupOffset);
     }
 
     public virtual Rectangle getRect()
