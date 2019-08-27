@@ -7,9 +7,23 @@ public class Managers
     private static Managers instance;
 
     private MainForm mainForm;
-    public static MainForm Form
+
+    private ObjectManager objectManager;
+    public static ObjectManager Object
     {
-        get => instance.mainForm;
+        get => instance.objectManager;
+    }
+
+    private ControlManager controlManager;
+    public static ControlManager Control
+    {
+        get => instance.controlManager;
+    }
+
+    private DisplayManager displayManager;
+    public static DisplayManager Display
+    {
+        get => instance.displayManager;
     }
 
     private BinManager binManager;
@@ -42,6 +56,9 @@ public class Managers
     {
         instance = this;
         this.mainForm = mf;
+        this.objectManager = new ObjectManager();
+        this.controlManager = new ControlManager();
+        this.displayManager = new DisplayManager();
         this.binManager = new BinManager();
         //Command Tray
         this.commandTray = new Tray();

@@ -65,9 +65,9 @@ public class Card : CardDeck
             newParent.moveTo(Position, false);
             card.FaceUp = false;
             this.FaceUp = false;
-            Managers.Form.addGameObject(newParent);
-            Managers.Form.removeGameObject(this);
-            Managers.Form.removeGameObject(card);
+            Managers.Object.addGameObject(newParent);
+            Managers.Object.removeGameObject(this);
+            Managers.Object.removeGameObject(card);
         }
         else
         {

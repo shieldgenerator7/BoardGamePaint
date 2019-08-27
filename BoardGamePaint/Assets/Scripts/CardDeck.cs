@@ -144,7 +144,7 @@ public class CardDeck : GameObject
         cards.RemoveAt(cardIndex);
         if (cards.Count == 0)
         {
-            Managers.Form.removeGameObject(this);
+            Managers.Object.removeGameObject(this);
         }
         return newCard;
     }
@@ -165,7 +165,7 @@ public class CardDeck : GameObject
         {
             cards.AddRange(card.cards);
         }
-        Managers.Form.removeGameObject(card);
+        Managers.Object.removeGameObject(card);
     }
 
     public override object Clone()
