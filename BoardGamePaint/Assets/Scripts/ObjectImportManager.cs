@@ -69,7 +69,7 @@ public static class ObjectImportManager
         return quantity;
     }
 
-    public static void importObjects(MainForm mf, IEnumerable<string> filenames)
+    public static void importObjects(IEnumerable<string> filenames)
     {
         List<GameObject> objectsToProcess = new List<GameObject>();
         string backImageFileName = null;
@@ -77,7 +77,7 @@ public static class ObjectImportManager
         {
             if (isFileJSON(filename))
             {
-                importJSONObject(mf, filename);
+                importJSONObject(filename);
             }
             else if (filename.ToLower().Contains("[back]"))
             {
@@ -98,22 +98,22 @@ public static class ObjectImportManager
         GameObject backImageObject = (backImageFileName != null)
             ? new GameObject(backImageFileName)
             : null;
-        processObjects(mf, objectsToProcess, backImageObject, getReadableFileName(backImageFileName));
+        processObjects(objectsToProcess, backImageObject, getReadableFileName(backImageFileName));
         if (objectsToProcess.Count > 1 && backImageFileName != null)
         {
             writeJSONDeck(filenames, backImageFileName);
         }
     }
 
-    public static void importObject(MainForm mf, string filename)
+    public static void importObject(string filename)
     {
         if (isFileJSON(filename))
         {
-            importJSONObject(mf, filename);
+            importJSONObject(filename);
         }
     }
 
-    static void importJSONObject(MainForm mf, string filename)
+    static void importJSONObject(string filename)
     {
         List<GameObject> objectsToProcess = new List<GameObject>();
         string foldername = filename.Substring(0, filename.LastIndexOf("\\") + 1);
@@ -163,15 +163,15 @@ public static class ObjectImportManager
             || objectType == null && File.Exists(backFilename))
         {
             backImageObject = new GameObject(backFilename);
-            makeDeck(mf, objectsToProcess, Image.FromFile(backFilename), objectDesc);
+            makeDeck(objectsToProcess, Image.FromFile(backFilename), objectDesc);
         }
         else
         {
-            makeDie(mf, objectsToProcess, objectDesc);
+            makeDie(objectsToProcess, objectDesc);
         }
     }
 
-    public static void processObjects(MainForm mf, List<GameObject> objectsToProcess, GameObject backImageObject = null, string description = null)
+    public static void processObjects(List<GameObject> objectsToProcess, GameObject backImageObject = null, string description = null)
     {
         //If there are no objects,
         if (objectsToProcess.Count < 1)
@@ -186,12 +186,12 @@ public static class ObjectImportManager
             if (backImageObject)
             {
                 //make it a deck of cards
-                makeDeck(mf, objectsToProcess, backImageObject.image, description);
+                makeDeck(objectsToProcess, backImageObject.image, description);
             }
             else
             {
                 //else make it an object with many states
-                makeDie(mf, objectsToProcess, description);
+                makeDie(objectsToProcess, description);
             }
         }
         else
@@ -204,7 +204,7 @@ public static class ObjectImportManager
         }
     }
 
-    static void makeDeck(MainForm mf, List<GameObject> objects, Image backImage, string description)
+    static void makeDeck(List<GameObject> objects, Image backImage, string description)
     {
         List<Card> cards = new List<Card>();
         foreach (GameObject gameObject in objects)
@@ -215,7 +215,7 @@ public static class ObjectImportManager
         Managers.Bin.makeBin(cardDeck);
     }
 
-    static void makeDie(MainForm mf, List<GameObject> objects, string description)
+    static void makeDie(List<GameObject> objects, string description)
     {
         List<Image> images = new List<Image>(
             from go in objects
