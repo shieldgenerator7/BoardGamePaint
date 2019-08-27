@@ -72,7 +72,7 @@ namespace BoardGamePaint
         private void pnlSpace_DragDrop(object sender, DragEventArgs e)
         {
             string[] filenames = (string[])e.Data.GetData(DataFormats.FileDrop);
-            ObjectImportManager.importObjects(this, filenames);
+            ObjectImportManager.importObjects(filenames);
             refresh();
         }
 

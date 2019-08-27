@@ -45,7 +45,6 @@
             this.pnlSpace.Visible = false;
             this.pnlSpace.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlSpace_DragDrop);
             this.pnlSpace.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlSpace_DragEnter);
-            this.pnlSpace.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseClick);
             this.pnlSpace.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseDoubleClick);
             this.pnlSpace.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseDown);
             this.pnlSpace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseMove);
@@ -63,7 +62,6 @@
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlSpace_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlSpace_DragEnter);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlSpace_Paint);
-            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseClick);
             this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseDoubleClick);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlSpace_MouseDown);
             this.MouseHover += new System.EventHandler(this.MainForm_MouseHover);
