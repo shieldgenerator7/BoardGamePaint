@@ -143,7 +143,7 @@ public class ControlManager
         checkTrayDoubleClick(Managers.Command, mousePos);
         //Find an object to change its state
         GameObject gameObject = Managers.Object.getObjectAtPosition(mousePos);
-        if (gameObject.canChangeState())
+        if (gameObject && gameObject.canChangeState())
         {
             changedObjectState = true;
             gameObject.changeState();

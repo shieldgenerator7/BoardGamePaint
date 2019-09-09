@@ -89,6 +89,7 @@
     <Compile Include="Assets\Scripts\ObjectImportManager.cs" />
     <Compile Include="Assets\Scripts\ObjectManager.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\PlayerButton.cs" />
     <Compile Include="Assets\Scripts\PlayerManager.cs" />
     <Compile Include="Assets\Scripts\Tray.cs" />
     <Compile Include="Assets\Scripts\TrayComponent.cs" />

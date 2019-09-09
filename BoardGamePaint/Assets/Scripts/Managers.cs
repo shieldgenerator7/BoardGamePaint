@@ -62,8 +62,8 @@ public class Managers
         this.binManager = new BinManager();
         //Command Tray
         this.commandTray = new Tray();
-        commandTray.addComponent(new ExitButton(Image.FromFile("exit.png"),50));
-        commandTray.addComponent(new AddPlayerButton(Image.FromFile("newplayer.png"), 50));
+        commandTray.addComponent(new ExitButton(Image.FromFile("exit.png"),Tray.DEFAULT_COMPONENT_SIZE));
+        commandTray.addComponent(new AddPlayerButton(Image.FromFile("newplayer.png"), Tray.DEFAULT_COMPONENT_SIZE));
         //Player Manager
         this.playerManager = new PlayerManager();
     }

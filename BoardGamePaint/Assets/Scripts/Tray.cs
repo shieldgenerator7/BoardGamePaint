@@ -4,9 +4,11 @@ using System.Drawing;
 
 public class Tray : GameObject
 {
+    public const int DEFAULT_COMPONENT_SIZE = 50;
+
     readonly List<TrayComponent> trayComponents = new List<TrayComponent>();
 
-    protected int componentSize = 50;
+    protected int componentSize = DEFAULT_COMPONENT_SIZE;
 
     Brush backBrush;
     Rectangle backRect;

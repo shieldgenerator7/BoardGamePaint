@@ -32,6 +32,9 @@ public class PlayerManager
         int colorIndex = players.Count % allowedColors.Count;
         Player newPlayer = new Player(allowedColors[colorIndex]);
         players.Add(newPlayer);
+        Managers.Command.addComponent(
+            new PlayerButton(newPlayer, Tray.DEFAULT_COMPONENT_SIZE)
+            );
     }
 
     public void nextTurn()
