@@ -11,4 +11,9 @@ public class AddPlayerButton : Button
     {
         Managers.Players.makeNewPlayer();
     }
+
+    public override string TypeString
+    {
+        get => "Create New Player";
+    }
 }

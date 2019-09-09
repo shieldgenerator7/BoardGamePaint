@@ -26,6 +26,11 @@ public class PlayerButton : Button
         Managers.Players.Current = this.player;
     }
 
+    public override string TypeString
+    {
+        get => this.player.name;
+    }
+
     public override void draw(Graphics graphics)
     {        
         // Draw using the color map

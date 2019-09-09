@@ -12,4 +12,9 @@ public class ExitButton : Button
     {
         Application.Exit();
     }
+
+    public override string TypeString
+    {
+        get => "Exit Board Game Paint";
+    }
 }
