@@ -61,6 +61,7 @@ public class ControlManager
         }
         else
         {
+            GameObject prevMousedOver = mousedOver;
             mousedOver = null;
             mousedOver = checkTrayMouseOver(Managers.Bin, mousedOver, mousePos);
             mousedOver = checkTrayMouseOver(Managers.Command, mousedOver, mousePos);
@@ -81,6 +82,9 @@ public class ControlManager
             if (Cursor.Current != neededCursor)
             {
                 Cursor.Current = neededCursor;
+            }
+            if (prevMousedOver != mousedOver)
+            {
                 return true;
             }
         }
