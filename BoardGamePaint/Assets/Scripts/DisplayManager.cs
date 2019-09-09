@@ -122,7 +122,17 @@ public class DisplayManager
                 {
                     graphics.DrawRectangle(selectPen, mousedOver.getRect());
                 }
-
+                if (mousedOver is PlayerButton)
+                {
+                    PlayerButton mousedButton = (PlayerButton)mousedOver;
+                    foreach (GameObject go in Managers.Object.renderOrder)
+                    {
+                        if (go.owner == mousedButton.player)
+                        {
+                            graphics.DrawRectangle(selectPen, go.getRect());
+                        }
+                    }
+                }
             }
         }
     }

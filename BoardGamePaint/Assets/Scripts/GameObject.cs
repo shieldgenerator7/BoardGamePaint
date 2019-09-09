@@ -65,6 +65,8 @@ public class GameObject : IComparable<GameObject>, ICloneable
         }
     }
 
+    public Player owner { get; set; }
+
     //Pickup Runtime Vars
     private Vector pickupOffset = new Vector(0, 0);
 

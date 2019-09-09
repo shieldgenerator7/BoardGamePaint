@@ -17,7 +17,9 @@ public class Bin : TrayComponent
 
     public override GameObject makeNewObject()
     {
-        return (GameObject)template.Clone();
+        GameObject clone = (GameObject)template.Clone();
+        clone.owner = Managers.Players.Current;
+        return clone;
     }
 
     public override string TypeString
