@@ -6,6 +6,7 @@ public class PlayerManager
 {
     private int currentIndex = 0;
     readonly private List<Player> players = new List<Player>();
+    readonly private List<PlayerButton> playerButtons = new List<PlayerButton>();
 
     public Player Current
     {
@@ -13,6 +14,13 @@ public class PlayerManager
             ? players[currentIndex]
             : null;
         set => currentIndex = Math.Max(0, players.IndexOf(value));
+    }
+
+    public PlayerButton CurrentButton
+    {
+        get => (playerButtons.Count > 0)
+            ? playerButtons[currentIndex]
+            : null;
     }
 
     public static List<Color> allowedColors = new List<Color>()
@@ -32,9 +40,9 @@ public class PlayerManager
         int colorIndex = players.Count % allowedColors.Count;
         Player newPlayer = new Player(allowedColors[colorIndex]);
         players.Add(newPlayer);
-        Managers.Command.addComponent(
-            new PlayerButton(newPlayer, Tray.DEFAULT_COMPONENT_SIZE)
-            );
+        PlayerButton newButton = new PlayerButton(newPlayer, Tray.DEFAULT_COMPONENT_SIZE);
+        playerButtons.Add(newButton);
+        Managers.Command.addComponent(newButton);
     }
 
     public void nextTurn()

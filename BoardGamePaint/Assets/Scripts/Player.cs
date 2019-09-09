@@ -9,4 +9,7 @@ public class Player
     {
         this.color = color;
     }
+
+    public static implicit operator Boolean (Player player)
+        => player != null;
 }
