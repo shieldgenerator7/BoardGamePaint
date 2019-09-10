@@ -33,22 +33,7 @@ public class GameObject : IComparable<GameObject>, ICloneable
     public virtual Image image { get; protected set; }
 
     protected string description = null;
-    public string Description
-    {
-        get
-        {
-            if (permissions.viewPermission == Permissions.Permission.ALL_PLAYERS
-                || (owner && owner == Managers.Players.Current))
-            {
-                return ShownDescription;
-            }
-            else
-            {
-                return HiddenDescription;
-            }
-        }
-    }
-    public virtual string ShownDescription
+    public virtual string Description
     {
         get
         {
@@ -58,10 +43,6 @@ public class GameObject : IComparable<GameObject>, ICloneable
             }
             return description;
         }
-    }
-    public virtual string HiddenDescription
-    {
-        get => "Hidden";
     }
     public virtual string TypeString
     {
@@ -97,7 +78,18 @@ public class GameObject : IComparable<GameObject>, ICloneable
     }
 
     public Player owner { get; set; }
-    public Permissions permissions { get; private set; } = new Permissions();
+    private Permissions permissions;
+    protected Permissions Permissions
+    {
+        get
+        {
+            if (permissions == null)
+            {
+                permissions = new Permissions(this);
+            }
+            return permissions;
+        }
+    }
 
     //Pickup Runtime Vars
     private Vector pickupOffset = new Vector(0, 0);
@@ -127,22 +119,14 @@ public class GameObject : IComparable<GameObject>, ICloneable
 
     public virtual void draw(Graphics graphics)
     {
-        if (permissions.viewPermission == Permissions.Permission.ALL_PLAYERS
-            || (owner && owner == Managers.Players.Current))
-        {
-            graphics.DrawImage(
-                image,
-                position.x - size.Width / 2,
-                position.y - size.Height / 2,
-                size.Width,
-                size.Height
-                );
-            drawFooterNumber(graphics);
-        }
-        else
-        {
-            drawHiddenImage(graphics);
-        }
+        graphics.DrawImage(
+            image,
+            position.x - size.Width / 2,
+            position.y - size.Height / 2,
+            size.Width,
+            size.Height
+            );
+        drawFooterNumber(graphics);
     }
     public void drawFooterNumber(Graphics graphics)
     {
@@ -159,18 +143,6 @@ public class GameObject : IComparable<GameObject>, ICloneable
                 position.y + size.Height / 2
                 );
         }
-    }
-
-    public virtual void drawHiddenImage(Graphics graphics)
-    {
-        //Does the same thing as draw by default, but with hidden image
-        graphics.DrawImage(
-                HiddenImage,
-                position.x - size.Width / 2,
-                position.y - size.Height / 2,
-                size.Width,
-                size.Height
-                );
     }
 
     public virtual bool containsPosition(Vector pos)
