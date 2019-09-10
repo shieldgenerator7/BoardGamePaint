@@ -16,9 +16,9 @@ public class Permissions
     }
 
     public Permission viewPermission = Permission.ALL_PLAYERS;
-    public Permission movePermission = Permission.ALL_PLAYERS;
-    public Permission interactPermission = Permission.ALL_PLAYERS;
-    public Permission editPermission = Permission.ALL_PLAYERS;
+    public Permission movePermission = Permission.OWNING_PLAYER_ONLY;
+    public Permission interactPermission = Permission.OWNING_PLAYER_ONLY;
+    public Permission editPermission = Permission.OWNING_PLAYER_ONLY;
 
     private bool ownerIsCurrent
     {

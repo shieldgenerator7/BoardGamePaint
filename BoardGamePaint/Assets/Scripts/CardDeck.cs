@@ -20,6 +20,7 @@ public class CardDeck : GameObject
         this.cards = cards;
         outerSize = new Size(size.Width + 25, size.Height + 25);
         this.Back = backImage;
+        Permissions.interactPermission = Permissions.Permission.OWNING_PLAYER_ONLY;
     }
 
     public bool FaceUp { get; set; } = false;
