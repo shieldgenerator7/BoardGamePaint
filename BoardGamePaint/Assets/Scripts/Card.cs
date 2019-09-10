@@ -24,7 +24,8 @@ public class Card : CardDeck
         get => (FaceUp && Permissions.canView) ? Face : Back;
     }
 
-    public override string Description {
+    public override string Description
+    {
         get => (FaceUp && Permissions.canView) ? description : TypeString;
     }
 
@@ -67,6 +68,7 @@ public class Card : CardDeck
             newParent.moveTo(Position, false);
             card.FaceUp = false;
             this.FaceUp = false;
+            newParent.owner = (card.owner) ? card.owner : this.owner;
             Managers.Object.addGameObject(newParent);
             Managers.Object.removeGameObject(this);
             Managers.Object.removeGameObject(card);
