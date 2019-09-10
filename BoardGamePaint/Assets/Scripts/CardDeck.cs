@@ -134,12 +134,14 @@ public class CardDeck : GameObject
     {
         //Draw a card
         int cardIndex = random.Next(0, cards.Count);
-        return drawCard(cardIndex);
+        Card drawnCard = drawCard(cardIndex);
+        drawnCard.owner = Managers.Players.Current;
+        return drawnCard;
     }
 
-    protected GameObject drawCard(int cardIndex)
+    protected Card drawCard(int cardIndex)
     {
-        GameObject newCard = cards[cardIndex];
+        Card newCard = cards[cardIndex];
         newCard.moveTo(position + new Vector(10, 10), false);
         cards.RemoveAt(cardIndex);
         if (cards.Count == 0)
