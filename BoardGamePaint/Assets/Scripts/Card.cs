@@ -68,13 +68,23 @@ public class Card : CardDeck
             newParent.moveTo(Position, false);
             card.FaceUp = false;
             this.FaceUp = false;
+            //Owning Player
             newParent.owner = (card.owner) ? card.owner : this.owner;
+            //Anchoring
+            newParent.anchorTo(this.anchorObject);
+            this.anchorOff();
+            card.anchorOff();
+            //Adding to lists
             Managers.Object.addGameObject(newParent);
             Managers.Object.removeGameObject(this);
             Managers.Object.removeGameObject(card);
         }
         else
         {
+            //Achoring
+            cardDeck.anchorTo(this.anchorObject);
+            this.anchorOff();
+            //Accepting into deck
             cardDeck.acceptCard(this);
         }
     }
