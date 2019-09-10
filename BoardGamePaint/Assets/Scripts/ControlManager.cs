@@ -116,14 +116,18 @@ public class ControlManager
                         .getAnchorObject(selected, mousePos);
                     if (anchorObject)
                     {
-                        if (anchorObject is CardDeck
-                            && ((CardDeck)anchorObject).fitsInDeck(selected))
+                        if (anchorObject.Permissions.canInteract
+                            && selected.Permissions.canInteract)
                         {
-                            ((CardDeck)anchorObject).acceptCard((CardDeck)selected);
-                        }
-                        else
-                        {
-                            selected.anchorTo(anchorObject);
+                            if (anchorObject is CardDeck
+                                && ((CardDeck)anchorObject).fitsInDeck(selected))
+                            {
+                                ((CardDeck)anchorObject).acceptCard((CardDeck)selected);
+                            }
+                            else
+                            {
+                                selected.anchorTo(anchorObject);
+                            }
                         }
                     }
                     else

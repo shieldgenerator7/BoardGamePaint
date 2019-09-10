@@ -90,16 +90,20 @@ public class DisplayManager
                         .getAnchorObject(mousedOver, mousePos);
                     if (anchorObject)
                     {
-                        if (anchorObject is CardDeck
+                        if (anchorObject.Permissions.canInteract
+                            && selected.Permissions.canInteract)
+                        {
+                            if (anchorObject is CardDeck
                             && ((CardDeck)anchorObject).fitsInDeck(mousedOver))
-                        {
-                            graphics.DrawRectangle(changePen, mousedOver.getRect());
-                            graphics.DrawRectangle(changePen, anchorObject.getRect());
-                        }
-                        else
-                        {
-                            graphics.DrawRectangle(anchorPen, mousedOver.getRect());
-                            graphics.DrawRectangle(anchorPen, anchorObject.getRect());
+                            {
+                                graphics.DrawRectangle(changePen, mousedOver.getRect());
+                                graphics.DrawRectangle(changePen, anchorObject.getRect());
+                            }
+                            else
+                            {
+                                graphics.DrawRectangle(anchorPen, mousedOver.getRect());
+                                graphics.DrawRectangle(anchorPen, anchorObject.getRect());
+                            }
                         }
                     }
                     else
