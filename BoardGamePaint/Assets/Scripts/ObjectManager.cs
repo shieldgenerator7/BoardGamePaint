@@ -40,14 +40,22 @@ public class ObjectManager
 
     public GameObject getObjectAtPosition(Vector mousePos)
     {
+        GameObject backupObject = null;
         foreach (GameObject gameObject in gameObjects)
         {
             if (gameObject.containsPosition(mousePos))
             {
-                return gameObject;
+                if (gameObject.Permissions.canMove)
+                {
+                    return gameObject;
+                }
+                else
+                {
+                    backupObject = gameObject;
+                }
             }
         }
-        return null;
+        return backupObject;
     }
 
     public GameObject getAnchorObject(GameObject anchoree, Vector mousePos)
