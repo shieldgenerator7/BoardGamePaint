@@ -74,7 +74,8 @@ public class DisplayManager
                 //in the middle of a drag
                 if (!(mousedOver is Tray)
                     && !(mousedOver is TrayComponent)
-                    && Managers.Bin.containsPosition(mousePos))
+                    && Managers.Bin.containsPosition(mousePos)
+                    && mousedOver.Permissions.canEdit)
                 {
                     graphics.DrawRectangle(deletePen, mousedOver.getRect());
                 }
@@ -110,11 +111,12 @@ public class DisplayManager
             else
             {
                 //just mousing over things
-                if (mousedOver is Bin || mousedOver.canMakeNewObject(mousePos))
+                if (mousedOver is Bin
+                    || (mousedOver.canMakeNewObject(mousePos) && mousedOver.Permissions.canInteract))
                 {
                     graphics.DrawRectangle(createPen, mousedOver.getRect());
                 }
-                else if (mousedOver.canChangeState())
+                else if (mousedOver.canChangeState() && mousedOver.Permissions.canInteract)
                 {
                     graphics.DrawRectangle(changePen, mousedOver.getRect());
                 }
@@ -122,6 +124,7 @@ public class DisplayManager
                 {
                     graphics.DrawRectangle(selectPen, mousedOver.getRect());
                 }
+                //Highlight objects that belong to moused over player button's player
                 if (mousedOver is PlayerButton)
                 {
                     PlayerButton mousedButton = (PlayerButton)mousedOver;

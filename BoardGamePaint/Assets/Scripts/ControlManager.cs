@@ -23,7 +23,7 @@ public class ControlManager
         this.isMouseHover = false;
         selected = mousedOver;
         selected?.pickup(mousePos);
-        if (selected && selected.canMakeNewObject(mousePos))
+        if (selected && selected.canMakeNewObject(mousePos) && selected.Permissions.canInteract)
         {
             selected = selected.makeNewObject();
             Managers.Object.addGameObject(selected);
@@ -44,7 +44,7 @@ public class ControlManager
         this.mousePos = mousePos;
         if (isMouseDown)
         {
-            if (selected)
+            if (selected && selected.Permissions.canMove)
             {
                 selected.moveTo(mousePos);
                 if (!(selected is Tray)
@@ -98,7 +98,7 @@ public class ControlManager
         {
             if (!(selected is Tray))
             {
-                if (Managers.Bin.containsPosition(mousePos))
+                if (Managers.Bin.containsPosition(mousePos) && selected.Permissions.canEdit)
                 {
                     Managers.Object.removeGameObject(selected);
                 }
@@ -144,10 +144,11 @@ public class ControlManager
     public void mouseDoubleClick()
     {
         bool changedObjectState = false;
-        checkTrayDoubleClick(Managers.Command, mousePos);
+        //checkTrayDoubleClick(Managers.Command, mousePos);
+
         //Find an object to change its state
         GameObject gameObject = Managers.Object.getObjectAtPosition(mousePos);
-        if (gameObject && gameObject.canChangeState())
+        if (gameObject && gameObject.canChangeState() && gameObject.Permissions.canInteract)
         {
             changedObjectState = true;
             gameObject.changeState();
