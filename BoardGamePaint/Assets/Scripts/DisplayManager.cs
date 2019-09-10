@@ -90,8 +90,7 @@ public class DisplayManager
                         .getAnchorObject(mousedOver, mousePos);
                     if (anchorObject)
                     {
-                        if (anchorObject.Permissions.canInteract
-                            && selected.Permissions.canInteract)
+                        if (selected.Permissions.canInteract)
                         {
                             if (anchorObject is CardDeck
                             && ((CardDeck)anchorObject).fitsInDeck(mousedOver))

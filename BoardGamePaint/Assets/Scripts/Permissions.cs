@@ -26,27 +26,37 @@ public class Permissions
             || gameObject.owner == Managers.Players.Current;
     }
 
+    private bool anchoredOwnerIsCurrent
+    {
+        get => gameObject.anchorObject &&
+            (!gameObject.anchorObject.owner || gameObject.anchorObject.owner == Managers.Players.Current);
+    }
+
     public bool canView
     {
         get => viewPermission == Permission.ALL_PLAYERS
-            || ownerIsCurrent;
+            || ownerIsCurrent
+            || anchoredOwnerIsCurrent;
     }
 
     public bool canMove
     {
         get => movePermission == Permission.ALL_PLAYERS
-            || ownerIsCurrent;
+            || ownerIsCurrent
+            || anchoredOwnerIsCurrent;
     }
 
     public bool canInteract
     {
         get => interactPermission == Permission.ALL_PLAYERS
-            || ownerIsCurrent;
+            || ownerIsCurrent
+            || anchoredOwnerIsCurrent;
     }
 
     public bool canEdit
     {
         get => editPermission == Permission.ALL_PLAYERS
-            || ownerIsCurrent;
+            || ownerIsCurrent
+            || anchoredOwnerIsCurrent;
     }
 }

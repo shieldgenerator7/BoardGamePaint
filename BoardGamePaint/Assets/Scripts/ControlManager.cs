@@ -116,8 +116,7 @@ public class ControlManager
                         .getAnchorObject(selected, mousePos);
                     if (anchorObject)
                     {
-                        if (anchorObject.Permissions.canInteract
-                            && selected.Permissions.canInteract)
+                        if (selected.Permissions.canInteract)
                         {
                             if (anchorObject is CardDeck
                                 && ((CardDeck)anchorObject).fitsInDeck(selected))

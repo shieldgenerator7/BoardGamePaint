@@ -98,7 +98,7 @@ public class GameObject : IComparable<GameObject>, ICloneable
     /// The object this object is anchored to
     /// So that it can move when its anchored object moves
     /// </summary>
-    private GameObject anchorObject;
+    public GameObject anchorObject { get; private set; }
     readonly private List<GameObject> anchoredObjects = new List<GameObject>();
 
     public GameObject(Image image, string description = null)
