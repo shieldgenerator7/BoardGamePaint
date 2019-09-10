@@ -12,7 +12,9 @@ namespace BoardGamePaint
 {
     public partial class MainForm : Form
     {
-        MouseButtons mouseButton;
+        bool panning = false;
+        Vector origMousePos;//original mouse position from where the pan gesture started
+        Vector origOrigin;//original DisplayManager.origin from where the pan gesture started
 
         public MainForm()
         {
@@ -46,22 +48,31 @@ namespace BoardGamePaint
 
         private void pnlSpace_MouseDown(object sender, MouseEventArgs e)
         {
-            Managers.Control.mouseDown();
-            mouseButton = e.Button;
+            if (e.Button == MouseButtons.Middle)
+            {
+                panning = true;
+                origOrigin = Managers.Display.origin;
+            }
+            else
+            {
+                Managers.Control.mouseDown();
+            }
         }
 
         private void pnlSpace_MouseMove(object sender, MouseEventArgs e)
         {
             Vector mouseVector = e.Location.toVector();
-            if (mouseButton == MouseButtons.Middle)
+            if (panning)
             {
-                Managers.Display.origin = mouseVector;
+                Managers.Display.origin = origOrigin + (mouseVector - origMousePos);
                 refresh();
             }
             else
             {
-                mouseVector = Managers.Display.convertToWorld(mouseVector);
-                if (Managers.Control.mouseMove(mouseVector))
+                origMousePos = mouseVector;
+                if (Managers.Control.mouseMove(
+                    Managers.Display.convertToWorld(mouseVector)
+                    ))
                 {
                     refresh();
                 }
@@ -70,7 +81,14 @@ namespace BoardGamePaint
 
         private void pnlSpace_MouseUp(object sender, MouseEventArgs e)
         {
-            Managers.Control.mouseUp();
+            if (panning)
+            {
+                panning = false;
+            }
+            else
+            {
+                Managers.Control.mouseUp();
+            }
             refresh();
         }
 
