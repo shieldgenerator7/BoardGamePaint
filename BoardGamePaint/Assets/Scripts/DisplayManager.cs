@@ -59,7 +59,7 @@ public class DisplayManager
 
     public void displayRectangles(Graphics graphics, GameObject selected, GameObject mousedOver, Vector mousePos, bool mouseDown)
     {
-        if (Managers.Players.Current)
+        if (Managers.Players.CurrentButton)
         {
             graphics.DrawRectangle(selectPen, Managers.Players.CurrentButton.getRect());
         }

@@ -16,7 +16,7 @@ public class PlayerButton : Button
         ColorMap[] colorMap = new ColorMap[1];
         colorMap[0] = new ColorMap();
         colorMap[0].OldColor = Color.White;
-        colorMap[0].NewColor = this.player.color;
+        colorMap[0].NewColor = (this.player) ? this.player.color : Color.Gray;
         attr = new ImageAttributes();
         attr.SetRemapTable(colorMap);
     }
@@ -28,11 +28,11 @@ public class PlayerButton : Button
 
     public override string TypeString
     {
-        get => this.player.name;
+        get => (this.player) ? this.player.name : "Neutral Player";
     }
 
     public override void draw(Graphics graphics)
-    {        
+    {
         // Draw using the color map
         Rectangle rect = new Rectangle(
             (int)position.x - size.Width / 2,

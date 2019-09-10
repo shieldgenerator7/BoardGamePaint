@@ -8,19 +8,21 @@ public class PlayerManager
     readonly private List<Player> players = new List<Player>();
     readonly private List<PlayerButton> playerButtons = new List<PlayerButton>();
 
+    PlayerButton neutralButton;
+
     public Player Current
     {
-        get => (players.Count > 0)
+        get => (players.Count > 0 && currentIndex >= 0)
             ? players[currentIndex]
             : null;
-        set => currentIndex = Math.Max(0, players.IndexOf(value));
+        set => currentIndex = players.IndexOf(value);
     }
 
     public PlayerButton CurrentButton
     {
-        get => (playerButtons.Count > 0)
+        get => (playerButtons.Count > 0 && currentIndex >= 0)
             ? playerButtons[currentIndex]
-            : null;
+            : neutralButton;
     }
 
     public static List<Color> allowedColors = new List<Color>()
@@ -33,6 +35,8 @@ public class PlayerManager
 
     public PlayerManager()
     {
+        neutralButton = new PlayerButton(null, Tray.DEFAULT_COMPONENT_SIZE);
+        Managers.Command.addComponent(neutralButton);
     }
 
     public void makeNewPlayer()
