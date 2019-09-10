@@ -4,66 +4,6 @@
    "description": "_LOOT DROP ",
    "back": "_LOOT DROP [BACK].png",
    "images": {
-      "armor_basic":{
-         "image": "armor_basic[8].png",
-         "description": "armor_basic",
-         "quantity": 8
-      },
-      "armor_good":{
-         "image": "armor_good[4].png",
-         "description": "armor_good",
-         "quantity": 4
-      },
-      "armor_super":{
-         "image": "armor_super[2].png",
-         "description": "armor_super",
-         "quantity": 2
-      },
-      "boots_basic":{
-         "image": "boots_basic[8].png",
-         "description": "boots_basic",
-         "quantity": 8
-      },
-      "boots_good":{
-         "image": "boots_good[4].png",
-         "description": "boots_good",
-         "quantity": 4
-      },
-      "boots_super":{
-         "image": "boots_super[2].png",
-         "description": "boots_super",
-         "quantity": 2
-      },
-      "jetpack_basic":{
-         "image": "jetpack_basic[4].png",
-         "description": "jetpack_basic",
-         "quantity": 4
-      },
-      "jetpack_good":{
-         "image": "jetpack_good[2].png",
-         "description": "jetpack_good",
-         "quantity": 2
-      },
-      "jetpack_super":{
-         "image": "jetpack_super[1].png",
-         "description": "jetpack_super",
-         "quantity": 1
-      },
-      "medkit_basic":{
-         "image": "medkit_basic[16].png",
-         "description": "medkit_basic",
-         "quantity": 16
-      },
-      "medkit_good":{
-         "image": "medkit_good[8].png",
-         "description": "medkit_good",
-         "quantity": 8
-      },
-      "medkit_super":{
-         "image": "medkit_super[4].png",
-         "description": "medkit_super",
-         "quantity": 4
-      },
       "shield_basic":{
          "image": "shield_basic[8].png",
          "description": "shield_basic",
@@ -148,6 +88,66 @@
          "image": "weapon_melee_whip[2].png",
          "description": "weapon_melee_whip",
          "quantity": 2
+      },
+      "armor_basic":{
+         "image": "armor_basic[8].png",
+         "description": "armor_basic",
+         "quantity": 8
+      },
+      "armor_good":{
+         "image": "armor_good[4].png",
+         "description": "armor_good",
+         "quantity": 4
+      },
+      "armor_super":{
+         "image": "armor_super[2].png",
+         "description": "armor_super",
+         "quantity": 2
+      },
+      "boots_basic":{
+         "image": "boots_basic[8].png",
+         "description": "boots_basic",
+         "quantity": 8
+      },
+      "boots_good":{
+         "image": "boots_good[4].png",
+         "description": "boots_good",
+         "quantity": 4
+      },
+      "boots_super":{
+         "image": "boots_super[2].png",
+         "description": "boots_super",
+         "quantity": 2
+      },
+      "jetpack_basic":{
+         "image": "jetpack_basic[4].png",
+         "description": "jetpack_basic",
+         "quantity": 4
+      },
+      "jetpack_good":{
+         "image": "jetpack_good[2].png",
+         "description": "jetpack_good",
+         "quantity": 2
+      },
+      "jetpack_super":{
+         "image": "jetpack_super[1].png",
+         "description": "jetpack_super",
+         "quantity": 1
+      },
+      "medkit_basic":{
+         "image": "medkit_basic[16].png",
+         "description": "medkit_basic",
+         "quantity": 16
+      },
+      "medkit_good":{
+         "image": "medkit_good[8].png",
+         "description": "medkit_good",
+         "quantity": 8
+      },
+      "medkit_super":{
+         "image": "medkit_super[4].png",
+         "description": "medkit_super",
+         "quantity": 4
       },
    }
 }
