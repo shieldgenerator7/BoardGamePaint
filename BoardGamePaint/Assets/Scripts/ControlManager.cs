@@ -39,14 +39,14 @@ public class ControlManager
         }
     }
 
-    public bool mouseMove(Vector mousePos)
+    public bool mouseMove(Vector mousePosWorld)
     {
-        this.mousePos = mousePos;
+        this.mousePos = mousePosWorld;
         if (isMouseDown)
         {
             if (selected && selected.Permissions.canMove)
             {
-                selected.moveTo(mousePos);
+                selected.moveTo(mousePosWorld);
                 if (!(selected is Tray)
                     && !(selected is TrayComponent))
                 {
@@ -63,12 +63,12 @@ public class ControlManager
         {
             GameObject prevMousedOver = mousedOver;
             mousedOver = null;
-            mousedOver = checkTrayMouseOver(Managers.Bin, mousedOver, mousePos);
-            mousedOver = checkTrayMouseOver(Managers.Command, mousedOver, mousePos);
+            mousedOver = checkTrayMouseOver(Managers.Bin, mousedOver, mousePosWorld);
+            mousedOver = checkTrayMouseOver(Managers.Command, mousedOver, mousePosWorld);
             if (!mousedOver)
             {
-                mousedOver = Managers.Object.getObjectAtPosition(mousePos);
-                mousedOver?.pickup(mousePos);
+                mousedOver = Managers.Object.getObjectAtPosition(mousePosWorld);
+                mousedOver?.pickup(mousePosWorld);
             }
             Cursor neededCursor = Cursor.Current;
             if (mousedOver)

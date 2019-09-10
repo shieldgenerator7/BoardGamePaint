@@ -12,6 +12,7 @@ namespace BoardGamePaint
 {
     public partial class MainForm : Form
     {
+        MouseButtons mouseButton;
 
         public MainForm()
         {
@@ -46,14 +47,24 @@ namespace BoardGamePaint
         private void pnlSpace_MouseDown(object sender, MouseEventArgs e)
         {
             Managers.Control.mouseDown();
+            mouseButton = e.Button;
         }
 
         private void pnlSpace_MouseMove(object sender, MouseEventArgs e)
         {
             Vector mouseVector = e.Location.toVector();
-            if (Managers.Control.mouseMove(mouseVector))
+            if (mouseButton == MouseButtons.Middle)
             {
+                Managers.Display.origin = mouseVector;
                 refresh();
+            }
+            else
+            {
+                mouseVector = Managers.Display.convertToWorld(mouseVector);
+                if (Managers.Control.mouseMove(mouseVector))
+                {
+                    refresh();
+                }
             }
         }
 

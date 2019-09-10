@@ -20,7 +20,6 @@ public class CardDeck : GameObject
         this.cards = cards;
         outerSize = new Size(size.Width + 25, size.Height + 25);
         this.Back = backImage;
-        Permissions.interactPermission = Permissions.Permission.OWNING_PLAYER_ONLY;
     }
 
     public bool FaceUp { get; set; } = false;
@@ -56,8 +55,8 @@ public class CardDeck : GameObject
             {
                 graphics.DrawImage(
                 image,
-                position.x - size.Width / 2,
-                position.y - size.Height / 2 - i * CARD_SPACING,
+                TopLeftScreen.x,
+                TopLeftScreen.y - i * CARD_SPACING,
                 size.Width,
                 size.Height
                 );
@@ -119,8 +118,8 @@ public class CardDeck : GameObject
         else
         {
             return new Rectangle(
-                (int)position.x - size.Width / 2,
-                (int)position.y - size.Height / 2 - bonusHeight,
+                (int)TopLeft.x,
+                (int)TopLeft.y - bonusHeight,
                 size.Width,
                 size.Height + bonusHeight);
         }

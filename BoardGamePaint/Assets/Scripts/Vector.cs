@@ -24,6 +24,11 @@ public class Vector
         }
     }
 
+    public static Vector zero
+    {
+        get => new Vector(0, 0);
+    }
+
     public static Vector operator -(Vector a)
         => new Vector(-a.x, -a.y);
 

@@ -50,7 +50,10 @@ public class Tray : GameObject
 
     public override void draw(Graphics graphics)
     {
-        graphics.FillRectangle(backBrush, backRect);
+        graphics.FillRectangle(
+            backBrush,
+            Managers.Display.convertToScreen(backRect)
+            );
         foreach (TrayComponent tc in trayComponents)
         {
             tc.draw(graphics);

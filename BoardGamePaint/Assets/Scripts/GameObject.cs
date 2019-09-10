@@ -29,6 +29,20 @@ public class GameObject : IComparable<GameObject>, ICloneable
     {
         get { return new Size(size.Width, size.Height); }
     }
+    private Vector top_left = Vector.zero;
+    public Vector TopLeft
+    {
+        get
+        {
+            top_left.x = position.x - size.Width / 2;
+            top_left.y = position.y - size.Height / 2;
+            return top_left;
+        }
+    }
+    public Vector TopLeftScreen
+    {
+        get => Managers.Display.convertToScreen(TopLeft);
+    }
 
     public virtual Image image { get; protected set; }
 
@@ -121,8 +135,8 @@ public class GameObject : IComparable<GameObject>, ICloneable
     {
         graphics.DrawImage(
             image,
-            position.x - size.Width / 2,
-            position.y - size.Height / 2,
+            TopLeftScreen.x,
+            TopLeftScreen.y,
             size.Width,
             size.Height
             );
@@ -139,8 +153,8 @@ public class GameObject : IComparable<GameObject>, ICloneable
                 footerString,
                 font,
                 brush,
-                position.x + size.Width / 2,
-                position.y + size.Height / 2
+                TopLeftScreen.x,
+                TopLeftScreen.y
                 );
         }
     }
@@ -330,8 +344,8 @@ public class GameObject : IComparable<GameObject>, ICloneable
     public virtual Rectangle getRect()
     {
         return new Rectangle(
-            (int)position.x - size.Width / 2,
-            (int)position.y - size.Height / 2,
+            (int)TopLeft.x,
+            (int)TopLeft.y,
             size.Width,
             size.Height);
     }

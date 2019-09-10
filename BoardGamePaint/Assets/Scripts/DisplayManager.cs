@@ -14,6 +14,8 @@ public class DisplayManager
 
     Font font;
 
+    public Vector origin = Vector.zero;
+
     public DisplayManager()
     {
         selectPen = new Pen(Color.FromArgb(155, 155, 155), BRUSH_THICKNESS);
@@ -61,7 +63,7 @@ public class DisplayManager
     {
         if (Managers.Players.CurrentButton)
         {
-            graphics.DrawRectangle(selectPen, Managers.Players.CurrentButton.getRect());
+            drawRectangle(graphics, selectPen, Managers.Players.CurrentButton);
         }
         if (!mousedOver)
         {
@@ -77,11 +79,11 @@ public class DisplayManager
                     && Managers.Bin.containsPosition(mousePos)
                     && mousedOver.Permissions.canEdit)
                 {
-                    graphics.DrawRectangle(deletePen, mousedOver.getRect());
+                    drawRectangle(graphics, deletePen, mousedOver);
                 }
                 else if (mousedOver is Tray)
                 {
-                    graphics.DrawRectangle(selectPen, mousedOver.getRect());
+                    drawRectangle(graphics, selectPen, mousedOver);
                 }
                 else
                 {
@@ -95,19 +97,19 @@ public class DisplayManager
                             if (anchorObject is CardDeck
                             && ((CardDeck)anchorObject).fitsInDeck(mousedOver))
                             {
-                                graphics.DrawRectangle(changePen, mousedOver.getRect());
-                                graphics.DrawRectangle(changePen, anchorObject.getRect());
+                                drawRectangle(graphics, changePen, mousedOver);
+                                drawRectangle(graphics, changePen, anchorObject);
                             }
                             else
                             {
-                                graphics.DrawRectangle(anchorPen, mousedOver.getRect());
-                                graphics.DrawRectangle(anchorPen, anchorObject.getRect());
+                                drawRectangle(graphics, anchorPen, mousedOver);
+                                drawRectangle(graphics, anchorPen, anchorObject);
                             }
                         }
                     }
                     else
                     {
-                        graphics.DrawRectangle(selectPen, mousedOver.getRect());
+                        drawRectangle(graphics, selectPen, mousedOver);
                     }
                 }
             }
@@ -117,15 +119,15 @@ public class DisplayManager
                 if (mousedOver is Bin
                     || (mousedOver.canMakeNewObject(mousePos) && mousedOver.Permissions.canInteract))
                 {
-                    graphics.DrawRectangle(createPen, mousedOver.getRect());
+                    drawRectangle(graphics, createPen, mousedOver);
                 }
                 else if (mousedOver.canChangeState() && mousedOver.Permissions.canInteract)
                 {
-                    graphics.DrawRectangle(changePen, mousedOver.getRect());
+                    drawRectangle(graphics, changePen, mousedOver);
                 }
                 else
                 {
-                    graphics.DrawRectangle(selectPen, mousedOver.getRect());
+                    drawRectangle(graphics, selectPen, mousedOver);
                 }
                 //Highlight objects that belong to moused over player button's player
                 if (mousedOver is PlayerButton)
@@ -135,12 +137,19 @@ public class DisplayManager
                     {
                         if (go.owner == mousedButton.player)
                         {
-                            graphics.DrawRectangle(selectPen, go.getRect());
+                            drawRectangle(graphics, selectPen, go);
                         }
                     }
                 }
             }
         }
+    }
+    private void drawRectangle(Graphics graphics, Pen pen, GameObject gameObject)
+    {
+        graphics.DrawRectangle(
+            pen,
+            convertToScreen(gameObject.getRect())
+            );
     }
 
     public void displayDescription(Graphics graphics)
@@ -154,6 +163,7 @@ public class DisplayManager
 
     public void displayDescription(Graphics graphics, GameObject mousedOver, Vector mousePos)
     {
+        mousePos = convertToScreen(mousePos);
         //Object Description
         if (mousedOver)
         {
@@ -165,4 +175,30 @@ public class DisplayManager
                 );
         }
     }
+
+    public Vector convertToScreen(Vector vWorld)
+    {
+        return vWorld + origin;
+    }
+
+    public Vector convertToWorld(Vector vScreen)
+    {
+        return vScreen - origin;
+    }
+
+    public Rectangle convertToScreen(Rectangle rWorld)
+        => new Rectangle(
+            rWorld.X + (int)origin.x,
+            rWorld.Y + (int)origin.y,
+            rWorld.Width,
+            rWorld.Height
+            );
+
+    public Rectangle convertToWorld(Rectangle rScreen)
+        => new Rectangle(
+            rScreen.X - (int)origin.x,
+            rScreen.Y - (int)origin.y,
+            rScreen.Width,
+            rScreen.Height
+            );
 }

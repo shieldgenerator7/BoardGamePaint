@@ -35,8 +35,8 @@ public class PlayerButton : Button
     {
         // Draw using the color map
         Rectangle rect = new Rectangle(
-            (int)position.x - size.Width / 2,
-            (int)position.y - size.Height / 2,
+            (int)TopLeftScreen.x,
+            (int)TopLeftScreen.y,
             size.Width,
             size.Height);
         graphics.DrawImage(
