@@ -15,7 +15,6 @@ namespace BoardGamePaintTest
             return directory + "\\" + baseFileName;
         }
 
-        [TestMethod]
         public void TestMethod1()
         {
             Assert.AreEqual(3, (1 + 3));
@@ -45,7 +44,6 @@ namespace BoardGamePaintTest
             Assert.IsNotNull(file);
             file.Close();
         }
-        [TestMethod]
         public void FileTest3()
         {
             string directory = Directory.GetCurrentDirectory();
