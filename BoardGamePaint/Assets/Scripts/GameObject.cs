@@ -79,7 +79,7 @@ public class GameObject : IComparable<GameObject>, ICloneable
 
     public Player owner { get; set; }
     private Permissions permissions;
-    protected Permissions Permissions
+    public Permissions Permissions
     {
         get
         {

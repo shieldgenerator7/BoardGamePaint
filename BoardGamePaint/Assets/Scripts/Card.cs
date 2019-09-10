@@ -11,6 +11,8 @@ public class Card : CardDeck
         Face = frontImage;
         Back = backImage;
         outerSize = Size;
+        Permissions.interactPermission = Permissions.Permission.OWNING_PLAYER_ONLY;
+        Permissions.viewPermission = Permissions.Permission.OWNING_PLAYER_ONLY;
     }
 
     public Card(GameObject cardToBe, Image backImage) :
@@ -19,11 +21,11 @@ public class Card : CardDeck
 
     public override Image image
     {
-        get => (FaceUp) ? Face : Back;
+        get => (FaceUp && Permissions.canView) ? Face : Back;
     }
 
     public override string Description {
-        get => (FaceUp) ? description : TypeString;
+        get => (FaceUp && Permissions.canView) ? description : TypeString;
     }
 
     public override string TypeString
