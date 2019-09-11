@@ -1,6 +1,7 @@
 ﻿using BoardGamePaint;
 using System;
 using System.Drawing;
+using System.IO;
 
 public class Managers
 {
@@ -62,9 +63,19 @@ public class Managers
         this.binManager = new BinManager();
         //Command Tray
         this.commandTray = new Tray();
-        commandTray.addComponent(new ExitButton(Image.FromFile("exit.png"),Tray.DEFAULT_COMPONENT_SIZE));
-        commandTray.addComponent(new AddPlayerButton(Image.FromFile("newplayer.png"), Tray.DEFAULT_COMPONENT_SIZE));
-        //Player Manager
-        this.playerManager = new PlayerManager();
+        try
+        {
+            commandTray.addComponent(new ExitButton(Image.FromFile("exit.png"), Tray.DEFAULT_COMPONENT_SIZE));
+            commandTray.addComponent(new AddPlayerButton(Image.FromFile("newplayer.png"), Tray.DEFAULT_COMPONENT_SIZE));
+
+            //Player Manager
+            this.playerManager = new PlayerManager();
+        }
+        catch (System.IO.FileNotFoundException fnfe)
+        {
+            System.Windows.Forms.MessageBox.Show("File error: "+fnfe.Message);
+            File.Create("FILE_ERROR.txt");
+        }
+
     }
 }
