@@ -81,6 +81,15 @@ public class DisplayManager
                 {
                     drawRectangle(graphics, deletePen, mousedOver);
                 }
+                else if (!(mousedOver is Tray)
+                    && !(mousedOver is TrayComponent)
+                    && Managers.Command.containsPosition(mousePos)
+                    && Managers.Command.getComponent(mousePos) is PlayerButton
+                    && mousedOver.Permissions.canEdit)
+                {
+                    drawRectangle(graphics, changePen, mousedOver);
+                    drawRectangle(graphics, changePen, Managers.Command.getComponent(mousePos));
+                }
                 else if (mousedOver is Tray)
                 {
                     drawRectangle(graphics, selectPen, mousedOver);

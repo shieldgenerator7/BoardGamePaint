@@ -102,6 +102,12 @@ public class ControlManager
                 {
                     Managers.Object.removeGameObject(selected);
                 }
+                else if (Managers.Command.containsPosition(mousePos)
+                    && Managers.Command.getComponent(mousePos) is PlayerButton
+                    && selected.Permissions.canEdit)
+                {
+                    selected.owner = ((PlayerButton)Managers.Command.getComponent(mousePos)).player;
+                }
                 else
                 {
                     WayPoint selectedWayPoint = Managers.Object
