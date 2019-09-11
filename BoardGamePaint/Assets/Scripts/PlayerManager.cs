@@ -47,6 +47,8 @@ public class PlayerManager
         PlayerButton newButton = new PlayerButton(newPlayer, Tray.DEFAULT_COMPONENT_SIZE);
         playerButtons.Add(newButton);
         Managers.Command.addComponent(newButton);
+        //Set current player
+        Current = newPlayer;
     }
 
     public void nextTurn()
