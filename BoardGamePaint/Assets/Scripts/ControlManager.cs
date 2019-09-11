@@ -12,6 +12,7 @@ public class ControlManager
     public GameObject mousedOver { get; private set; } = null;
     public Vector mousePos { get; private set; } = null;
     public bool isMouseHover { get; private set; } = false;
+    public Vector origMousePos { get; private set; } = null;
 
     public ControlManager()
     {
@@ -21,6 +22,7 @@ public class ControlManager
     {
         this.isMouseDown = true;
         this.isMouseHover = false;
+        origMousePos = mousePos;
         selected = mousedOver;
         selected?.pickup(mousePos);
         if (selected && selected.canMakeNewObject(mousePos) && selected.Permissions.canInteract)
@@ -107,6 +109,8 @@ public class ControlManager
                     && selected.Permissions.canEdit)
                 {
                     selected.owner = ((PlayerButton)Managers.Command.getComponent(mousePos)).player;
+                    //Move object back to where it was before
+                    selected.moveTo(origMousePos);
                 }
                 else
                 {
