@@ -205,8 +205,11 @@ public class GameObject : IComparable<GameObject>, ICloneable
         {
             anchorOff();
         }
-        this.anchorObject = anchor;
-        this.anchorObject.anchoredObjects.Add(this);
+        if (anchor)
+        {
+            this.anchorObject = anchor;
+            this.anchorObject.anchoredObjects.Add(this);
+        }
     }
 
     public void anchorOff()
