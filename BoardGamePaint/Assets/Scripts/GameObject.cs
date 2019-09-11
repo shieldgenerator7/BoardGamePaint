@@ -12,7 +12,7 @@ public class GameObject : IComparable<GameObject>, ICloneable
         {
             if (hiddenImage == null)
             {
-                hiddenImage = Image.FromFile("hidden.png");
+                hiddenImage = ImageUtility.getImage("hidden");
             }
             return hiddenImage;
         }

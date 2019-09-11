@@ -65,15 +65,16 @@ public class Managers
         this.commandTray = new Tray();
         try
         {
-            commandTray.addComponent(new ExitButton(Image.FromFile("exit.png"), Tray.DEFAULT_COMPONENT_SIZE));
-            commandTray.addComponent(new AddPlayerButton(Image.FromFile("newplayer.png"), Tray.DEFAULT_COMPONENT_SIZE));
+            commandTray.addComponent(new ExitButton(ImageUtility.getImage("exit"), Tray.DEFAULT_COMPONENT_SIZE));
+            commandTray.addComponent(new AddPlayerButton(ImageUtility.getImage("newplayer"), Tray.DEFAULT_COMPONENT_SIZE));
 
             //Player Manager
             this.playerManager = new PlayerManager();
         }
         catch (System.IO.FileNotFoundException fnfe)
         {
-            System.Windows.Forms.MessageBox.Show("File error: "+fnfe.Message);
+            System.Windows.Forms.MessageBox.Show("File error: can't find: "+fnfe.Message);
+            ImageUtility.showValidResourcePaths();
             File.Create("FILE_ERROR.txt");
         }
 

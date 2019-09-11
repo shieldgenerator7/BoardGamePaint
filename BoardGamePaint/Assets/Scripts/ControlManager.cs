@@ -161,7 +161,7 @@ public class ControlManager
             && WAYPOINTS_ENABLED)
         {
             Managers.Object.addWayPoint(new WayPoint(
-                Image.FromFile("waypoint.png"),
+                ImageUtility.getImage("waypoint"),
                 mousePos,
                 new Size(100, 100),
                 WayPoint.Shape.CIRCLE

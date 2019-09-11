@@ -8,7 +8,7 @@ public class PlayerButton : Button
 
     private ImageAttributes attr;
 
-    public PlayerButton(Player player, int size) : base(Image.FromFile("player.png"), size)
+    public PlayerButton(Player player, int size) : base(ImageUtility.getImage("player"), size)
     {
         this.player = player;
         //2019-09-09: ColorMap code copied from https://stackoverflow.com/a/27101587/2336212

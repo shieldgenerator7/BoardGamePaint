@@ -91,6 +91,7 @@
     <Compile Include="Assets\Scripts\DisplayManager.cs" />
     <Compile Include="Assets\Scripts\ExitButton.cs" />
     <Compile Include="Assets\Scripts\GameObject.cs" />
+    <Compile Include="Assets\Scripts\ImageUtility.cs" />
     <Compile Include="Assets\Scripts\Managers.cs" />
     <Compile Include="Assets\Scripts\ObjectImportManager.cs" />
     <Compile Include="Assets\Scripts\ObjectManager.cs" />
@@ -143,7 +144,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BoardGamePaint.ico" />
+    <Content Include="Assets\Images\BoardGamePaint.ico" />
+    <Content Include="Assets\Images\exit.png" />
+    <Content Include="Assets\Images\hidden.png" />
+    <Content Include="Assets\Images\newplayer.png" />
+    <Content Include="Assets\Images\player.png" />
+    <Content Include="Assets\Images\waypoint.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
