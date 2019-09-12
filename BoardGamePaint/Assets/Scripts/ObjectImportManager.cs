@@ -50,7 +50,7 @@ public static class ObjectImportManager
         return filename.Substring(0, lastSlash);
     }
 
-    public static int getQuantityFromFileName(string filename)
+    public static int getQuantityFromFileName(string filename, bool requireBrackets = true)
     {
         int quantity = 1;
         if (filename.Contains("[") && filename.Contains("]"))
@@ -64,6 +64,34 @@ public static class ObjectImportManager
             if (quantity < 1 && !parsed)
             {
                 quantity = 1;
+            }
+        }
+        else if (!requireBrackets)
+        {
+            int numberStartIndex = -1;
+            int dotIndex = -1;
+            for (int i = filename.Length - 1; i >= 0; i--)
+            {
+                if (filename[i] == '.')
+                {
+                    dotIndex = i;
+                }
+                if (dotIndex >= 0 && i != dotIndex)
+                {
+                    if (!Char.IsDigit(filename[i]))
+                    {
+                        numberStartIndex = i + 1;
+                    }
+                }
+                if (numberStartIndex >= 0 && dotIndex >= 0)
+                {
+                    int length = dotIndex - numberStartIndex;
+                    if (length > 0)
+                    {
+                        quantity = int.Parse(filename.Substring(numberStartIndex, length));
+                    }
+                    break;
+                }
             }
         }
         return quantity;
@@ -289,7 +317,7 @@ public static class ObjectImportManager
         int highestValue = int.MinValue;
         foreach (string filename in filenames)
         {
-            int value = getQuantityFromFileName(filename);
+            int value = getQuantityFromFileName(filename, false);
             if (value > highestValue)
             {
                 highestValue = value;
@@ -317,9 +345,9 @@ public static class ObjectImportManager
                 json += "\"" + cardName + "\":{" + "\n"
                     + "\"image\": \"" + getRelativeFileName(filename) + "\"," + "\n"
                     + "\"description\": \"" + cardName + "\"," + "\n"
-                    + "\"value\": " + getQuantityFromFileName(filename) + "\n"
                     + "}," + "\n";
             }
+                + "\"value\": " + getQuantityFromFileName(filename, false) + "\n"
         }
         //TODO: remove ending comma
         json += "}" + "\n"//end "images"
