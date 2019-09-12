@@ -99,9 +99,16 @@ public static class ObjectImportManager
             ? new GameObject(backImageFileName)
             : null;
         processObjects(objectsToProcess, backImageObject, getReadableFileName(backImageFileName));
-        if (objectsToProcess.Count > 1 && backImageFileName != null)
+        if (objectsToProcess.Count > 1)
         {
-            writeJSONDeck(filenames, backImageFileName);
+            if (backImageFileName != null)
+            {
+                writeJSONDeck(filenames, backImageFileName);
+            }
+            else
+            {
+                writeJSONDice(filenames);
+            }
         }
     }
 
@@ -158,16 +165,18 @@ public static class ObjectImportManager
         string objectType = ((string)jo["type"])?.ToLower();
         GameObject backImageObject = null;
         string backFilename = foldername + (string)jo["back"];
+        string defaultImageFilename = foldername + (string)jo["defaultImage"];
         Trace.WriteLine("jo back: " + backFilename);
-        if (objectType == "deck"
+        if (objectType == CardDeck.JSON_TYPE
             || objectType == null && File.Exists(backFilename))
         {
             backImageObject = new GameObject(backFilename);
             makeDeck(objectsToProcess, Image.FromFile(backFilename), objectDesc);
         }
-        else
+        else if (objectType == Die.JSON_TYPE
+            || objectType == null && File.Exists(defaultImageFilename))
         {
-            makeDie(objectsToProcess, objectDesc);
+            makeDie(objectsToProcess, Image.FromFile(defaultImageFilename), objectDesc);
         }
     }
 
@@ -191,7 +200,7 @@ public static class ObjectImportManager
             else
             {
                 //else make it an object with many states
-                makeDie(objectsToProcess, description);
+                makeDie(objectsToProcess, null, description);
             }
         }
         else
@@ -215,13 +224,17 @@ public static class ObjectImportManager
         Managers.Bin.makeBin(cardDeck);
     }
 
-    static void makeDie(List<GameObject> objects, string description)
+    static void makeDie(List<GameObject> objects, Image defaultImage, string description)
     {
         List<Image> images = new List<Image>(
             from go in objects
             select go.image
             );
         Die die = new Die(images, description);
+        if (defaultImage != null)
+        {
+            die.defaultImage = defaultImage;
+        }
         Managers.Bin.makeBin(die);
     }
 
@@ -243,7 +256,7 @@ public static class ObjectImportManager
         string deckName = getReadableFileName(backFilename);
         string json = "{" + "\n"
             + "\"name\": \"" + deckName + "\"," + "\n"
-            + "\"type\": \"deck\"," + "\n"
+            + "\"type\": \"" + CardDeck.JSON_TYPE + "\"," + "\n"
             + "\"description\": \"" + deckName + "\"," + "\n"
             + "\"back\": \"" + getRelativeFileName(backFilename) + "\"," + "\n"
             + "\"images\": {" + "\n";
@@ -266,6 +279,55 @@ public static class ObjectImportManager
         //Write json to file
         string folder = getFolderPathName(backFilename);
         string jsonFileName = folder + "\\" + deckName + ".json";
+        File.WriteAllText(jsonFileName, json);
+    }
+
+    static void writeJSONDice(IEnumerable<string> filenames)
+    {
+        //Get filename with highest value
+        string highestFilename = null;
+        int highestValue = int.MinValue;
+        foreach (string filename in filenames)
+        {
+            int value = getQuantityFromFileName(filename);
+            if (value > highestValue)
+            {
+                highestValue = value;
+                highestFilename = filename;
+            }
+        }
+        if (highestFilename == null)
+        {
+            highestFilename = filenames.ToArray<string>()[0];
+        }
+
+        //Create JSON string
+        string diceName = getReadableFileName(highestFilename);
+        string json = "{" + "\n"
+            + "\"name\": \"" + diceName + "\"," + "\n"
+            + "\"type\": \"" + Die.JSON_TYPE + "\"," + "\n"
+            + "\"description\": \"" + diceName + "\"," + "\n"
+            + "\"defaultImage\": \"" + getRelativeFileName(highestFilename) + "\"," + "\n"
+            + "\"images\": {" + "\n";
+        foreach (string filename in filenames)
+        {
+            if (filename != highestFilename)
+            {
+                string cardName = getReadableFileName(filename);
+                json += "\"" + cardName + "\":{" + "\n"
+                    + "\"image\": \"" + getRelativeFileName(filename) + "\"," + "\n"
+                    + "\"description\": \"" + cardName + "\"," + "\n"
+                    + "\"value\": " + getQuantityFromFileName(filename) + "\n"
+                    + "}," + "\n";
+            }
+        }
+        //TODO: remove ending comma
+        json += "}" + "\n"//end "images"
+            + "}";//end json
+
+        //Write json to file
+        string folder = getFolderPathName(highestFilename);
+        string jsonFileName = folder + "\\" + diceName + ".json";
         File.WriteAllText(jsonFileName, json);
     }
 }

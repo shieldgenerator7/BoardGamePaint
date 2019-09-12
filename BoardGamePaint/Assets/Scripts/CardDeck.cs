@@ -6,6 +6,7 @@ using System.Linq;
 
 public class CardDeck : GameObject
 {
+    public static string JSON_TYPE = "deck";
     int MAX_VISIBLE_CARD_COUNT = 100;
     float CARD_SPACING = 0.5f;
 

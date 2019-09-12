@@ -4,12 +4,19 @@ using System.Drawing;
 
 public class Die : GameObject
 {
+    public static string JSON_TYPE = "dice";
 
     protected List<Image> images;
     protected int imageIndex = 0;
     public override Image image
     {
-        get { return images?[imageIndex]; }
+        get {
+            if (imageIndex < 0)
+            {
+                return defaultImage;
+            }
+            return images?[imageIndex];
+        }
         protected set
         {
             if (images == null)
@@ -18,16 +25,27 @@ public class Die : GameObject
             }
             if (!images.Contains(value))
             {
-                images.Add(value);
+                if (defaultImage != null)
+                {
+                    //do nothing,
+                    //images.indexOf() will set imageIndex to -1
+                }
+                else
+                {
+                    images.Add(value);
+                }
             }
             imageIndex = images.IndexOf(value);
         }
     }
 
+    public Image defaultImage { private get; set; }
+
     public Die(List<Image> images, string description) : base((Image)null, description)
     {
         this.position = new Vector(0, 0);
         this.images = images;
+        this.defaultImage = images[0];
         this.imageIndex = 0;
         this.size = this.image.Size;
     }
