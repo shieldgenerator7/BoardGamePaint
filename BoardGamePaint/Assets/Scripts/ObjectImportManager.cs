@@ -339,15 +339,12 @@ public static class ObjectImportManager
             + "\"images\": {" + "\n";
         foreach (string filename in filenames)
         {
-            if (filename != highestFilename)
-            {
-                string cardName = getReadableFileName(filename);
-                json += "\"" + cardName + "\":{" + "\n"
-                    + "\"image\": \"" + getRelativeFileName(filename) + "\"," + "\n"
-                    + "\"description\": \"" + cardName + "\"," + "\n"
-                    + "}," + "\n";
-            }
+            string cardName = getReadableFileName(filename);
+            json += "\"" + cardName + "\":{" + "\n"
+                + "\"image\": \"" + getRelativeFileName(filename) + "\"," + "\n"
+                + "\"description\": \"" + cardName + "\"," + "\n"
                 + "\"value\": " + getQuantityFromFileName(filename, false) + "\n"
+                + "}," + "\n";
         }
         //TODO: remove ending comma
         json += "}" + "\n"//end "images"
