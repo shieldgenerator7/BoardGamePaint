@@ -312,23 +312,10 @@ public static class ObjectImportManager
 
     static void writeJSONDice(IEnumerable<string> filenames)
     {
+        //Sort the list, if possible
+        filenames = filenames.OrderBy(filename => getQuantityFromFileName(filename, false));
         //Get filename with highest value
-        string highestFilename = null;
-        int highestValue = int.MinValue;
-        foreach (string filename in filenames)
-        {
-            int value = getQuantityFromFileName(filename, false);
-            if (value > highestValue)
-            {
-                highestValue = value;
-                highestFilename = filename;
-            }
-        }
-        if (highestFilename == null)
-        {
-            highestFilename = filenames.ToArray<string>()[0];
-        }
-
+        string highestFilename = filenames.Last<string>();
         //Create JSON string
         string diceName = getReadableFileName(highestFilename);
         string json = "{" + "\n"
