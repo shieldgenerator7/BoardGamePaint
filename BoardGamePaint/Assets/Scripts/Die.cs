@@ -46,7 +46,7 @@ public class Die : GameObject
         this.position = new Vector(0, 0);
         this.images = images;
         this.defaultImage = images[0];
-        this.imageIndex = 0;
+        this.imageIndex = -1;
         this.size = this.image.Size;
     }
 

@@ -1,0 +1,38 @@
+{
+   "name": "Standard Die",
+   "type": "dice",
+   "description": "A Standard 6-Sided Die",
+   "defaultImage": "die6.png",
+   "images": {
+      "die1":{
+         "image": "die1.png",
+         "description": "1",
+         "value": 1
+      },
+      "die2":{
+         "image": "die2.png",
+         "description": "2",
+         "value": 2
+      },
+      "die3":{
+         "image": "die3.png",
+         "description": "3",
+         "value": 3
+      },
+      "die4":{
+         "image": "die4.png",
+         "description": "4",
+         "value": 4
+      },
+      "die5":{
+         "image": "die5.png",
+         "description": "5",
+         "value": 5
+      },
+      "die6":{
+         "image": "die6.png",
+         "description": "6",
+         "value": 6
+      },
+   }
+}

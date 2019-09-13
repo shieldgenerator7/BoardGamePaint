@@ -1,0 +1,98 @@
+{
+   "name": "Coordinate (18)",
+   "type": "dice",
+   "description": "Coordinate (1-18)",
+   "defaultImage": "coordinate18.png",
+   "images": {
+      "coordinate1":{
+         "image": "coordinate1.png",
+         "description": "coordinate1",
+         "value": 1
+      },
+      "coordinate2":{
+         "image": "coordinate2.png",
+         "description": "coordinate2",
+         "value": 2
+      },
+      "coordinate3":{
+         "image": "coordinate3.png",
+         "description": "coordinate3",
+         "value": 3
+      },
+      "coordinate4":{
+         "image": "coordinate4.png",
+         "description": "coordinate4",
+         "value": 4
+      },
+      "coordinate5":{
+         "image": "coordinate5.png",
+         "description": "coordinate5",
+         "value": 5
+      },
+      "coordinate6":{
+         "image": "coordinate6.png",
+         "description": "coordinate6",
+         "value": 6
+      },
+      "coordinate7":{
+         "image": "coordinate7.png",
+         "description": "coordinate7",
+         "value": 7
+      },
+      "coordinate8":{
+         "image": "coordinate8.png",
+         "description": "coordinate8",
+         "value": 8
+      },
+      "coordinate9":{
+         "image": "coordinate9.png",
+         "description": "coordinate9",
+         "value": 9
+      },
+      "coordinate10":{
+         "image": "coordinate10.png",
+         "description": "coordinate10",
+         "value": 10
+      },
+      "coordinate11":{
+         "image": "coordinate11.png",
+         "description": "coordinate11",
+         "value": 11
+      },
+      "coordinate12":{
+         "image": "coordinate12.png",
+         "description": "coordinate12",
+         "value": 12
+      },
+      "coordinate13":{
+         "image": "coordinate13.png",
+         "description": "coordinate13",
+         "value": 13
+      },
+      "coordinate14":{
+         "image": "coordinate14.png",
+         "description": "coordinate14",
+         "value": 14
+      },
+      "coordinate15":{
+         "image": "coordinate15.png",
+         "description": "coordinate15",
+         "value": 15
+      },
+      "coordinate16":{
+         "image": "coordinate16.png",
+         "description": "coordinate16",
+         "value": 16
+      },
+      "coordinate17":{
+         "image": "coordinate17.png",
+         "description": "coordinate17",
+         "value": 17
+      },
+      "coordinate18":{
+         "image": "coordinate18.png",
+         "description": "coordinate18",
+         "value": 18
+      },
+   }
+}
