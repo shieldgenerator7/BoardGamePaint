@@ -1,0 +1,43 @@
+{
+"name": "StandardDice",
+"type": "dice",
+"description": "StandardDice",
+"defaultImage": "StandardDice.json",
+"images": {
+"sorryboard":{
+"image": "sorryboard.png",
+"description": "sorryboard",
+"value": 1
+},
+"sorrypawn_blue":{
+"image": "sorrypawn_blue.png",
+"description": "sorrypawn_blue",
+"value": 1
+},
+"sorrypawn_green":{
+"image": "sorrypawn_green.png",
+"description": "sorrypawn_green",
+"value": 1
+},
+"sorrypawn_red":{
+"image": "sorrypawn_red.png",
+"description": "sorrypawn_red",
+"value": 1
+},
+"sorrypawn_white":{
+"image": "sorrypawn_white.png",
+"description": "sorrypawn_white",
+"value": 1
+},
+"sorrypawn_yellow":{
+"image": "sorrypawn_yellow.png",
+"description": "sorrypawn_yellow",
+"value": 1
+},
+"StandardDice":{
+"image": "StandardDice.json",
+"description": "StandardDice",
+"value": 1
+},
+}
+}
