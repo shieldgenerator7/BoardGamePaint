@@ -261,7 +261,7 @@ public static class ObjectImportManager
         Die die = new Die(images, description);
         if (defaultImage != null)
         {
-            die.defaultImage = defaultImage;
+            die.defaultImageURL = defaultImage;
         }
         Managers.Bin.makeBin(die);
     }

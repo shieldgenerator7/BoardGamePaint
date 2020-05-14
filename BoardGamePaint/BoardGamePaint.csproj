@@ -90,6 +90,7 @@
     <Compile Include="Assets\Scripts\CardDeck.cs" />
     <Compile Include="Assets\Scripts\ControlManager.cs" />
     <Compile Include="Assets\Scripts\Die.cs" />
+    <Compile Include="Assets\Scripts\DieSprite.cs" />
     <Compile Include="Assets\Scripts\DisplayManager.cs" />
     <Compile Include="Assets\Scripts\ExitButton.cs" />
     <Compile Include="Assets\Scripts\GameObject.cs" />

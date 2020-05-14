@@ -1,60 +1,66 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
+using System.Windows.Forms;
 
 public class Die : GameObject
 {
     public static string JSON_TYPE = "dice";
 
-    protected List<Image> images;
-    protected int imageIndex = 0;
-    public override Image image
+    public List<string> imageURLs { get; private set; }
+    public int imageIndex { get; private set; } = 0;
+    public override string ImageURL
     {
-        get {
+        get
+        {
             if (imageIndex < 0)
             {
-                return defaultImage;
+                return defaultImageURL;
             }
-            return images?[imageIndex];
+            return imageURLs?[imageIndex];
         }
-        protected set
+        set
         {
-            if (images == null)
+            if (imageURLs == null)
             {
-                images = new List<Image>();
+                imageURLs = new List<string>();
             }
-            if (!images.Contains(value))
+            if (!imageURLs.Contains(value))
             {
-                if (defaultImage != null)
+                if (defaultImageURL != null)
                 {
                     //do nothing,
                     //images.indexOf() will set imageIndex to -1
                 }
                 else
                 {
-                    images.Add(value);
+                    imageURLs.Add(value);
                 }
             }
-            imageIndex = images.IndexOf(value);
+            imageIndex = imageURLs.IndexOf(value);
         }
     }
 
-    public Image defaultImage { private get; set; }
+    public string defaultImageURL { get; private set; }
 
-    public Die(List<Image> images, string description) : base((Image)null, description)
+    public Die(List<string> imageURLs, string description, string defaultImageURL = null) : base(null, description)
     {
-        this.position = new Vector(0, 0);
-        this.images = images;
-        this.defaultImage = images[0];
+        this.imageURLs = imageURLs;
+        if (defaultImageURL != null && defaultImageURL != "")
+        {
+            this.defaultImageURL = defaultImageURL;
+        }
+        else
+        {
+            this.defaultImageURL = imageURLs[0];
+        }
         this.imageIndex = -1;
-        this.size = this.image.Size;
     }
 
     public override string TypeString
         => "Die";
 
     private int stateChangeCount = 0;
-    protected override string getFooterNumberString()
+    public override string getFooterNumberString()
         => "" + stateChangeCount;
 
     public override bool canChangeState()
@@ -63,10 +69,10 @@ public class Die : GameObject
     public override void changeState()
     {
         stateChangeCount++;
-        if (images.Count >= 2)
+        if (imageURLs.Count >= 2)
         {
             //Change state
-            if (images.Count == 2)
+            if (imageURLs.Count == 2)
             {
                 //Flip
                 imageIndex = (imageIndex + 1) % 2;
@@ -78,7 +84,7 @@ public class Die : GameObject
                 int newIndex = imageIndex;
                 while (newIndex == imageIndex)
                 {
-                    newIndex = rand.Next(images.Count);
+                    newIndex = rand.Next(imageURLs.Count);
                 }
                 imageIndex = newIndex;
             }
@@ -87,8 +93,8 @@ public class Die : GameObject
 
     public override object Clone()
     {
-        Die newDie = new Die(images, this.description);
-        newDie.ImageURL = (string)this.ImageURL;
+        Die newDie = new Die(imageURLs, this.description);
+        newDie.imageIndex = this.imageIndex;
         return newDie;
     }
 }

@@ -37,7 +37,7 @@ public class GameObject : ICloneable
     }
 
     private string imageURL = null;
-    public string ImageURL
+    public virtual string ImageURL
     {
         get => imageURL;
         set
