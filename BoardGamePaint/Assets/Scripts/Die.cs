@@ -88,7 +88,7 @@ public class Die : GameObject
     public override object Clone()
     {
         Die newDie = new Die(images, this.description);
-        newDie.FileName = (string)this.FileName;
+        newDie.ImageURL = (string)this.ImageURL;
         return newDie;
     }
 }

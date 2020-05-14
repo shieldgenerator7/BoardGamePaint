@@ -93,7 +93,7 @@ public class Card : CardDeck
     public override object Clone()
     {
         Card newCard = new Card(this.Face, this.Back, this.description);
-        newCard.FileName = (string)this.FileName;
+        newCard.ImageURL = (string)this.ImageURL;
         return newCard;
     }
 }

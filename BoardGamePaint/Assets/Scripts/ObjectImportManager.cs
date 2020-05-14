@@ -118,7 +118,7 @@ public static class ObjectImportManager
                 for (int i = 0; i < cardCount; i++)
                 {
                     GameObject gameObject = new GameObject(image, getReadableFileName(filename));
-                    gameObject.FileName = filename;
+                    gameObject.ImageURL = filename;
                     objectsToProcess.Add(gameObject);
                 }
             }
@@ -183,7 +183,7 @@ public static class ObjectImportManager
             for (int i = 0; i < cardCount; i++)
             {
                 GameObject gameObject = new GameObject(image, description);
-                gameObject.FileName = imageFilename;
+                gameObject.ImageURL = imageFilename;
                 objectsToProcess.Add(gameObject);
             }
         }
