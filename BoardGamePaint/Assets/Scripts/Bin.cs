@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 
 public class Bin : TrayComponent
 {

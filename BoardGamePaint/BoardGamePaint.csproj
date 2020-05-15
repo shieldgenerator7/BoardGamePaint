@@ -109,6 +109,7 @@
     <Compile Include="Assets\Scripts\Tray.cs" />
     <Compile Include="Assets\Scripts\TrayComponent.cs" />
     <Compile Include="Assets\Scripts\TrayComponentSprite.cs" />
+    <Compile Include="Assets\Scripts\TraySprite.cs" />
     <Compile Include="Assets\Scripts\Utility.cs" />
     <Compile Include="Assets\Scripts\Vector.cs" />
     <Compile Include="Assets\Scripts\WayPoint.cs" />
