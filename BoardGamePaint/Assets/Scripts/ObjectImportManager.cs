@@ -212,7 +212,12 @@ public static class ObjectImportManager
             //Don't process any objects
             return;
         }
-        if (allObjectsSameSize(objectsToProcess)
+        List<Image> images = new List<Image>
+        (
+            from go in objectsToProcess
+            select Image.FromFile(go.ImageURL)
+        );
+        if (allImagesSameSize(images)
             && objectsToProcess.Count > 1)
         {
             //make it all one object
@@ -232,7 +237,7 @@ public static class ObjectImportManager
             //make them separate objects
             foreach (GameObject gameobject in objectsToProcess)
             {
-                Managers.Bin.makeBin(gameobject);
+                ((BinManager)Managers.Bin.gameObject).makeBin(gameobject);
             }
         }
     }
@@ -245,7 +250,7 @@ public static class ObjectImportManager
             cards.Add(new Card(gameObject, backImageURL));
         }
         CardDeck cardDeck = new CardDeck(cards, backImageURL, description);
-        Managers.Bin.makeBin(cardDeck);
+        ((BinManager)Managers.Bin.gameObject).makeBin(cardDeck);
     }
 
     static void makeDie(List<GameObject> objects, string defaultImageURL, string description)
@@ -255,15 +260,15 @@ public static class ObjectImportManager
             select go.ImageURL
             );
         Die die = new Die(imageURLs, description, defaultImageURL);
-        Managers.Bin.makeBin(die);
+        ((BinManager)Managers.Bin.gameObject).makeBin(die);
     }
 
-    static bool allObjectsSameSize(List<GameObject> objectsToProcess)
+    static bool allImagesSameSize(List<Image> imagesToProcess)
     {
-        Size firstSize = objectsToProcess[0].Size;
-        foreach (GameObject go in objectsToProcess)
+        Size firstSize = imagesToProcess[0].Size;
+        foreach (Image image in imagesToProcess)
         {
-            if (go.Size != firstSize)
+            if (image.Size != firstSize)
             {
                 return false;
             }
