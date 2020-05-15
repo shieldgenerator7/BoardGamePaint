@@ -98,6 +98,7 @@
     <Compile Include="Assets\Scripts\DieSprite.cs" />
     <Compile Include="Assets\Scripts\DisplayManager.cs" />
     <Compile Include="Assets\Scripts\ExitButton.cs" />
+    <Compile Include="Assets\Scripts\ExitButtonSprite.cs" />
     <Compile Include="Assets\Scripts\GameObject.cs" />
     <Compile Include="Assets\Scripts\GameObjectSprite.cs" />
     <Compile Include="Assets\Scripts\ImageUtility.cs" />
