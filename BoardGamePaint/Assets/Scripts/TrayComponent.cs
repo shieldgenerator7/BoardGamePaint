@@ -3,8 +3,7 @@ using System.Drawing;
 
 public class TrayComponent : GameObject
 {
-    public TrayComponent(Image image, int componentSize):base(image)
+    public TrayComponent(string imageURL):base(imageURL)
     {
-        size = new Size(componentSize, componentSize);
     }
 }
