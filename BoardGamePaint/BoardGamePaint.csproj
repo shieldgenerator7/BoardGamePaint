@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AddPlayerButton.cs" />
+    <Compile Include="Assets\Scripts\AddPlayerButtonSprite.cs" />
     <Compile Include="Assets\Scripts\Bin.cs" />
     <Compile Include="Assets\Scripts\BinManager.cs" />
     <Compile Include="Assets\Scripts\BinSprite.cs" />
