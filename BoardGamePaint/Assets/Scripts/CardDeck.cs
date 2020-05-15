@@ -68,7 +68,7 @@ public class CardDeck : GameObject
         => (other is Card || other is CardDeck)
         && ((CardDeck)other).Back == this.Back;
 
-    public virtual void acceptCard(CardDeck card)
+    public virtual CardDeck acceptCard(CardDeck card)
     {
         if (card is Card)
         {
@@ -80,6 +80,7 @@ public class CardDeck : GameObject
             cards.AddRange(card.cards);
         }
         Managers.Object.removeGameObject(card);
+        return this;
     }
 
     public override object Clone()

@@ -1,25 +1,22 @@
-﻿using BoardGamePaint;
-using System;
+﻿
 using System.Collections.Generic;
-using System.Drawing;
 
 public class Card : CardDeck
 {
-    public Card(Image frontImage, Image backImage, string description = null)
-        : base(null, backImage, description)
+    public Card(string frontImageURL, string backImageURL, string description = null)
+        : base(null, backImageURL, description)
     {
-        Face = frontImage;
-        Back = backImage;
-        outerSize = Size;
+        Face = frontImageURL;
+        Back = backImageURL;
         Permissions.interactPermission = Permissions.Permission.OWNING_PLAYER_ONLY;
         Permissions.viewPermission = Permissions.Permission.OWNING_PLAYER_ONLY;
     }
 
-    public Card(GameObject cardToBe, Image backImage) :
-        this(cardToBe.image, backImage, cardToBe.Description)
+    public Card(GameObject cardToBe, string backImageURL) :
+        this(cardToBe.ImageURL, backImageURL, cardToBe.Description)
     { }
 
-    public override Image image
+    public override string ImageURL
     {
         get => (FaceUp && Permissions.canView) ? Face : Back;
     }
@@ -34,7 +31,7 @@ public class Card : CardDeck
         get => "Card";
     }
 
-    protected override string getFooterNumberString()
+    public override string getFooterNumberString()
     {
         return null;
     }
@@ -50,12 +47,12 @@ public class Card : CardDeck
         FaceUp = !FaceUp;
     }
 
-    public override bool canMakeNewObject(Vector mousePos)
+    public override bool canMakeNewObject()
     {
         return false;
     }
 
-    public override void acceptCard(CardDeck cardDeck)
+    public override CardDeck acceptCard(CardDeck cardDeck)
     {
         if (cardDeck is Card)
         {
@@ -66,7 +63,6 @@ public class Card : CardDeck
                 //2019-07-25: TODO: instead of null, pass in something from CardDeckData
                 null
                 );
-            newParent.moveTo(Position, false);
             card.FaceUp = false;
             this.FaceUp = false;
             //Owning Player
@@ -79,6 +75,7 @@ public class Card : CardDeck
             Managers.Object.addGameObject(newParent);
             Managers.Object.removeGameObject(this);
             Managers.Object.removeGameObject(card);
+            return newParent;
         }
         else
         {
@@ -87,13 +84,12 @@ public class Card : CardDeck
             this.anchorOff();
             //Accepting into deck
             cardDeck.acceptCard(this);
+            return cardDeck;
         }
     }
 
     public override object Clone()
     {
-        Card newCard = new Card(this.Face, this.Back, this.description);
-        newCard.ImageURL = (string)this.ImageURL;
-        return newCard;
+        return new Card(this.Face, this.Back, this.description);
     }
 }

@@ -63,6 +63,12 @@ public class GameObject : ICloneable
         }
     }
 
+    /// <summary>
+    /// The object this object is anchored to
+    /// So that it can move when its anchored object moves
+    /// </summary>
+    public GameObject anchorObject { get; private set; }
+    readonly public List<GameObject> anchoredObjects = new List<GameObject>();
 
     public GameObject(string imageURL, string description = null)
     {
@@ -81,7 +87,29 @@ public class GameObject : ICloneable
     public virtual GameObject makeNewObject()
     {
         throw new NotImplementedException("Class " + GetType() + " does not implement GameObject.makeNewObject().");
-    }    
+    }
+
+    public void anchorTo(GameObject anchor)
+    {
+        if (this.anchorObject)
+        {
+            anchorOff();
+        }
+        if (anchor)
+        {
+            this.anchorObject = anchor;
+            this.anchorObject.anchoredObjects.Add(this);
+        }
+    }
+
+    public void anchorOff()
+    {
+        if (anchorObject)
+        {
+            this.anchorObject.anchoredObjects.Remove(this);
+            this.anchorObject = null;
+        }
+    }
 
     public static implicit operator Boolean(GameObject gameObject)
     {

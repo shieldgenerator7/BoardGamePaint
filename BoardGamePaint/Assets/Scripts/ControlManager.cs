@@ -131,7 +131,15 @@ public class ControlManager
                             if (anchorObject is CardDeck
                                 && ((CardDeck)anchorObject).fitsInDeck(selected))
                             {
-                                ((CardDeck)anchorObject).acceptCard((CardDeck)selected);
+                                CardDeck parent = ((CardDeck)anchorObject).acceptCard((CardDeck)selected);
+                                if (parent != anchorObject)
+                                {
+                                    parent.moveTo(anchorObject.Position, false);
+                                }
+                                if (parent != selected)
+                                {
+                                    selected = parent;
+                                }
                             }
                             else
                             {

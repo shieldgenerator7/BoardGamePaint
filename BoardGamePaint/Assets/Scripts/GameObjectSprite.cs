@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-public class GameObjectSprite: IComparable<GameObjectSprite>
+public class GameObjectSprite : IComparable<GameObjectSprite>
 {
-	protected GameObject gameObject;
+    protected GameObject gameObject;
 
-	public const int SNAP_THRESHOLD = 10;//the max snap distance in pixels
+    public const int SNAP_THRESHOLD = 10;//the max snap distance in pixels
 
     private static Image hiddenImage = null;
     protected static Image HiddenImage
@@ -52,15 +52,8 @@ public class GameObjectSprite: IComparable<GameObjectSprite>
     //Pickup Runtime Vars
     private Vector pickupOffset = new Vector(0, 0);
 
-    /// <summary>
-    /// The object this object is anchored to
-    /// So that it can move when its anchored object moves
-    /// </summary>
-    public GameObjectSprite anchorObject { get; private set; }
-    readonly private List<GameObjectSprite> anchoredObjects = new List<GameObjectSprite>();
-
     public GameObjectSprite(GameObject gameObject)
-	{
+    {
         this.gameObject = gameObject;
         image = Image.FromFile(gameObject.ImageURL);
 
@@ -113,7 +106,7 @@ public class GameObjectSprite: IComparable<GameObjectSprite>
     public void pickup(Vector pickupPos)
     {
         pickupOffset = position - pickupPos;
-        foreach (GameObjectSprite anchored in anchoredObjects)
+        foreach (GameObject anchored in gameObject.anchoredObjects)
         {
             anchored.pickup(pickupPos);
         }
@@ -134,31 +127,9 @@ public class GameObjectSprite: IComparable<GameObjectSprite>
         {
             position = pos;
         }
-        foreach (GameObjectSprite anchored in anchoredObjects)
+        foreach (GameObject anchored in gameObject.anchoredObjects)
         {
             anchored.moveTo(pos, useOffset);
-        }
-    }
-
-    public void anchorTo(GameObjectSprite anchor)
-    {
-        if (this.anchorObject)
-        {
-            anchorOff();
-        }
-        if (anchor)
-        {
-            this.anchorObject = anchor;
-            this.anchorObject.anchoredObjects.Add(this);
-        }
-    }
-
-    public void anchorOff()
-    {
-        if (anchorObject)
-        {
-            this.anchorObject.anchoredObjects.Remove(this);
-            this.anchorObject = null;
         }
     }
 
