@@ -85,6 +85,7 @@
     <Compile Include="Assets\Scripts\AddPlayerButton.cs" />
     <Compile Include="Assets\Scripts\Bin.cs" />
     <Compile Include="Assets\Scripts\BinManager.cs" />
+    <Compile Include="Assets\Scripts\BinSprite.cs" />
     <Compile Include="Assets\Scripts\Button.cs" />
     <Compile Include="Assets\Scripts\Card.cs" />
     <Compile Include="Assets\Scripts\CardSprite.cs" />

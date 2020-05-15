@@ -5,12 +5,12 @@ public class Bin : TrayComponent
 {
     private GameObject template;
 
-    public Bin(GameObject gameObject, int binSize) : base(gameObject.image, binSize)
+    public Bin(GameObject gameObject) : base(gameObject.ImageURL)
     {
         this.template = gameObject;
     }
 
-    public override bool canMakeNewObject(Vector mousePos)
+    public override bool canMakeNewObject()
     {
         return true;
     }
