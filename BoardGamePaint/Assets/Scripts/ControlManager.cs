@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 public class ControlManager
 {
-    bool WAYPOINTS_ENABLED = false;
+    //bool WAYPOINTS_ENABLED = false;
 
     public bool isMouseDown { get; private set; } = false;
     public GameObject selected { get; private set; } = null;
@@ -114,12 +114,12 @@ public class ControlManager
                 }
                 else
                 {
-                    WayPoint selectedWayPoint = Managers.Object
-                        .getAnchorWayPoint(selected, mousePos);
-                    if (selectedWayPoint)
-                    {
-                        selected.moveTo(selectedWayPoint.Position, false);
-                    }
+                    //WayPoint selectedWayPoint = Managers.Object
+                    //    .getAnchorWayPoint(selected, mousePos);
+                    //if (selectedWayPoint)
+                    //{
+                    //    selected.moveTo(selectedWayPoint.Position, false);
+                    //}
 
                     //Anchoring to other objects
                     GameObject anchorObject = Managers.Object
@@ -175,16 +175,16 @@ public class ControlManager
             gameObject.changeState();
         }
 
-        if (!changedObjectState
-            && WAYPOINTS_ENABLED)
-        {
-            Managers.Object.addWayPoint(new WayPoint(
-                ImageUtility.getImage("waypoint"),
-                mousePos,
-                new Size(100, 100),
-                WayPoint.Shape.CIRCLE
-                ));
-        }
+        //if (!changedObjectState
+        //    && WAYPOINTS_ENABLED)
+        //{
+        //    Managers.Object.addWayPoint(new WayPoint(
+        //        ImageUtility.getImage("waypoint"),
+        //        mousePos,
+        //        new Size(100, 100),
+        //        WayPoint.Shape.CIRCLE
+        //        ));
+        //}
     }
 
     GameObject checkTrayMouseOver(Tray tray, GameObject currentMousedOver, Vector mousePos)

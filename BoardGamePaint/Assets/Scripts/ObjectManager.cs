@@ -5,13 +5,13 @@ public class ObjectManager
 {
     List<GameObject> gameObjects;
     public List<GameObject> renderOrder { get; private set; }
-    List<WayPoint> wayPoints;
+    //List<WayPoint> wayPoints;
 
     public ObjectManager()
     {
         gameObjects = new List<GameObject>();
         renderOrder = new List<GameObject>();
-        wayPoints = new List<WayPoint>();
+        //wayPoints = new List<WayPoint>();
     }
 
     public void addGameObject(GameObject gameObject)
@@ -30,13 +30,16 @@ public class ObjectManager
         renderOrder.Sort();
         renderOrder.Reverse();
     }
-    public void addWayPoint(WayPoint wayPoint)
-    {
-        wayPoints.Add(wayPoint);
-        renderOrder.Add(wayPoint);
         renderOrder.Sort();
         renderOrder.Reverse();
     }
+    //public void addWayPoint(WayPoint wayPoint)
+    //{
+    //    wayPoints.Add(wayPoint);
+    //    renderOrder.Add(wayPoint);
+    //    renderOrder.Sort();
+    //    renderOrder.Reverse();
+    //}
 
     public GameObject getObjectAtPosition(Vector mousePos)
     {
@@ -87,19 +90,19 @@ public class ObjectManager
         return null;
     }
 
-    public WayPoint getAnchorWayPoint(GameObject anchoree, Vector mousePos)
-    {
-        foreach (WayPoint wayPoint in wayPoints)
-        {
-            if (wayPoint.containsPosition(mousePos))
-            {
-                //If twice the waypoint size is bigger than the selected
-                if (wayPoint.Size.toVector() * 2 > anchoree.Size.toVector())
-                {
-                    return wayPoint;
-                }
-            }
-        }
-        return null;
-    }
+    //public WayPoint getAnchorWayPoint(GameObject anchoree, Vector mousePos)
+    //{
+    //    foreach (WayPoint wayPoint in wayPoints)
+    //    {
+    //        if (wayPoint.containsPosition(mousePos))
+    //        {
+    //            //If twice the waypoint size is bigger than the selected
+    //            if (wayPoint.Size.toVector() * 2 > anchoree.Size.toVector())
+    //            {
+    //                return wayPoint;
+    //            }
+    //        }
+    //    }
+    //    return null;
+    //}
 }
