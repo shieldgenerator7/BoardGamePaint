@@ -18,7 +18,7 @@ public class Die : GameObject
             }
             return imageURLs?[imageIndex];
         }
-        set
+        protected set
         {
             if (imageURLs == null)
             {

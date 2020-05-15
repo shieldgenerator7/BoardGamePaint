@@ -40,7 +40,7 @@ public class GameObject : ICloneable
     public virtual string ImageURL
     {
         get => imageURL;
-        set
+        protected set
         {
             if (imageURL == null || imageURL == "")
             {
@@ -75,7 +75,7 @@ public class GameObject : ICloneable
 
     public virtual void changeState() { }
 
-    public virtual bool canMakeNewObject(Vector mousePos)
+    public virtual bool canMakeNewObject()
         => false;
 
     public virtual GameObject makeNewObject()

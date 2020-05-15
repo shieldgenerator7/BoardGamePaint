@@ -162,6 +162,9 @@ public class GameObjectSprite: IComparable<GameObjectSprite>
         }
     }
 
+    public virtual bool canMakeNewObject(Vector mousePos)
+        => gameObject.canMakeNewObject();
+
     public int SnapThresholdX
     {
         get =>
@@ -290,8 +293,8 @@ public class GameObjectSprite: IComparable<GameObjectSprite>
     {
         float thisSize = this.size.toVector().Magnitude;
         float goSize = gos.size.toVector().Magnitude;
-        bool thisCardDeck = (this is CardDeck);
-        bool goCardDeck = (gos is CardDeck);
+        bool thisCardDeck = (this is CardDeckSprite);
+        bool goCardDeck = (gos is CardDeckSprite);
         return (thisSize == goSize)
             ? (thisCardDeck && !goCardDeck)
                 ? 1
@@ -306,7 +309,7 @@ public class GameObjectSprite: IComparable<GameObjectSprite>
         float aSize = a.size.toVector().Magnitude;
         float bSize = b.size.toVector().Magnitude;
         return (aSize == bSize)
-            ? b is CardDeck
+            ? b is CardDeckSprite
             : aSize < bSize;
     }
 
@@ -315,7 +318,7 @@ public class GameObjectSprite: IComparable<GameObjectSprite>
         float aSize = a.size.toVector().Magnitude;
         float bSize = b.size.toVector().Magnitude;
         return (aSize == bSize)
-            ? a is CardDeck
+            ? a is CardDeckSprite
             : aSize > bSize;
     }
 
