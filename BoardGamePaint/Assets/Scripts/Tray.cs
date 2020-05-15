@@ -6,6 +6,8 @@ public class Tray : GameObject
 
     public readonly List<TrayComponent> trayComponents = new List<TrayComponent>();
 
+    public override bool HasImageURL => false;
+
     public Tray() : base(null)
     {
     }

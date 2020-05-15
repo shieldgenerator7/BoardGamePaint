@@ -35,14 +35,14 @@ public class PlayerManager
 
     public PlayerManager()
     {
-        neutralButton = new PlayerButton(null);
+        neutralButton = new PlayerButton(new Player(Color.LightGray, ImageUtility.getImageURL("player")));
         ((Tray)Managers.Command.gameObject).addComponent(neutralButton);
     }
 
     public void makeNewPlayer()
     {
         int colorIndex = players.Count % allowedColors.Count;
-        Player newPlayer = new Player(allowedColors[colorIndex]);
+        Player newPlayer = new Player(allowedColors[colorIndex], ImageUtility.getImageURL("player"));
         players.Add(newPlayer);
         PlayerButton newButton = new PlayerButton(newPlayer);
         playerButtons.Add(newButton);

@@ -7,6 +7,7 @@ public class PlayerButton : Button
     public PlayerButton(Player player) : base(null)
     {
         this.player = player;
+        this.ImageURL = player.imageURL;
     }
 
     public override void activate()

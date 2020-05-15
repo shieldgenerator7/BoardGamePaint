@@ -9,7 +9,7 @@ public class PlayerButtonSprite:ButtonSprite
 	private Image playerImage;
 	public override Image image { 
 		get => playerImage;
-		protected set => throw new NotImplementedException();
+		protected set => playerImage = value;
 	}
 
 	private ImageAttributes attr;

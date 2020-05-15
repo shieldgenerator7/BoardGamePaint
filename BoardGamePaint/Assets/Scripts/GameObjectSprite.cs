@@ -55,14 +55,16 @@ public class GameObjectSprite : IComparable<GameObjectSprite>
     public GameObjectSprite(GameObject gameObject)
     {
         this.gameObject = gameObject;
-        image = Image.FromFile(gameObject.ImageURL);
-
-        position = new Vector(0, 0);
+        if (gameObject.HasImageURL)
+        {
+            image = Image.FromFile(gameObject.ImageURL);
+        }
         if (image != null)
         {
             size = image.Size;
             image = image;
         }
+        position = new Vector(0, 0);
     }
 
     public virtual void draw(Graphics graphics)
