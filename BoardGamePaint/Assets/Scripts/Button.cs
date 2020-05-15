@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Drawing;
 
 public abstract class Button : TrayComponent
 {
 
-    public Button(Image image, int buttonSize) : base(image, buttonSize)
+    public Button(string imageURL) : base(imageURL)
     {
     }
 
