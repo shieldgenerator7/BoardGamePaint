@@ -3,33 +3,37 @@ using System.Collections.Generic;
 
 public class ObjectManager
 {
-    List<GameObject> gameObjects;
-    public List<GameObject> renderOrder { get; private set; }
+    Dictionary<GameObject, GameObjectSprite> gameObjectMap;
+    List<GameObjectSprite> gameObjectSprites;
+    public List<GameObjectSprite> renderOrder { get; private set; }
     //List<WayPoint> wayPoints;
 
     public ObjectManager()
     {
-        gameObjects = new List<GameObject>();
-        renderOrder = new List<GameObject>();
+        gameObjectMap = new Dictionary<GameObject, GameObjectSprite>();
+        gameObjectSprites = new List<GameObjectSprite>();
+        renderOrder = new List<GameObjectSprite>();
         //wayPoints = new List<WayPoint>();
     }
 
-    public void addGameObject(GameObject gameObject)
+    public GameObjectSprite addGameObject(GameObject gameObject)
     {
-        gameObjects.Add(gameObject);
-        gameObjects.Sort();
-        renderOrder.Add(gameObject);
+        GameObjectSprite gos = GameObjectSpriteFactory.makeSprite(gameObject);
+        gameObjectMap.Add(gameObject, gos);
+        gameObjectSprites.Add(gos);
+        gameObjectSprites.Sort();
+        renderOrder.Add(gos);
         renderOrder.Sort();
         renderOrder.Reverse();
+        return gos;
     }
     public void removeGameObject(GameObject gameObject)
     {
-        gameObjects.Remove(gameObject);
-        gameObjects.Sort();
-        renderOrder.Remove(gameObject);
-        renderOrder.Sort();
-        renderOrder.Reverse();
-    }
+        GameObjectSprite gos = gameObjectMap[gameObject];
+        gameObjectMap.Remove(gameObject);
+        gameObjectSprites.Remove(gos);
+        gameObjectSprites.Sort();
+        renderOrder.Remove(gos);
         renderOrder.Sort();
         renderOrder.Reverse();
     }
@@ -41,49 +45,68 @@ public class ObjectManager
     //    renderOrder.Reverse();
     //}
 
-    public GameObject getObjectAtPosition(Vector mousePos)
+    public GameObjectSprite getSprite(GameObject go)
     {
-        GameObject backupObject = null;
-        foreach (GameObject gameObject in gameObjects)
+        GameObjectSprite gos;
+        if (gameObjectMap.ContainsKey(go))
         {
-            if (gameObject.containsPosition(mousePos))
+            gos = gameObjectMap[go];
+            if (!gos)
             {
-                if (gameObject.Permissions.canMove)
+                gameObjectMap.Remove(go);
+                gos = addGameObject(go);
+            }
+        }
+        else
+        {
+            gos = addGameObject(go);
+        }
+        return gos;
+    }
+
+    public GameObjectSprite getObjectAtPosition(Vector mousePos)
+    {
+        GameObjectSprite backupObject = null;
+        foreach (GameObjectSprite gameObjectSprite in gameObjectSprites)
+        {
+            if (gameObjectSprite.containsPosition(mousePos))
+            {
+                if (gameObjectSprite.gameObject.Permissions.canMove)
                 {
-                    return gameObject;
+                    return gameObjectSprite;
                 }
                 else
                 {
-                    backupObject = gameObject;
+                    backupObject = gameObjectSprite;
                 }
             }
         }
         return backupObject;
     }
 
-    public GameObject getAnchorObject(GameObject anchoree, Vector mousePos)
+    public GameObjectSprite getAnchorObject(GameObjectSprite anchoree, Vector mousePos)
     {
-        foreach (GameObject gameObject in gameObjects)
+        foreach (GameObjectSprite gameObjectSprite in gameObjectSprites)
         {
-            if (gameObject != anchoree
-                && gameObject.containsPosition(mousePos)
-                && gameObject > anchoree)
+            if (gameObjectSprite != anchoree
+                && gameObjectSprite.containsPosition(mousePos)
+                && gameObjectSprite > anchoree)
             {
-                return gameObject;
+                return gameObjectSprite;
             }
         }
         return null;
     }
 
-    public GameObject getSnapObject(GameObject snapee)
+    public GameObjectSprite getSnapObject(GameObjectSprite snapee)
     {
-        foreach (GameObject gameObject in Managers.Object.gameObjects)
+        foreach (GameObjectSprite gameObjectSprite in Managers.Object.gameObjectSprites)
         {
-            if (gameObject != snapee)
+            if (gameObjectSprite != snapee)
             {
-                if (snapee.canSnapTo(gameObject))
+                if (snapee.canSnapTo(gameObjectSprite))
                 {
-                    return gameObject;
+                    return gameObjectSprite;
                 }
             }
         }
