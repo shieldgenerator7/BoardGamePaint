@@ -114,11 +114,9 @@ public static class ObjectImportManager
             else
             {
                 int cardCount = getQuantityFromFileName(filename);
-                Image image = Image.FromFile(filename);
                 for (int i = 0; i < cardCount; i++)
                 {
-                    GameObject gameObject = new GameObject(image, getReadableFileName(filename));
-                    gameObject.ImageURL = filename;
+                    GameObject gameObject = new GameObject(filename, getReadableFileName(filename));
                     objectsToProcess.Add(gameObject);
                 }
             }
@@ -179,11 +177,9 @@ public static class ObjectImportManager
             {
                 continue;
             }
-            Image image = Image.FromFile(imageFilename);
             for (int i = 0; i < cardCount; i++)
             {
-                GameObject gameObject = new GameObject(image, description);
-                gameObject.ImageURL = imageFilename;
+                GameObject gameObject = new GameObject(imageFilename, description);
                 objectsToProcess.Add(gameObject);
             }
         }
@@ -199,12 +195,12 @@ public static class ObjectImportManager
             || objectType == null && File.Exists(backFilename))
         {
             backImageObject = new GameObject(backFilename);
-            makeDeck(objectsToProcess, Image.FromFile(backFilename), objectDesc);
+            makeDeck(objectsToProcess, backFilename, objectDesc);
         }
         else if (objectType == Die.JSON_TYPE
             || objectType == null && File.Exists(defaultImageFilename))
         {
-            makeDie(objectsToProcess, Image.FromFile(defaultImageFilename), objectDesc);
+            makeDie(objectsToProcess, defaultImageFilename, objectDesc);
         }
     }
 
@@ -223,7 +219,7 @@ public static class ObjectImportManager
             if (backImageObject)
             {
                 //make it a deck of cards
-                makeDeck(objectsToProcess, backImageObject.image, description);
+                makeDeck(objectsToProcess, backImageObject.ImageURL, description);
             }
             else
             {
@@ -241,28 +237,24 @@ public static class ObjectImportManager
         }
     }
 
-    static void makeDeck(List<GameObject> objects, Image backImage, string description)
+    static void makeDeck(List<GameObject> objects, string backImageURL, string description)
     {
         List<Card> cards = new List<Card>();
         foreach (GameObject gameObject in objects)
         {
-            cards.Add(new Card(gameObject, backImage));
+            cards.Add(new Card(gameObject, backImageURL));
         }
-        CardDeck cardDeck = new CardDeck(cards, backImage, description);
+        CardDeck cardDeck = new CardDeck(cards, backImageURL, description);
         Managers.Bin.makeBin(cardDeck);
     }
 
-    static void makeDie(List<GameObject> objects, Image defaultImage, string description)
+    static void makeDie(List<GameObject> objects, string defaultImageURL, string description)
     {
-        List<Image> images = new List<Image>(
+        List<string> imageURLs = new List<string>(
             from go in objects
-            select go.image
+            select go.ImageURL
             );
-        Die die = new Die(images, description);
-        if (defaultImage != null)
-        {
-            die.defaultImageURL = defaultImage;
-        }
+        Die die = new Die(imageURLs, description, defaultImageURL);
         Managers.Bin.makeBin(die);
     }
 

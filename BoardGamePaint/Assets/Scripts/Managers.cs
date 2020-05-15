@@ -63,8 +63,8 @@ public class Managers
         this.binManager = new BinManager();
         //Command Tray
         this.commandTray = new Tray();
-        commandTray.addComponent(new ExitButton(ImageUtility.getImage("exit"), Tray.DEFAULT_COMPONENT_SIZE));
-        commandTray.addComponent(new AddPlayerButton(ImageUtility.getImage("newplayer"), Tray.DEFAULT_COMPONENT_SIZE));
+        commandTray.addComponent(new ExitButton(ImageUtility.getImageURL("exit")));
+        commandTray.addComponent(new AddPlayerButton(ImageUtility.getImageURL("newplayer")));
         //Player Manager
         this.playerManager = new PlayerManager();
     }

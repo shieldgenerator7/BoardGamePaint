@@ -35,7 +35,7 @@ public class PlayerManager
 
     public PlayerManager()
     {
-        neutralButton = new PlayerButton(null, Tray.DEFAULT_COMPONENT_SIZE);
+        neutralButton = new PlayerButton(null);
         Managers.Command.addComponent(neutralButton);
     }
 
@@ -44,7 +44,7 @@ public class PlayerManager
         int colorIndex = players.Count % allowedColors.Count;
         Player newPlayer = new Player(allowedColors[colorIndex]);
         players.Add(newPlayer);
-        PlayerButton newButton = new PlayerButton(newPlayer, Tray.DEFAULT_COMPONENT_SIZE);
+        PlayerButton newButton = new PlayerButton(newPlayer);
         playerButtons.Add(newButton);
         Managers.Command.addComponent(newButton);
         //Set current player

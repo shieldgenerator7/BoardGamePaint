@@ -8,9 +8,12 @@ public static class ImageUtility
     public static string resourcePath = "Assets/Images/";
     public static string fileExtension = ".png";
 
+    public static string getImageURL (string imageName)
+    => resourcePath + imageName + fileExtension;
+
     public static Image getImage(string imageName)
     {
-        string path = resourcePath + imageName + fileExtension;
+        string path = getImageURL(imageName);
         try
         {
             return Image.FromFile(path);
