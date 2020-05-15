@@ -136,6 +136,7 @@ public static class ObjectImportManager
                 writeJSONDice(filenames);
             }
         }
+        Managers.Bin.placeComponents();
     }
 
     public static void importObject(string filename)

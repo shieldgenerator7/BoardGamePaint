@@ -47,6 +47,7 @@ public class PlayerManager
         PlayerButton newButton = new PlayerButton(newPlayer);
         playerButtons.Add(newButton);
         ((Tray)Managers.Command.gameObject).addComponent(newButton);
+        Managers.Command.placeComponents();
         //Set current player
         Current = newPlayer;
     }

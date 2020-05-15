@@ -67,5 +67,8 @@ public class Managers
         ((Tray)commandTray.gameObject).addComponent(new AddPlayerButton(ImageUtility.getImageURL("newplayer")));
         //Player Manager
         this.playerManager = new PlayerManager();
+        //Update trays
+        binManager.placeComponents();
+        commandTray.placeComponents();
     }
 }
