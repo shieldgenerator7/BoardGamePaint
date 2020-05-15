@@ -35,7 +35,7 @@ public class TraySprite : GameObjectSprite
             position.y + componentSize / 2
             );
 
-    public TrayComponent getComponent(Vector mousePos)
+    public TrayComponentSprite getComponent(Vector mousePos)
     {
         foreach (TrayComponent tc in tray.trayComponents)
         {

@@ -8,8 +8,8 @@ public class ControlManager
     //bool WAYPOINTS_ENABLED = false;
 
     public bool isMouseDown { get; private set; } = false;
-    public GameObject selected { get; private set; } = null;
-    public GameObject mousedOver { get; private set; } = null;
+    public GameObjectSprite selected { get; private set; } = null;
+    public GameObjectSprite mousedOver { get; private set; } = null;
     public Vector mousePos { get; private set; } = null;
     public bool isMouseHover { get; private set; } = false;
     public Vector origMousePos { get; private set; } = null;
@@ -25,17 +25,16 @@ public class ControlManager
         origMousePos = mousePos;
         selected = mousedOver;
         selected?.pickup(mousePos);
-        if (selected && selected.canMakeNewObject(mousePos) && selected.Permissions.canInteract)
+        if (selected && selected.canMakeNewObject(mousePos) && selected.gameObject.Permissions.canInteract)
         {
-            selected = selected.makeNewObject();
-            Managers.Object.addGameObject(selected);
+            selected = Managers.Object.addGameObject(selected.gameObject.makeNewObject());
             selected.moveTo(mousePos, false);
             selected.pickup(mousePos);
             mousedOver = selected;
         }
-        if (selected && selected is Button)
+        if (selected && selected is ButtonSprite)
         {
-            ((Button)selected).activate();
+            ((Button)selected.gameObject).activate();
             selected = null;
             mousedOver = null;
         }
@@ -46,16 +45,16 @@ public class ControlManager
         this.mousePos = mousePosWorld;
         if (isMouseDown)
         {
-            if (selected && selected.Permissions.canMove)
+            if (selected && selected.gameObject.Permissions.canMove)
             {
                 selected.moveTo(mousePosWorld);
-                if (!(selected is Tray)
-                    && !(selected is TrayComponent))
+                if (!(selected is TraySprite)
+                    && !(selected is TrayComponentSprite))
                 {
-                    GameObject go = Managers.Object.getSnapObject(selected);
-                    if (go)
+                    GameObjectSprite gos = Managers.Object.getSnapObject(selected);
+                    if (gos)
                     {
-                        selected.snapTo(go);
+                        selected.snapTo(gos);
                     }
                 }
             }
@@ -63,7 +62,7 @@ public class ControlManager
         }
         else
         {
-            GameObject prevMousedOver = mousedOver;
+            GameObjectSprite prevMousedOver = mousedOver;
             mousedOver = null;
             mousedOver = checkTrayMouseOver(Managers.Bin, mousedOver, mousePosWorld);
             mousedOver = checkTrayMouseOver(Managers.Command, mousedOver, mousePosWorld);
@@ -98,17 +97,17 @@ public class ControlManager
         this.isMouseDown = false;
         if (selected)
         {
-            if (!(selected is Tray))
+            if (!(selected is TraySprite))
             {
-                if (Managers.Bin.containsPosition(mousePos) && selected.Permissions.canEdit)
+                if (Managers.Bin.containsPosition(mousePos) && selected.gameObject.Permissions.canEdit)
                 {
-                    Managers.Object.removeGameObject(selected);
+                    Managers.Object.removeGameObject(selected.gameObject);
                 }
                 else if (Managers.Command.containsPosition(mousePos)
-                    && Managers.Command.getComponent(mousePos) is PlayerButton
-                    && selected.Permissions.canEdit)
+                    && Managers.Command.getComponent(mousePos) is PlayerButtonSprite
+                    && selected.gameObject.Permissions.canEdit)
                 {
-                    selected.owner = ((PlayerButton)Managers.Command.getComponent(mousePos)).player;
+                    selected.gameObject.owner = ((PlayerButton)Managers.Command.getComponent(mousePos).gameObject).player;
                     //Move object back to where it was before
                     selected.moveTo(origMousePos);
                 }
@@ -122,16 +121,18 @@ public class ControlManager
                     //}
 
                     //Anchoring to other objects
-                    GameObject anchorObject = Managers.Object
+                    GameObjectSprite anchorObject = Managers.Object
                         .getAnchorObject(selected, mousePos);
                     if (anchorObject)
                     {
-                        if (selected.Permissions.canInteract)
+                        if (selected.gameObject.Permissions.canInteract)
                         {
-                            if (anchorObject is CardDeck
-                                && ((CardDeck)anchorObject).fitsInDeck(selected))
+                            if (anchorObject is CardDeckSprite
+                                && ((CardDeck)anchorObject.gameObject).fitsInDeck(selected.gameObject))
                             {
-                                CardDeck parent = ((CardDeck)anchorObject).acceptCard((CardDeck)selected);
+                                CardDeckSprite parent = (CardDeckSprite)Managers.Object.getSprite(
+                                    ((CardDeck)anchorObject.gameObject).acceptCard((CardDeck)selected.gameObject)
+                                    );
                                 if (parent != anchorObject)
                                 {
                                     parent.moveTo(anchorObject.Position, false);
@@ -143,13 +144,13 @@ public class ControlManager
                             }
                             else
                             {
-                                selected.anchorTo(anchorObject);
+                                selected.gameObject.anchorTo(anchorObject.gameObject);
                             }
                         }
                     }
                     else
                     {
-                        selected.anchorOff();
+                        selected.gameObject.anchorOff();
                     }
                 }
             }
@@ -164,15 +165,15 @@ public class ControlManager
 
     public void mouseDoubleClick()
     {
-        bool changedObjectState = false;
+        //bool changedObjectState = false;
         //checkTrayDoubleClick(Managers.Command, mousePos);
 
         //Find an object to change its state
-        GameObject gameObject = Managers.Object.getObjectAtPosition(mousePos);
-        if (gameObject && gameObject.canChangeState() && gameObject.Permissions.canInteract)
+        GameObjectSprite gameObjectSprite = Managers.Object.getObjectAtPosition(mousePos);
+        if (gameObjectSprite && gameObjectSprite.gameObject.canChangeState() && gameObjectSprite.gameObject.Permissions.canInteract)
         {
-            changedObjectState = true;
-            gameObject.changeState();
+            //changedObjectState = true;
+            gameObjectSprite.gameObject.changeState();
         }
 
         //if (!changedObjectState
@@ -187,49 +188,49 @@ public class ControlManager
         //}
     }
 
-    GameObject checkTrayMouseOver(Tray tray, GameObject currentMousedOver, Vector mousePos)
+    GameObjectSprite checkTrayMouseOver(TraySprite traySprite, GameObjectSprite currentMousedOver, Vector mousePos)
     {
         if (currentMousedOver == null)
         {
-            if (tray.containsPosition(mousePos))
+            if (traySprite.containsPosition(mousePos))
             {
-                TrayComponent mousedOverComponent = tray.getComponent(mousePos);
+                TrayComponentSprite mousedOverComponent = traySprite.getComponent(mousePos);
                 if (mousedOverComponent)
                 {
                     return mousedOverComponent;
                 }
                 else
                 {
-                    return tray;
+                    return traySprite;
                 }
             }
         }
         return currentMousedOver;
     }
 
-    void checkTrayDoubleClick(Tray tray, Vector mousePos)
+    void checkTrayDoubleClick(TraySprite traySprite, Vector mousePos)
     {
-        GameObject currentMousedOver = null;
+        GameObjectSprite currentMousedOver = null;
         if (currentMousedOver == null)
         {
-            if (tray.containsPosition(mousePos))
+            if (traySprite.containsPosition(mousePos))
             {
-                TrayComponent mousedOverComponent = tray.getComponent(mousePos);
+                TrayComponentSprite mousedOverComponent = traySprite.getComponent(mousePos);
                 if (mousedOverComponent)
                 {
                     currentMousedOver = mousedOverComponent;
                 }
                 else
                 {
-                    currentMousedOver = tray;
+                    currentMousedOver = traySprite;
                 }
             }
         }
         if (currentMousedOver)
         {
-            if (currentMousedOver.canChangeState())
+            if (currentMousedOver.gameObject.canChangeState())
             {
-                currentMousedOver.changeState();
+                currentMousedOver.gameObject.changeState();
             }
         }
     }

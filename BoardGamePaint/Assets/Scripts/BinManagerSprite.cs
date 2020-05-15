@@ -6,8 +6,8 @@ public class BinManagerSprite:TraySprite
 	{
     }
 
-    public Bin getBin(Vector mousePos)
+    public BinSprite getBin(Vector mousePos)
     {
-        return (Bin)getComponent(mousePos);
+        return (BinSprite)getComponent(mousePos);
     }
 }

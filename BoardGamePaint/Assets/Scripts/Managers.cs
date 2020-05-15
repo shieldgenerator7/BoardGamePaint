@@ -27,14 +27,14 @@ public class Managers
         get => instance.displayManager;
     }
 
-    private BinManager binManager;
-    public static BinManager Bin
+    private BinManagerSprite binManager;
+    public static BinManagerSprite Bin
     {
         get => instance.binManager;
     }
 
-    private Tray commandTray;
-    public static Tray Command
+    private TraySprite commandTray;
+    public static TraySprite Command
     {
         get => instance.commandTray;
     }
@@ -60,11 +60,11 @@ public class Managers
         this.objectManager = new ObjectManager();
         this.controlManager = new ControlManager();
         this.displayManager = new DisplayManager();
-        this.binManager = new BinManager();
+        this.binManager = new BinManagerSprite(new BinManager());
         //Command Tray
-        this.commandTray = new Tray();
-        commandTray.addComponent(new ExitButton(ImageUtility.getImageURL("exit")));
-        commandTray.addComponent(new AddPlayerButton(ImageUtility.getImageURL("newplayer")));
+        this.commandTray = new TraySprite(new BinManager());
+        ((Tray)commandTray.gameObject).addComponent(new ExitButton(ImageUtility.getImageURL("exit")));
+        ((Tray)commandTray.gameObject).addComponent(new AddPlayerButton(ImageUtility.getImageURL("newplayer")));
         //Player Manager
         this.playerManager = new PlayerManager();
     }

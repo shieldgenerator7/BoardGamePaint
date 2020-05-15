@@ -4,7 +4,7 @@ using System.Drawing;
 
 public class GameObjectSprite : IComparable<GameObjectSprite>
 {
-    protected GameObject gameObject;
+    public GameObject gameObject { get; private set; }
 
     public const int SNAP_THRESHOLD = 10;//the max snap distance in pixels
 
