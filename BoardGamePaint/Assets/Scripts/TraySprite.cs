@@ -39,9 +39,10 @@ public class TraySprite : GameObjectSprite
     {
         foreach (TrayComponent tc in tray.trayComponents)
         {
-            if (tc.containsPosition(mousePos))
+            TrayComponentSprite tcs = (TrayComponentSprite)Managers.Object.getSprite(tc);
+            if (tcs.containsPosition(mousePos))
             {
-                return tc;
+                return tcs;
             }
         }
         return null;
@@ -55,7 +56,8 @@ public class TraySprite : GameObjectSprite
             );
         foreach (TrayComponent tc in tray.trayComponents)
         {
-            tc.draw(graphics);
+            TrayComponentSprite tcs = (TrayComponentSprite)Managers.Object.getSprite(tc);
+            tcs.draw(graphics);
         }
     }
 
@@ -73,7 +75,8 @@ public class TraySprite : GameObjectSprite
         for (int i = 0; i < tray.trayComponents.Count; i++)
         {
             TrayComponent tc = tray.trayComponents[i];
-            tc.moveTo(
+            TrayComponentSprite tcs = (TrayComponentSprite)Managers.Object.getSprite(tc);
+            tcs.moveTo(
                 getComponentPosition(i),
                 false
                 );

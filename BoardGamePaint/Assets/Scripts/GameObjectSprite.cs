@@ -108,7 +108,7 @@ public class GameObjectSprite : IComparable<GameObjectSprite>
         pickupOffset = position - pickupPos;
         foreach (GameObject anchored in gameObject.anchoredObjects)
         {
-            anchored.pickup(pickupPos);
+            Managers.Object.getSprite(anchored).pickup(pickupPos);
         }
     }
 
@@ -129,7 +129,7 @@ public class GameObjectSprite : IComparable<GameObjectSprite>
         }
         foreach (GameObject anchored in gameObject.anchoredObjects)
         {
-            anchored.moveTo(pos, useOffset);
+            Managers.Object.getSprite(anchored).moveTo(pos, useOffset);
         }
     }
 
