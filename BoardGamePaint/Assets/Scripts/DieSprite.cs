@@ -16,12 +16,12 @@ public class DieSprite : GameObjectSprite
             {
                 return images[die.imageIndex];
             }
-            catch (IndexOutOfRangeException)
+            catch (ArgumentOutOfRangeException)
             {
                 return defaultImage;
             }
         }
-        protected set => throw new NotImplementedException();
+        protected set => defaultImage = value;
     }
 
     private Image defaultImage;

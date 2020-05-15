@@ -1,19 +1,22 @@
 ﻿using System;
 using System.Drawing;
 
-public class CardDeckSprite:GameObjectSprite
+public class CardDeckSprite : GameObjectSprite
 {
-	private CardDeck cardDeck { get => (CardDeck)gameObject; }
+    private CardDeck cardDeck { get => (CardDeck)gameObject; }
 
-	int MAX_VISIBLE_CARD_COUNT = 100;
-	float CARD_SPACING = 0.5f;
+    int MAX_VISIBLE_CARD_COUNT = 100;
+    float CARD_SPACING = 0.5f;
 
-	protected Size outerSize;
+    protected Size outerSize;
 
     public CardDeckSprite(CardDeck cardDeck) : base(cardDeck)
     {
         outerSize = new Size(size.Width + 25, size.Height + 25);
-        this.Face = Image.FromFile(cardDeck.Face);
+        if (cardDeck.Face != null)
+        {
+            this.Face = Image.FromFile(cardDeck.Face);
+        }
         this.Back = Image.FromFile(cardDeck.Back);
     }
 
