@@ -1,0 +1,48 @@
+{
+"name": "shot050",
+"type": "dice",
+"description": "shot050",
+"defaultImage": "shot050.png",
+"images": {
+"shot050_2":{
+"image": "shot050_2.png",
+"description": "shot050_2",
+"value": 2
+},
+"shot050_3":{
+"image": "shot050_3.png",
+"description": "shot050_3",
+"value": 3
+},
+"shot050_4":{
+"image": "shot050_4.png",
+"description": "shot050_4",
+"value": 4
+},
+"shot100_5":{
+"image": "shot100_5.png",
+"description": "shot100_5",
+"value": 5
+},
+"shot100_6":{
+"image": "shot100_6.png",
+"description": "shot100_6",
+"value": 6
+},
+"shot025_7":{
+"image": "shot025_7.png",
+"description": "shot025_7",
+"value": 7
+},
+"shot025_8":{
+"image": "shot025_8.png",
+"description": "shot025_8",
+"value": 8
+},
+"shot050":{
+"image": "shot050.png",
+"description": "shot050",
+"value": 50
+},
+}
+}
