@@ -39,9 +39,9 @@ public class DisplayManager
         {
             //Make sure smaller objects are drawn on top
             //Draw the objects
-            foreach (GameObject gameObject in Managers.Object.renderOrder)
+            foreach (GameObjectSprite sprite in Managers.Object.renderOrder)
             {
-                gameObject.draw(graphics);
+                sprite.draw(graphics);
             }
         }
         Managers.Bin.draw(graphics);
@@ -59,11 +59,11 @@ public class DisplayManager
             );
     }
 
-    public void displayRectangles(Graphics graphics, GameObject selected, GameObject mousedOver, Vector mousePos, bool mouseDown)
+    public void displayRectangles(Graphics graphics, GameObjectSprite selected, GameObjectSprite mousedOver, Vector mousePos, bool mouseDown)
     {
         if (Managers.Players.CurrentButton)
         {
-            drawRectangle(graphics, selectPen, Managers.Players.CurrentButton);
+            drawRectangle(graphics, selectPen, Managers.Object.getSprite(Managers.Players.CurrentButton));
         }
         if (!mousedOver)
         {
@@ -74,37 +74,37 @@ public class DisplayManager
             if (mouseDown)
             {
                 //in the middle of a drag
-                if (!(mousedOver is Tray)
-                    && !(mousedOver is TrayComponent)
+                if (!(mousedOver is TraySprite)
+                    && !(mousedOver is TrayComponentSprite)
                     && Managers.Bin.containsPosition(mousePos)
-                    && mousedOver.Permissions.canEdit)
+                    && mousedOver.gameObject.Permissions.canEdit)
                 {
                     drawRectangle(graphics, deletePen, mousedOver);
                 }
-                else if (!(mousedOver is Tray)
-                    && !(mousedOver is TrayComponent)
+                else if (!(mousedOver is TraySprite)
+                    && !(mousedOver is TrayComponentSprite)
                     && Managers.Command.containsPosition(mousePos)
-                    && Managers.Command.getComponent(mousePos) is PlayerButton
-                    && mousedOver.Permissions.canEdit)
+                    && Managers.Command.getComponent(mousePos) is PlayerButtonSprite
+                    && mousedOver.gameObject.Permissions.canEdit)
                 {
                     drawRectangle(graphics, changePen, mousedOver);
                     drawRectangle(graphics, changePen, Managers.Command.getComponent(mousePos));
                 }
-                else if (mousedOver is Tray)
+                else if (mousedOver is TraySprite)
                 {
                     drawRectangle(graphics, selectPen, mousedOver);
                 }
                 else
                 {
                     //check to see if it's going to anchor on anything
-                    GameObject anchorObject = Managers.Object
+                    GameObjectSprite anchorObject = Managers.Object
                         .getAnchorObject(mousedOver, mousePos);
                     if (anchorObject)
                     {
-                        if (selected.Permissions.canInteract)
+                        if (selected.gameObject.Permissions.canInteract)
                         {
-                            if (anchorObject is CardDeck
-                            && ((CardDeck)anchorObject).fitsInDeck(mousedOver))
+                            if (anchorObject is CardDeckSprite
+                            && ((CardDeck)anchorObject.gameObject).fitsInDeck(mousedOver.gameObject))
                             {
                                 drawRectangle(graphics, changePen, mousedOver);
                                 drawRectangle(graphics, changePen, anchorObject);
@@ -125,12 +125,12 @@ public class DisplayManager
             else
             {
                 //just mousing over things
-                if (mousedOver is Bin
-                    || (mousedOver.canMakeNewObject(mousePos) && mousedOver.Permissions.canInteract))
+                if (mousedOver is BinSprite
+                    || (mousedOver.canMakeNewObject(mousePos) && mousedOver.gameObject.Permissions.canInteract))
                 {
                     drawRectangle(graphics, createPen, mousedOver);
                 }
-                else if (mousedOver.canChangeState() && mousedOver.Permissions.canInteract)
+                else if (mousedOver.gameObject.canChangeState() && mousedOver.gameObject.Permissions.canInteract)
                 {
                     drawRectangle(graphics, changePen, mousedOver);
                 }
@@ -139,25 +139,25 @@ public class DisplayManager
                     drawRectangle(graphics, selectPen, mousedOver);
                 }
                 //Highlight objects that belong to moused over player button's player
-                if (mousedOver is PlayerButton)
+                if (mousedOver is PlayerButtonSprite)
                 {
-                    PlayerButton mousedButton = (PlayerButton)mousedOver;
-                    foreach (GameObject go in Managers.Object.renderOrder)
+                    PlayerButton mousedButton = (PlayerButton)mousedOver.gameObject;
+                    foreach (GameObjectSprite gos in Managers.Object.renderOrder)
                     {
-                        if (go.owner == mousedButton.player)
+                        if (gos.gameObject.owner == mousedButton.player)
                         {
-                            drawRectangle(graphics, selectPen, go);
+                            drawRectangle(graphics, selectPen, gos);
                         }
                     }
                 }
             }
         }
     }
-    private void drawRectangle(Graphics graphics, Pen pen, GameObject gameObject)
+    private void drawRectangle(Graphics graphics, Pen pen, GameObjectSprite gameObjectSprite)
     {
         graphics.DrawRectangle(
             pen,
-            convertToScreen(gameObject.getRect())
+            convertToScreen(gameObjectSprite.getRect())
             );
     }
 
@@ -170,13 +170,13 @@ public class DisplayManager
             );
     }
 
-    public void displayDescription(Graphics graphics, GameObject mousedOver, Vector mousePos)
+    public void displayDescription(Graphics graphics, GameObjectSprite mousedOver, Vector mousePos)
     {
         mousePos = convertToScreen(mousePos);
         //Object Description
         if (mousedOver)
         {
-            graphics.DrawString(mousedOver.Description,
+            graphics.DrawString(mousedOver.gameObject.Description,
                 font,
                 new SolidBrush(Color.Black),
                 mousePos.x - 5,
