@@ -13,22 +13,14 @@ public class CardDeckSprite : GameObjectSprite
     public CardDeckSprite(CardDeck cardDeck) : base(cardDeck)
     {
         outerSize = new Size(size.Width + 25, size.Height + 25);
-        if (cardDeck.Face != null)
-        {
-            this.Face = Image.FromFile(cardDeck.Face);
-        }
-        this.Back = Image.FromFile(cardDeck.Back);
+        ImageBank.preloadImages(cardDeck.Face, cardDeck.Back);
     }
 
-    public Image Face { get; protected set; }
+    public Image Face => ImageBank.getImage(cardDeck.Face);
 
-    public Image Back { get; protected set; }
+    public Image Back => ImageBank.getImage(cardDeck.Back);
 
-    public override Image image
-    {
-        get => Back;
-        protected set => Back = value;
-    }
+    public override Image image => Back;
 
     public override void draw(Graphics graphics)
     {

@@ -36,8 +36,6 @@ public class GameObject : ICloneable
         return null;
     }
 
-    public virtual bool HasImageURL => true;
-
     private string imageURL = null;
     public virtual string ImageURL
     {

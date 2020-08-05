@@ -16,7 +16,7 @@ public static class ImageUtility
         string path = getImageURL(imageName);
         try
         {
-            return Image.FromFile(path);
+            return ImageBank.getImage(path);
         }
         catch (Exception e)
         {

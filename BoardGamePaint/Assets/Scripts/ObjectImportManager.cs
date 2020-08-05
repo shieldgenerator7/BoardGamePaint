@@ -216,7 +216,7 @@ public static class ObjectImportManager
         List<Image> images = new List<Image>
         (
             from go in objectsToProcess
-            select Image.FromFile(go.ImageURL)
+            select ImageBank.getImage(go.ImageURL)
         );
         if (allImagesSameSize(images)
             && objectsToProcess.Count > 1)

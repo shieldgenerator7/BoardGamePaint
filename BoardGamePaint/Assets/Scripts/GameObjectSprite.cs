@@ -47,7 +47,7 @@ public class GameObjectSprite : IComparable<GameObjectSprite>
         get => Managers.Display.convertToScreen(TopLeft);
     }
 
-    public virtual Image image { get; protected set; }
+    public virtual Image image => ImageBank.getImage(gameObject.ImageURL);
 
     //Pickup Runtime Vars
     private Vector pickupOffset = new Vector(0, 0);
@@ -55,14 +55,9 @@ public class GameObjectSprite : IComparable<GameObjectSprite>
     public GameObjectSprite(GameObject gameObject)
     {
         this.gameObject = gameObject;
-        if (gameObject.HasImageURL)
-        {
-            image = Image.FromFile(gameObject.ImageURL);
-        }
         if (image != null)
         {
             size = image.Size;
-            image = image;
         }
         position = new Vector(0, 0);
     }

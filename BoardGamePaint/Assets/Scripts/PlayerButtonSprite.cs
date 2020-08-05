@@ -6,17 +6,12 @@ public class PlayerButtonSprite:ButtonSprite
 {
     private PlayerButton playerButton { get => (PlayerButton)gameObject; }
 
-	private Image playerImage;
-	public override Image image { 
-		get => playerImage;
-		protected set => playerImage = value;
-	}
+	public override Image image  => ImageUtility.getImage("player");
 
 	private ImageAttributes attr;
 
 	public PlayerButtonSprite(PlayerButton playerButton, int size):base(playerButton,size)
 	{
-		playerImage = ImageUtility.getImage("player");
 		//2019-09-09: ColorMap code copied from https://stackoverflow.com/a/27101587/2336212
 		// Set the image attribute's color mappings
 		ColorMap[] colorMap = new ColorMap[1];

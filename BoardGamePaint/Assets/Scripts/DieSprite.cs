@@ -6,40 +6,27 @@ public class DieSprite : GameObjectSprite
 {
     private Die die { get => (Die)gameObject; }
 
-    private List<Image> images = new List<Image>();
-
     public override Image image
     {
         get
         {
             try
             {
-                return images[die.imageIndex];
+                return ImageBank.getImage(die.imageURLs[die.imageIndex]);
             }
             catch (ArgumentOutOfRangeException)
             {
                 return defaultImage;
             }
         }
-        protected set => defaultImage = value;
     }
 
-    private Image defaultImage;
+    public Image defaultImage => ImageBank.getImage(this.die.defaultImageURL);
 
     public DieSprite(Die die) : base(die)
     {
-        foreach (string imageURL in die.imageURLs)
-        {
-            images.Add(Image.FromFile(imageURL));
-        }
-        if (die.defaultImageURL != null && die.defaultImageURL != "")
-        {
-            this.defaultImage = Image.FromFile(die.defaultImageURL);
-        }
-        else
-        {
-            this.defaultImage = images[0];
-        }
+        ImageBank.preloadImages(die.imageURLs);
+        ImageBank.preloadImages(die.defaultImageURL);
         this.size = this.image.Size;
     }
 

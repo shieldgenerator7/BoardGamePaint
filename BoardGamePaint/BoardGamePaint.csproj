@@ -103,6 +103,7 @@
     <Compile Include="Assets\Scripts\GameObject.cs" />
     <Compile Include="Assets\Scripts\GameObjectSprite.cs" />
     <Compile Include="Assets\Scripts\GameObjectSpriteFactory.cs" />
+    <Compile Include="Assets\Scripts\ImageBank.cs" />
     <Compile Include="Assets\Scripts\ImageUtility.cs" />
     <Compile Include="Assets\Scripts\Managers.cs" />
     <Compile Include="Assets\Scripts\ObjectImportManager.cs" />
