@@ -69,6 +69,7 @@ public class GameObjectSprite : IComparable<GameObjectSprite>
 
     public virtual void draw(Graphics graphics)
     {
+        position = gameObject.transform.position;
         graphics.DrawImage(
             image,
             TopLeftScreen.x,
@@ -108,10 +109,6 @@ public class GameObjectSprite : IComparable<GameObjectSprite>
     public void pickup(Vector pickupPos)
     {
         pickupOffset = position - pickupPos;
-        foreach (GameObject anchored in gameObject.anchoredObjects)
-        {
-            Managers.Object.getSprite(anchored).pickup(pickupPos);
-        }
     }
 
     public Vector getPickupPosition()
@@ -129,10 +126,10 @@ public class GameObjectSprite : IComparable<GameObjectSprite>
         {
             position = pos;
         }
-        foreach (GameObject anchored in gameObject.anchoredObjects)
-        {
-            Managers.Object.getSprite(anchored).moveTo(pos, useOffset);
-        }
+        gameObject.transform.position = position;
+        gameObject.transform.anchorlings.ForEach(
+            anchorling => anchorling.position = position + anchorling.anchorOffset
+            );
     }
 
     public virtual bool canMakeNewObject(Vector mousePos)

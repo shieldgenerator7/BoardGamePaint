@@ -112,6 +112,7 @@
     <Compile Include="Assets\Scripts\PlayerButton.cs" />
     <Compile Include="Assets\Scripts\PlayerButtonSprite.cs" />
     <Compile Include="Assets\Scripts\PlayerManager.cs" />
+    <Compile Include="Assets\Scripts\Transform.cs" />
     <Compile Include="Assets\Scripts\Tray.cs" />
     <Compile Include="Assets\Scripts\TrayComponent.cs" />
     <Compile Include="Assets\Scripts\TrayComponentSprite.cs" />

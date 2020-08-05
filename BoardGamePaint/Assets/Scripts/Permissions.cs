@@ -28,8 +28,8 @@ public class Permissions
 
     private bool anchoredOwnerIsCurrent
     {
-        get => gameObject.anchorObject &&
-            (!gameObject.anchorObject.owner || gameObject.anchorObject.owner == Managers.Players.Current);
+        get => gameObject.transform.anchor &&
+            (!gameObject.transform.anchor.gameObject.owner || gameObject.transform.anchor.gameObject.owner == Managers.Players.Current);
     }
 
     public bool canView

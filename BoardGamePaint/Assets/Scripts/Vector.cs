@@ -28,6 +28,10 @@ public class Vector
     {
         get => new Vector(0, 0);
     }
+    public static Vector one
+    {
+        get => new Vector(1, 1);
+    }
 
     public static Vector operator -(Vector a)
         => new Vector(-a.x, -a.y);

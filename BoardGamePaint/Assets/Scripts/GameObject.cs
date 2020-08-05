@@ -69,13 +69,13 @@ public class GameObject : ICloneable
     /// The object this object is anchored to
     /// So that it can move when its anchored object moves
     /// </summary>
-    public GameObject anchorObject { get; private set; }
-    readonly public List<GameObject> anchoredObjects = new List<GameObject>();
+    public Transform transform { get; private set; }
 
     public GameObject(string imageURL, string description = null)
     {
         this.ImageURL = imageURL;
         this.description = description;
+        transform = new Transform(this);
     }    
 
     public virtual bool canChangeState()
@@ -93,24 +93,12 @@ public class GameObject : ICloneable
 
     public void anchorTo(GameObject anchor)
     {
-        if (this.anchorObject)
-        {
-            anchorOff();
-        }
-        if (anchor)
-        {
-            this.anchorObject = anchor;
-            this.anchorObject.anchoredObjects.Add(this);
-        }
+        this.transform.anchorTo(anchor?.transform);
     }
 
     public void anchorOff()
     {
-        if (anchorObject)
-        {
-            this.anchorObject.anchoredObjects.Remove(this);
-            this.anchorObject = null;
-        }
+        this.transform.anchorOff();
     }
 
     public static implicit operator Boolean(GameObject gameObject)

@@ -68,7 +68,7 @@ public class Card : CardDeck
             //Owning Player
             newParent.owner = (card.owner) ? card.owner : this.owner;
             //Anchoring
-            newParent.anchorTo(this.anchorObject);
+            newParent.anchorTo(this.transform.anchor.gameObject);
             this.anchorOff();
             card.anchorOff();
             //Adding to lists
@@ -80,7 +80,7 @@ public class Card : CardDeck
         else
         {
             //Achoring
-            cardDeck.anchorTo(this.anchorObject);
+            cardDeck.anchorTo(this.transform.anchor.gameObject);
             this.anchorOff();
             //Accepting into deck
             cardDeck.acceptCard(this);
