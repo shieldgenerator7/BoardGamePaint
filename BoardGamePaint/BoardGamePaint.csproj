@@ -12,6 +12,7 @@
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -29,7 +30,6 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -104,6 +104,7 @@
     <Compile Include="Assets\Scripts\ExitButton.cs" />
     <Compile Include="Assets\Scripts\ExitButtonSprite.cs" />
     <Compile Include="Assets\Scripts\GameObject.cs" />
+    <Compile Include="Assets\Scripts\GameObjectComparer.cs" />
     <Compile Include="Assets\Scripts\GameObjectSprite.cs" />
     <Compile Include="Assets\Scripts\GameObjectSpriteFactory.cs" />
     <Compile Include="Assets\Scripts\ImageBank.cs" />
