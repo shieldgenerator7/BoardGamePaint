@@ -9,6 +9,8 @@ public class WorldRenderer
     const float CARD_SPACING = 0.5f;
     const int DEFAULT_COMPONENT_SIZE = 50;
 
+    GameObjectComparer gameObjectComparer = new GameObjectComparer();
+
     private Graphics graphics;
     private Font font;
     private Brush brush;
@@ -37,10 +39,18 @@ public class WorldRenderer
         backRect = new Rectangle(0, 0, DEFAULT_COMPONENT_SIZE * 2, DEFAULT_COMPONENT_SIZE);
     }
 
-    public void renderWorld(Graphics graphics, List<GameObject> gameObjects)
+    public void renderWorld(Graphics graphics, World world)
     {
         this.graphics = graphics;
+        List<GameObject> gameObjects = new List<GameObject>(world.gameObjects);
+        gameObjects.Sort(gameObjectComparer);
+        gameObjects.Reverse();
         //gameObjects.ForEach(gameObject => renderGameObject((dynamic)gameObject));
+        renderGameObjects(graphics, gameObjects);
+    }
+    public void renderGameObjects(Graphics graphics, List<GameObject> gameObjects)
+    {
+        this.graphics = graphics;
         foreach (GameObject gameObject in gameObjects)
         {
             if (gameObject is CardDeck)

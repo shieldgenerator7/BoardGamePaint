@@ -38,16 +38,16 @@ public class DisplayManager
 
     public void displayObjects(Graphics graphics)
     {
-        if (Managers.Object.renderOrder.Count > 0)
+        if (Managers.Object.world.gameObjects.Count > 0)
         {
             //Make sure smaller objects are drawn on top
             //Draw the objects
             worldRenderer.renderWorld(
                 graphics,
-                new List<GameObject>(from sprite in Managers.Object.renderOrder select sprite.gameObject)
+                Managers.Object.world
                 );
         }
-        worldRenderer.renderWorld(
+        worldRenderer.renderGameObjects(
                 graphics,
                 new List<GameObject>() { Managers.Bin.gameObject, Managers.Command.gameObject }
                 );
@@ -143,18 +143,18 @@ public class DisplayManager
                 {
                     drawRectangle(graphics, selectPen, mousedOver);
                 }
-                //Highlight objects that belong to moused over player button's player
-                if (mousedOver is PlayerButtonSprite)
-                {
-                    PlayerButton mousedButton = (PlayerButton)mousedOver.gameObject;
-                    foreach (GameObjectSprite gos in Managers.Object.renderOrder)
-                    {
-                        if (gos.gameObject.owner == mousedButton.player)
-                        {
-                            drawRectangle(graphics, selectPen, gos);
-                        }
-                    }
-                }
+                ////Highlight objects that belong to moused over player button's player
+                //if (mousedOver is PlayerButtonSprite)
+                //{
+                //    PlayerButton mousedButton = (PlayerButton)mousedOver.gameObject;
+                //    foreach (GameObjectSprite gos in Managers.Object.renderOrder)
+                //    {
+                //        if (gos.gameObject.owner == mousedButton.player)
+                //        {
+                //            drawRectangle(graphics, selectPen, gos);
+                //        }
+                //    }
+                //}
             }
         }
     }

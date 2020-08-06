@@ -4,15 +4,14 @@ using System.Collections.Generic;
 public class ObjectManager
 {
     Dictionary<GameObject, GameObjectSprite> gameObjectMap;
+    public World world { get; private set; } = new World();
     List<GameObjectSprite> gameObjectSprites;
-    public List<GameObjectSprite> renderOrder { get; private set; }
     //List<WayPoint> wayPoints;
 
     public ObjectManager()
     {
         gameObjectMap = new Dictionary<GameObject, GameObjectSprite>();
         gameObjectSprites = new List<GameObjectSprite>();
-        renderOrder = new List<GameObjectSprite>();
         //wayPoints = new List<WayPoint>();
     }
 
@@ -22,9 +21,7 @@ public class ObjectManager
         gameObjectMap.Add(gameObject, gos);
         gameObjectSprites.Add(gos);
         gameObjectSprites.Sort();
-        renderOrder.Add(gos);
-        renderOrder.Sort();
-        renderOrder.Reverse();
+        world.gameObjects.Add(gameObject);
         return gos;
     }
     public void removeGameObject(GameObject gameObject)
@@ -33,9 +30,6 @@ public class ObjectManager
         gameObjectMap.Remove(gameObject);
         gameObjectSprites.Remove(gos);
         gameObjectSprites.Sort();
-        renderOrder.Remove(gos);
-        renderOrder.Sort();
-        renderOrder.Reverse();
     }
     //public void addWayPoint(WayPoint wayPoint)
     //{

@@ -124,6 +124,7 @@
     <Compile Include="Assets\Scripts\TraySprite.cs" />
     <Compile Include="Assets\Scripts\Utility.cs" />
     <Compile Include="Assets\Scripts\Vector.cs" />
+    <Compile Include="Assets\Scripts\World.cs" />
     <Compile Include="Assets\Scripts\WorldRenderer.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
