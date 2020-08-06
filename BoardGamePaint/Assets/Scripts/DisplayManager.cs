@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 public class DisplayManager
 {
@@ -13,6 +14,8 @@ public class DisplayManager
     Pen createPen;
 
     Font font;
+
+    WorldRenderer worldRenderer = new WorldRenderer();
 
     public Vector origin = Vector.zero;
 
@@ -39,13 +42,15 @@ public class DisplayManager
         {
             //Make sure smaller objects are drawn on top
             //Draw the objects
-            foreach (GameObjectSprite sprite in Managers.Object.renderOrder)
-            {
-                sprite.draw(graphics);
-            }
+            worldRenderer.renderWorld(
+                graphics,
+                new List<GameObject>(from sprite in Managers.Object.renderOrder select sprite.gameObject)
+                );
         }
-        Managers.Bin.draw(graphics);
-        Managers.Command.draw(graphics);
+        worldRenderer.renderWorld(
+                graphics,
+                new List<GameObject>() { Managers.Bin.gameObject, Managers.Command.gameObject }
+                );
     }
 
     public void displayRectangles(Graphics graphics)
