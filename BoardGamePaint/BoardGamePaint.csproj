@@ -12,7 +12,7 @@
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>publish\</PublishUrl>
+    <PublishUrl>C:\Users\shiel\Documents\Unity\BoardGamePaint\builds\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -24,7 +24,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ProductName>Board Game Paint</ProductName>
     <PublisherName>Fawn Dawn Studios</PublisherName>
-    <ApplicationRevision>15</ApplicationRevision>
+    <ApplicationRevision>16</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
